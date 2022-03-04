@@ -5,7 +5,7 @@ from appsample import create_app
 
 
 # if need test change controller to test
-blueprints = ['appsample.controller.user:test',
+blueprints = ['appsample.controller.main:main',
               'appsample.controller.auth:auth']
 # if need test change development to testing
 app = create_app('development', blueprints)

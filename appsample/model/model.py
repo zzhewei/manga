@@ -103,25 +103,28 @@ class User(UserMixin, db.Model):
         return self.can(Permission.ADMIN)
 
 
-# 模型( model )定義
-class Product(db.Model):
-    __tablename__ = 'product'
-    pid = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(30), unique=True, nullable=False)
-    price = db.Column(db.Integer, nullable=False)
-    img = db.Column(db.String(100), unique=True, nullable=False)
-    description = db.Column(db.String(250), nullable=False)
-    state = db.Column(db.String(10), nullable=False)
+class Manga(db.Model):
+    __tablename__ = 'manga'
+    mid = db.Column(db.Integer, primary_key=True)
+    url = db.Column(db.String(500), nullable=False)
+    name = db.Column(db.Text, nullable=False)
+    page = db.Column(db.Text, nullable=True)
+    author = db.Column(db.String(100), nullable=False)
+    author_group = db.Column(db.String(100))
+    status = db.Column(db.Boolean, nullable=False, default=False)
     insert_time = db.Column(db.DateTime, default=datetime.now)
     update_time = db.Column(db.DateTime, onupdate=datetime.now, default=datetime.now)
-    update_user = db.Column(db.String(10), nullable=False)
+    update_user = db.Column(db.String(50), nullable=False)
 
-    def __init__(self, name, price, img, description, state, update_user):
+    def __init__(self, url, name, page, author, author_group, status, insert_time, update_time, update_user):
+        self.url = url
         self.name = name
-        self.price = price
-        self.img = img
-        self.description = description
-        self.state = state
+        self.page = page
+        self.author = author
+        self.author_group = author_group
+        self.status = status
+        self.insert_time = insert_time
+        self.update_time = update_time
         self.update_user = update_user
 
 

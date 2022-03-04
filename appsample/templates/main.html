@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="search">
+            <form class="search_form">
+                <span class="icon"><i class="fa fa-search"></i></span>
+                <input type="search" id="search_input" placeholder="Search..." />
+            </form>
+        </div>
+        <div id="random">
+            <h2>Random</h2>
+            <ul id="random_content">
+                <li>
+                    <p>
+                        test<br>
+                        <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_horizontal">test1</a>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        test1<br>
+                        <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_horizontal">test2</a>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        test2<br>
+                        <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_horizontal">test3</a>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        test3<br>
+                        <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_horizontal">test4</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div id="main">
+            <ul id="main_content">
+                {% for row in rows %}
+                    <li>
+                        <a href="{{ row['url'] }}">{{ row['name'] }}</a>
+                        <div>
+                            <button onclick="modify()" id="{{ row['mid'] }}">{{ row['mid'] }}</button>
+                            <button onclick="sort()">{{ row['mid'] }}</button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <form id="light" class="white_content">
+            <input type="text" value="{{ test1 }}">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <button onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">取消
+            </button>
+        </form>
+        <div id="fade" class="black_overlay"></div>
+    </div>
+</body>

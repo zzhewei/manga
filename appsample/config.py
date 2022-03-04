@@ -10,7 +10,7 @@ class BaseConfig:  #基本配置
     JSON_AS_ASCII = False
     # SWAGGER設置  /apidocs
     SWAGGER = {
-        "title": "test API",
+        "title": "Manga API",
         "description": "",
         "version": "1.0.0",
         "termsOfService": "",
@@ -23,7 +23,7 @@ class DevelopmentConfig(BaseConfig):
     WTF_CSRF_CHECK_DEFAULT = True
     WTF_CSRF_SSL_STRICT = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3306/tttest"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3306/manga"
     # if use docker compose use this
     # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@mysql:3306/tttest"
 
