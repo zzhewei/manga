@@ -128,13 +128,14 @@ class Manga(db.Model):
         self.update_user = update_user
 
 
-def select(SqlContent, **args):
+def select(SqlContent, *args):
+    print(SqlContent, args)
     data = db.session.execute(SqlContent, args)
     db.session.commit()
     return data.mappings().all()
 
 
-def sqlOP(SqlContent, **args):
+def sqlOP(SqlContent, *args):
     try:
         db.session.execute(SqlContent, args)
         db.session.commit()

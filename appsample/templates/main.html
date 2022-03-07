@@ -45,25 +45,28 @@
             </ul>
         </div>
         <div id="main">
+            <button onclick = "sort()">sort</button>
             <ul id="main_content">
                 {% for row in rows %}
                     <li>
                         <a href="{{ row['url'] }}">{{ row['name'] }}</a>
                         <div>
-                            <button onclick="modify()" id="{{ row['mid'] }}">{{ row['mid'] }}</button>
-                            <button onclick="sort()">{{ row['mid'] }}</button>
+                            <button onclick="modify(this)" id="{{ row['mid'] }}">修改</button>
+                            <button onclick="delete(this)" id="{{ row['mid'] }}">刪除</button>
                         </div>
                     </li>
                 {% endfor %}
             </ul>
         </div>
-        <form id="light" class="white_content">
-            <input type="text" value="{{ test1 }}">
-            <input type="text">
-            <input type="text">
-            <input type="text">
-            <button onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">取消
-            </button>
+        <form id="light" class="white_content" method="POST" action="/">
+            {{form.hidden_tag()}}
+            {{form.mid}}
+            <p>{{form.name.label}} {{form.name}}</p>
+            <p>{{form.author.label}} {{form.author}}</p>
+            <p>{{form.group.label}} {{form.group}}</p>
+            <p>{{form.url.label}} {{form.url}}</p>
+            <p>{{form.pages.label}} {{form.pages}}</p>
+            <p>{{form.submit}} {{form.cancel}}</p>
         </form>
         <div id="fade" class="black_overlay"></div>
     </div>
