@@ -18,41 +18,26 @@
         <div id="random">
             <h2>Random</h2>
             <ul id="random_content">
+                {% for i in rand %}
                 <li>
                     <p>
-                        test<br>
-                        <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_horizontal">test1</a>
+                        author:{{ i['author'] }}<br>
+                        <a href="{{ i['url'] }}">{{ i['name'] }}</a>
                     </p>
                 </li>
-                <li>
-                    <p>
-                        test1<br>
-                        <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_horizontal">test2</a>
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        test2<br>
-                        <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_horizontal">test3</a>
-                    </p>
-                </li>
-                <li>
-                    <p>
-                        test3<br>
-                        <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_horizontal">test4</a>
-                    </p>
-                </li>
+                {% endfor %}
             </ul>
         </div>
         <div id="main">
-            <button onclick = "sort()">sort</button>
+            <button id = "sort_button">sort</button>
+            <button id = "add_button">新增</button>
             <ul id="main_content">
                 {% for row in rows %}
                     <li>
                         <a href="{{ row['url'] }}">{{ row['name'] }}</a>
-                        <div>
-                            <button onclick="modify(this)" id="{{ row['mid'] }}">修改</button>
-                            <button onclick="delete(this)" id="{{ row['mid'] }}">刪除</button>
+                        <div id="{{ row['mid'] }}">
+                            <button class="modify">修改</button>
+                            <button class="delete">刪除</button>
                         </div>
                     </li>
                 {% endfor %}
@@ -66,8 +51,18 @@
             <p>{{form.group.label}} {{form.group}}</p>
             <p>{{form.url.label}} {{form.url}}</p>
             <p>{{form.pages.label}} {{form.pages}}</p>
-            <p>{{form.submit}} {{form.cancel}}</p>
+            <p>{{form.submit}}
+                <button id="modify_cancel">取消</button>
+            </p>
         </form>
         <div id="fade" class="black_overlay"></div>
+        <dialog id="delete_dialog">
+            <input id="delete_mid" type="hidden">
+            <p><label>確認刪除?</label></p>
+            <menu>
+              <button id="delete_confirm">確定</button>
+              <button id="delete_cancel">取消</button>
+            </menu>
+        </dialog>
     </div>
 </body>

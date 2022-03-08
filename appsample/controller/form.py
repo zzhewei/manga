@@ -11,4 +11,3 @@ class ModifyForm(FlaskForm):
     url = StringField('url', validators=[URL()])
     pages = StringField('頁數')
     submit = SubmitField('送出')
-    cancel = SubmitField('取消')
