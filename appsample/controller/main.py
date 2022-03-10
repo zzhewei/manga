@@ -1,6 +1,6 @@
 from flask_login import login_required
 from ..model import select, sqlOP, Permission, db
-from flask import Blueprint, jsonify, current_app, render_template, redirect, url_for, session
+from flask import Blueprint, jsonify, current_app, render_template, redirect, url_for, session, request
 from ..decorators import admin_required, permission_required
 from .form import ModifyForm
 import json
@@ -28,6 +28,26 @@ def MainPage():
     rows = select("select * from manga order by mid "+SortType+";")
     rand = select("select * from manga order by rand() limit 5")
     return render_template('main.html', rows=rows, rand=rand, form=form)
+
+
+# fuzzy search
+@main.route("/fuzzy", methods=['GET', 'POST'])
+def FuzzySearch():
+    PostDict = request.get_json()
+    return_data = ""
+    if PostDict['input']:
+        return_data = select("select * from manga where url like concat('%', :val, '%') or name like concat('%', :val, '%') or author like concat('%', :val, '%')\
+                            or author_group like concat('%', :val, '%')", {'val': PostDict['input']})
+    else:
+        return_data = select("select * from manga order by mid " + SortType + ";")
+
+    for i, item in enumerate(return_data):
+        return_data[i] = dict(item)
+        return_data[i]['insert_time'] = return_data[i]['insert_time'].strftime('%Y-%m-%d %H:%M:%S')
+        return_data[i]['update_time'] = return_data[i]['update_time'].strftime('%Y-%m-%d %H:%M:%S')
+
+    data = {"code": 200, "success": True, "data": return_data}
+    return jsonify(data)
 
 
 # query sort by button

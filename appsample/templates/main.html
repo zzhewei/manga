@@ -2,20 +2,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/fontawesome.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
 </head>
 <body>
     <div id="wrapper">
-        <div id="search">
+        <section id="search">
             <form class="search_form">
                 <span class="icon"><i class="fa fa-search"></i></span>
                 <input type="search" id="search_input" placeholder="Search..." />
             </form>
+        </section>
+        <div id="block">
         </div>
-        <div id="random">
+        <section id="random">
             <h2>Random</h2>
             <ul id="random_content">
                 {% for i in rand %}
@@ -27,25 +29,26 @@
                 </li>
                 {% endfor %}
             </ul>
-        </div>
-        <div id="main">
-            <button id = "sort_button">sort</button>
-            <button id = "add_button">新增</button>
+        </section>
+        <section id="main">
+            <div id = "iconBtnRow">
+                <button id = "sort_button" class="iconBtn"><i class='fas fa-sort'></i></button>
+                <button id = "add_button" class="iconBtn"><i class='far fa-plus-square'></i></button>
+            </div>
             <ul id="main_content">
                 {% for row in rows %}
                     <li>
                         <a href="{{ row['url'] }}">{{ row['name'] }}</a>
                         <div id="{{ row['mid'] }}">
-                            <button class="modify">修改</button>
-                            <button class="delete">刪除</button>
+                            <button class="modify"><i class='fas fa-pen'></i></button>
+                            <button class="delete"><i class='far fa-trash-alt'></i></button>
                         </div>
                     </li>
                 {% endfor %}
             </ul>
-        </div>
+        </section>
         <form id="light" class="white_content" method="POST" action="/">
             {{form.hidden_tag()}}
-            {{form.mid}}
             <p>{{form.name.label}} {{form.name}}</p>
             <p>{{form.author.label}} {{form.author}}</p>
             <p>{{form.group.label}} {{form.group}}</p>

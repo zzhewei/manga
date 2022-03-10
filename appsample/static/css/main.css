@@ -53,22 +53,35 @@ table {
 #wrapper {
     height: 100vh;
     margin: 0 auto;
+    background-color: #F5F5F5;
 }
 
 #search {
-    height: 10%;
+    position: fixed;
+    height: 5%;
     width: 100%;
+    background-color: #000000;
+}
+
+#block {
+    height: 5%;
 }
 
 #random {
+    margin:5px auto 5px auto;
     height: 20%;
-    width: 100%;
+    width: 80%;
+    border-radius: 4px;
+    background: #fff;
 
 }
 
 #main {
-    height: 70%;
-    width: 100%;
+    margin:0 auto;
+    height: 75%;
+    width: 80%;
+    border-radius: 4px;
+    background: #fff;
 }
 
 .search_form{
@@ -111,7 +124,21 @@ table {
 #main_content li button {
     width: 30px;
     height: 30px;
-    background-color:#FFF0D4;
+    background-color:#fff;
+    border: none;
+    border-radius: 3px;
+    margin-right: 15px;
+}
+
+#iconBtnRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.iconBtn {
+    width: 30px;
+    height: 30px;
+    background-color:#fff;
     border: none;
     border-radius: 3px;
 }

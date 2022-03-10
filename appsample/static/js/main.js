@@ -1,4 +1,48 @@
+function ChangeMainView(response){
+    console.log(response);
+    const ul = document.getElementById('main_content');
+    ul.innerHTML = '';
+    $.each(response['data'], function (i, member) {
+        const li = document.createElement("li");
+        const a = document.createElement('a');
+        a.setAttribute('href',member.url);
+        a.textContent= member.name;
+        const div = document.createElement('div');
+        div.setAttribute("id", member.mid);
+        const btn1 = document.createElement("button")
+        btn1.className = "modify";
+        btn1.innerHTML = "<i class='fas fa-pen'></i>";
+        const btn2 = document.createElement("button")
+        btn2.className = "delete";
+        btn2.innerHTML = "<i class='far fa-trash-alt'></i>";
+        div.appendChild(btn1);
+        div.appendChild(btn2);
+        li.appendChild(a);
+        li.appendChild(div);
+        ul.appendChild(li);
+    });
+}
+
 $(document).ready(function(){
+    $('#search_input').on('input', function() {
+        text = $('#search_input').val();
+        csrf_token = $('#csrf_token').val();
+        $.ajax({
+            url: "/fuzzy",
+            headers: {'X-CSRF-TOKEN': csrf_token},
+            type: "post",
+            dataType: 'json',
+            contentType: 'application/json; charset=UTF-8',
+            data: JSON.stringify({"input": text}),
+            success: function(response) {
+                ChangeMainView(response);
+            },
+            error: function(xhr) {
+                //Do Something to handle error
+            }
+        });
+    });
+
     $('#main_content').on('click', 'button', function() {
         const btn_name = $(this).attr('class')
         const id = $(this).closest('div').attr('id');
@@ -30,28 +74,7 @@ $(document).ready(function(){
             url: "/sort",
             type: "get",
             success: function(response) {
-                console.log(response);
-                const ul = document.getElementById('main_content');
-                ul.innerHTML = '';
-                $.each(response['data'], function (i, member) {
-                    const li = document.createElement("li");
-                    const a = document.createElement('a');
-                    a.setAttribute('href',member.url);
-                    a.textContent= member.name;
-                    const div = document.createElement('div');
-                    div.setAttribute("id", member.mid);
-                    const btn1 = document.createElement("button")
-                    btn1.innerText = "修改";
-                    btn1.className = "modify";
-                    const btn2 = document.createElement("button")
-                    btn2.innerText = "刪除";
-                    btn2.className = "delete";
-                    div.appendChild(btn1)
-                    div.appendChild(btn2)
-                    li.appendChild(a);
-                    li.appendChild(div);
-                    ul.appendChild(li);
-                });
+                ChangeMainView(response);
             },
             error: function(xhr) {
                 //Do Something to handle error
