@@ -133,19 +133,6 @@ a:hover {
     color:red;
 }
 
-input{
-    border: none;
-    border-bottom: 1px solid rgba(0,0,0,.12);
-    font-size: 16px;
-    padding: 4px 0;
-    width: 20%;
-}
-input:focus{
-    border-bottom-color: black;
-    outline: 0;
-    border-bottom-width: 2px;
-}
-
 #random_content li {
     text-align: center;
     float: left;
@@ -202,11 +189,45 @@ input:focus{
     position: absolute;
     top: 25%;
     left: 25%;
-    width: 55%;
-    height: 55%;
+    width: 50%;
+    height: 50%;
     padding: 20px;
-    border: 10px solid orange;
     background-color: white;
     z-index:1002;
     overflow: auto;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-bottom: 1em;
+}
+
+.input-container > input {
+    border: none;
+    border-bottom: 1px solid #D8D8D8;
+    font-size: 16px;
+    padding: 4px 0;
+    width: 40%;
+}
+
+.input-container > label {
+	color: #D8D8D8;
+}
+
+.input-container > input:focus + label {
+    /* targets the label when the input receives focus */
+  	color: black;
+}
+
+.input-container > input:focus {
+    /* targets the label when the input receives focus */
+    border-bottom-color: black;
+    outline: none;
+    border-bottom-width: 2px;
+}
+
+.form_footer {
+    display: flex;
+    justify-content: flex-end;
 }

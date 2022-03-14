@@ -48,15 +48,31 @@
             </ul>
         </section>
         <form id="light" class="white_content" method="POST" action="/">
+            <h1>表單</h1>
             {{form.hidden_tag()}}
-            <p>{{form.name.label}} {{form.name}}</p>
-            <p>{{form.author.label}} {{form.author}}</p>
-            <p>{{form.group.label}} {{form.group}}</p>
-            <p>{{form.url.label}} {{form.url}}</p>
-            <p>{{form.pages.label}} {{form.pages}}</p>
-            <p>{{form.submit}}
+            <div class="input-container">
+                {{form.name}}
+                {{form.name.label}}
+            </div>
+            <div class="input-container">
+                {{form.author}}
+                {{form.author.label}}
+            </div>
+            <div class="input-container">
+                {{form.group}}
+                {{form.group.label}}
+            </div>
+            <div class="input-container">
+                {{form.url}}
+                {{form.url.label}}
+            </div>
+            <div class="input-container">
+                {{form.pages}}
+                {{form.pages.label}}
+            </div>
+            <div class="form_footer">{{form.submit}}
                 <button id="modify_cancel">取消</button>
-            </p>
+            </div>
         </form>
         <div id="fade" class="black_overlay"></div>
         <dialog id="delete_dialog">
