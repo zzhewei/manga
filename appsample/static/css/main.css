@@ -1,59 +1,46 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-   Reset CSS
-*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-
 /* 整體*/
 #wrapper {
     height: 100vh;
     margin: 0 auto;
     background-color: #F5F5F5;
+}
+
+a {
+    font-weight: bold;
+    text-decoration:none;
+}
+
+a:link{
+    //設定還沒有瀏覽過的連結
+    text-decoration:none;
+}
+
+a:hover {
+    //設定滑鼠移經的連結
+    color:red;
+}
+
+h1 {
+    font-size: 15pt;
+    font-weight: bold;
+    padding-left: 10px; /* 左邊間距 */
+    padding-top: 2px; /* 上面間距 */
+    padding-bottom: 2px; /* 下面間距 */
+}
+
+h2 {
+    border-left: 5px solid #001F3F;
+    background-color: #F1F1F1;
+    font-weight: bold;
+    padding-left: 10px; /* 左邊間距 */
+    padding-top: 2px; /* 上面間距 */
+    padding-bottom: 2px; /* 下面間距 */
+}
+
+
+/*search section*/
+.navbar {
+    border-radius: 0;
 }
 
 #search {
@@ -63,25 +50,30 @@ table {
     background-color: #000000;
 }
 
+.search_div {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search_div div i {
+    display: flex;
+    align-items: center;
+    font-size: 27pt;
+    color: #FFFFFF;
+    background-color: transparent;
+}
+
+.search_div label {
+    display: flex;
+    color: #FFFFFF;
+    font-size: 13pt;
+    font-weight: bold;
+    align-items: center;
+}
+
 #block {
     height: 5%;
-}
-
-#random {
-    margin:5px auto 5px auto;
-    height: 20%;
-    width: 80%;
-    border-radius: 4px;
-    background: #fff;
-
-}
-
-#main {
-    margin:0 auto;
-    height: 75%;
-    width: 80%;
-    border-radius: 4px;
-    background: #fff;
 }
 
 .search_form{
@@ -105,32 +97,21 @@ table {
     color: #4f5b66;
 }
 
+
+/*random section*/
+#random {
+    margin:5px auto 5px auto;
+    height: 20%;
+    width: 80%;
+    border-radius: 4px;
+    background: #fff;
+
+}
+
 #random_content {
     height: 100%;
     display: flex;
     align-items: center;
-}
-
-h2 {
-    border-left: 5px solid #001F3F;
-    background-color: #F1F1F1;
-    font-weight: bold;
-    padding-left: 10px; /* 左邊間距 */
-    padding-top: 2px; /* 上面間距 */
-    padding-bottom: 2px; /* 下面間距 */
-}
-
-a {
-    font-weight: bold;
-    text-decoration:none;
-}
-a:link{
-    //設定還沒有瀏覽過的連結
-    text-decoration:none;
-}
-a:hover {
-    //設定滑鼠移經的連結
-    color:red;
 }
 
 #random_content li {
@@ -139,22 +120,14 @@ a:hover {
     width: 20%;
 }
 
-/* 平均分配欄寬*/
-#main_content li {
-    display: flex;
-    justify-content: space-between;
-    padding-left: 5px; /* 左邊間距 */
-    padding-top: 2px; /* 上面間距 */
-    padding-bottom: 2px; /* 下面間距 */
-}
 
-#main_content li button {
-    width: 30px;
-    height: 30px;
-    background-color:#fff;
-    border: none;
-    border-radius: 3px;
-    margin-right: 15px;
+/*main section*/
+#main {
+    margin:0 auto;
+    height: 75%;
+    width: 80%;
+    border-radius: 4px;
+    background: #fff;
 }
 
 #iconBtnRow {
@@ -170,7 +143,26 @@ a:hover {
     border-radius: 3px;
 }
 
-.black_overlay{
+#main_content li {
+    display: flex;
+    justify-content: space-between; /* 平均分配欄寬*/
+    padding-left: 5px; /* 左邊間距 */
+    padding-top: 2px; /* 上面間距 */
+    padding-bottom: 2px; /* 下面間距 */
+}
+
+#main_content li button {
+    width: 30px;
+    height: 30px;
+    background-color:#fff;
+    border: none;
+    border-radius: 3px;
+    margin-right: 15px;
+}
+
+
+/*add and modify form*/
+#overlay{
     display: none;
     position: absolute;
     top: 0%;
@@ -184,7 +176,7 @@ a:hover {
     filter: alpha(opacity=88);
 }
 
-.white_content {
+#form_content {
     display: none;
     position: absolute;
     top: 25%;
@@ -197,30 +189,39 @@ a:hover {
     overflow: auto;
 }
 
-.input-container {
-    display: flex;
-    flex-direction: column-reverse;
-    margin-bottom: 1em;
+#form_container {
+    align-items: center;
+    width: auto;
+    height: auto;
+    margin-top: 3em;
 }
 
-.input-container > input {
+.input_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+    margin-bottom: 1em;
+    width: auto;
+}
+
+.input_container > input {
     border: none;
     border-bottom: 1px solid #D8D8D8;
     font-size: 16px;
-    padding: 4px 0;
     width: 40%;
 }
 
-.input-container > label {
+.input_container > label {
 	color: #D8D8D8;
 }
 
-.input-container > input:focus + label {
+.input_container > input:focus + label {
     /* targets the label when the input receives focus */
   	color: black;
 }
 
-.input-container > input:focus {
+.input_container > input:focus {
     /* targets the label when the input receives focus */
     border-bottom-color: black;
     outline: none;
@@ -228,6 +229,65 @@ a:hover {
 }
 
 .form_footer {
+    margin-right:20px;
+    margin-bottom:20px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.form_footer * {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right:20px;
+    border: none;
+    background-color: transparent;
+}
+
+
+/*delete dialog*/
+#delete_dialog {
+    width: 25%;
+    height: 20%;
+    padding: 0;
+}
+
+#delete_dialog label {
+    font-size: 20px;
+    font-weight: bold;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    padding: 3em;
+}
+
+#delete_dialog label i {
+    margin-right: 10px;
+}
+
+.delete_div {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.delete_div button {
+    font-size: 17px;
+    font-weight: bold;
+    width: 50%;
+    height: 35px;
+    border: none;
+    background-color: transparent;
+}
+
+/*footer*/
+footer {
+    background-color: #F1F1F1;
+}
+
+footer label {
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
 }

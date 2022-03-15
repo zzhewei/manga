@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>HEAVEN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/fontawesome.js')}}"></script>
@@ -10,10 +11,14 @@
 <body>
     <div id="wrapper">
         <section id="search">
-            <form class="search_form">
-                <span class="icon"><i class="fa fa-search"></i></span>
-                <input type="search" id="search_input" placeholder="Search..." />
-            </form>
+            <div class="search_div">
+                <div><i class='fas fa-home'></i></div>
+                <form class="search_form">
+                    <span class="icon"><i class="fa fa-search"></i></span>
+                    <input type="search" id="search_input" placeholder="Search..." />
+                </form>
+                <label>登錄</label>
+            </div>
         </section>
         <div id="block">
         </div>
@@ -47,41 +52,46 @@
                 {% endfor %}
             </ul>
         </section>
-        <form id="light" class="white_content" method="POST" action="/">
+        <form id="form_content" method="POST" action="/">
             <h1>表單</h1>
             {{form.hidden_tag()}}
-            <div class="input-container">
-                {{form.name}}
-                {{form.name.label}}
-            </div>
-            <div class="input-container">
-                {{form.author}}
-                {{form.author.label}}
-            </div>
-            <div class="input-container">
-                {{form.group}}
-                {{form.group.label}}
-            </div>
-            <div class="input-container">
-                {{form.url}}
-                {{form.url.label}}
-            </div>
-            <div class="input-container">
-                {{form.pages}}
-                {{form.pages.label}}
-            </div>
-            <div class="form_footer">{{form.submit}}
-                <button id="modify_cancel">取消</button>
+            <div id="form_container">
+                <div class="input_container">
+                    {{form.name}}
+                    {{form.name.label}}
+                </div>
+                <div class="input_container">
+                    {{form.author}}
+                    {{form.author.label}}
+                </div>
+                <div class="input_container">
+                    {{form.group}}
+                    {{form.group.label}}
+                </div>
+                <div class="input_container">
+                    {{form.url}}
+                    {{form.url.label}}
+                </div>
+                <div class="input_container">
+                    {{form.pages}}
+                    {{form.pages.label}}
+                </div>
+                <div class="form_footer">{{form.submit}}
+                    <button id="modify_cancel">取消</button>
+                </div>
             </div>
         </form>
-        <div id="fade" class="black_overlay"></div>
+        <div id="overlay"></div>
         <dialog id="delete_dialog">
             <input id="delete_mid" type="hidden">
-            <p><label>確認刪除?</label></p>
-            <menu>
+            <label><i class='fas fa-exclamation-triangle'></i>確認刪除?</label>
+            <div class="delete_div">
               <button id="delete_confirm">確定</button>
               <button id="delete_cancel">取消</button>
-            </menu>
+            </div>
         </dialog>
     </div>
+    <footer>
+        <label>© 2022 ZheWei</label>
+    </footer>
 </body>

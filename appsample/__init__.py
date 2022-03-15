@@ -11,10 +11,11 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager
-
+from flask_bootstrap import Bootstrap
 
 csrf = CSRFProtect()
 login_manager = LoginManager()
+bootstrap = Bootstrap()
 
 
 ##########
@@ -33,6 +34,7 @@ def create_app(config_name, blueprints):
     migrate.init_app(app, db)
     csrf.init_app(app)
     login_manager.init_app(app)
+    bootstrap.init_app(app)
 
     formatter = logging.Formatter("%(asctime)s [%(filename)s:%(lineno)d][%(levelname)s] - %(message)s")
     handler = TimedRotatingFileHandler("./log/event.log", when="D", interval=1, backupCount=15, encoding="UTF-8", delay=True, utc=True)

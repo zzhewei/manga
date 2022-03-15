@@ -38,7 +38,7 @@ $(document).ready(function(){
                 ChangeMainView(response);
             },
             error: function(xhr) {
-                //Do Something to handle error
+                alert("Search error");
             }
         });
     });
@@ -47,8 +47,8 @@ $(document).ready(function(){
         const btn_name = $(this).attr('class')
         const id = $(this).closest('div').attr('id');
         if (btn_name == 'modify'){
-            document.getElementById('light').style.display='block';
-            document.getElementById('fade').style.display='block';
+            document.getElementById('form_content').style.display='block';
+            document.getElementById('overlay').style.display='block';
             $.ajax({
                 url: "/modify/"+id,
                 type: "get",
@@ -63,9 +63,14 @@ $(document).ready(function(){
                     document.getElementById("pages").value = response['data'][0]['page'];
                 },
                 error: function(xhr) {
-                //Do Something to handle error
+                    alert("Modify error");
                 }
             });
+        }
+        else if (btn_name == 'delete'){
+            document.getElementById("delete_mid").value = id;
+            console.log(id);
+            delete_dialog.showModal();
         }
     })
 
@@ -77,14 +82,14 @@ $(document).ready(function(){
                 ChangeMainView(response);
             },
             error: function(xhr) {
-                //Do Something to handle error
+                alert("Sort error");
             }
         });
     });
 
     $('#add_button').click(function (e) {
-        document.getElementById('light').style.display='block';
-        document.getElementById('fade').style.display='block';
+        document.getElementById('form_content').style.display='block';
+        document.getElementById('overlay').style.display='block';
         document.getElementById("mid").value = '';
         document.getElementById("name").value = '';
         document.getElementById("author").value = '';
@@ -96,15 +101,15 @@ $(document).ready(function(){
     $('#modify_cancel').click(function (e) {
         document.getElementById('name').removeAttribute("required");
         document.getElementById('author').removeAttribute("required");
-        document.getElementById('light').style.display='none';
-        document.getElementById('fade').style.display='none';
+        document.getElementById('form_content').style.display='none';
+        document.getElementById('overlay').style.display='none';
     });
 
-    $('.delete').click(function (e) {
-        const id = $(this).closest('div').attr('id');
-        document.getElementById("delete_mid").value = id;
-        delete_dialog.showModal();
+    $("#overlay").click(function(){
+        document.getElementById('form_content').style.display='none';
+        document.getElementById('overlay').style.display='none';
     });
+
 
     $('#delete_cancel').click(function (e) {
         delete_dialog.close();
@@ -121,9 +126,18 @@ $(document).ready(function(){
                 location.reload(true);
             },
             error: function(xhr) {
-                //Do Something to handle error
+                alert("Del error");
             }
         });
-        favDialog.close();
+        delete_dialog.close();
     });
+
+    delete_dialog.addEventListener('click', function (event) {
+    const rect = delete_dialog.getBoundingClientRect();
+    const isInDialog=(rect.top <= event.clientY && event.clientY <= rect.top + rect.height
+      && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+    if (!isInDialog) {
+        delete_dialog.close();
+    }
+});
 })

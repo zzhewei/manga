@@ -7,7 +7,8 @@
 from flask_login import login_required, login_user, logout_user, current_user
 from .. import login_manager, csrf
 from ..model import User, db
-from flask import Blueprint, request, jsonify
+from .form import LoginForm
+from flask import Blueprint, request, jsonify, flash, render_template
 from flask_wtf.csrf import generate_csrf
 auth = Blueprint('auth', __name__)
 
@@ -38,7 +39,7 @@ def signup():
     return jsonify(data)
 
 
-@auth.route("/login", methods=["POST"])
+@auth.route("/login", methods=['GET', 'POST'])
 # @csrf.exempt
 def login():
     """
@@ -68,18 +69,16 @@ def login():
       200:
         description: OK
     """
-    data = request.get_json()
-    username = data['username']
-    password = data['password']
-
-    user = User.query.filter_by(username=username).first()
-    if user:
-        if user.check_password(password):
-            login_user(user)
-            response = jsonify({"login": True})
-            return response
-
-    return jsonify({"login": False})
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.account.data).first()
+        if user:
+            if user.check_password(form.password.data):
+                login_user(user, form.remember_me.data)
+                response = jsonify({"login": True})
+                return response
+        flash('Invalid email or password.')
+    return render_template('login.html', form=form)
 
 
 @auth.route("/logout")

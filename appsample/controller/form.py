@@ -1,6 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, HiddenField
+from wtforms import StringField, SubmitField, HiddenField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, URL
+
+
+class LoginForm(FlaskForm):
+    account = StringField('帳號', validators=[DataRequired(message='Not Null')])
+    password = PasswordField('密碼', validators=[DataRequired(message='Not Null')])
+    remember_me = BooleanField('Keep me logged in')
+    submit = SubmitField('登入')
 
 
 class ModifyForm(FlaskForm):
