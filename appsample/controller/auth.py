@@ -7,8 +7,8 @@
 from flask_login import login_required, login_user, logout_user, current_user
 from .. import login_manager, csrf
 from ..model import User, db
-from .form import LoginForm
-from flask import Blueprint, request, jsonify, flash, render_template
+from .form import LoginForm, RegistrationForm
+from flask import Blueprint, request, jsonify, flash, render_template, redirect, url_for
 from flask_wtf.csrf import generate_csrf
 auth = Blueprint('auth', __name__)
 
@@ -26,17 +26,18 @@ def get_csrf():
     return response
 
 
-@auth.route('/signup', methods=['POST'])
+@auth.route('/signup', methods=['GET', 'POST'])
 def signup():
-    data = request.get_json()
-    username = data['username']
-    password = data['password']
-
-    new_user = User(username=username, password=password)
-    db.session.add(new_user)
-    db.session.commit()
-    data = {"code": 200, "success": "true", "data": "success"}
-    return jsonify(data)
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(email=form.email.data.lower(),
+                    username=form.username.data,
+                    password=form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('A confirmation email has been sent to you by email.')
+        return redirect(url_for('auth.login'))
+    return render_template('register.html', form=form)
 
 
 @auth.route("/login", methods=['GET', 'POST'])
@@ -75,8 +76,8 @@ def login():
         if user:
             if user.check_password(form.password.data):
                 login_user(user, form.remember_me.data)
-                response = jsonify({"login": True})
-                return response
+                # response = jsonify({"login": True})
+                return redirect(url_for('main.MainPage', username=form.account.data))
         flash('Invalid email or password.')
     return render_template('login.html', form=form)
 
@@ -99,7 +100,7 @@ def logout():
         description: OK
     """
     logout_user()
-    return jsonify({"logout": True})
+    return redirect(url_for('auth.login'))
 
 
 @auth.route('/session', methods=["POST"])

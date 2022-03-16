@@ -8,6 +8,11 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+{% endblock %}
+
+
+{% block scripts %}
+{{ super() }}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="{{url_for('static', filename='js/fontawesome.js')}}"></script>
 {% endblock %}
@@ -17,14 +22,14 @@
 <div class="navbar navbar-inverse">
     <div class="search_div">
         <div><i class='fas fa-home'></i></div>
-        <form class="search_form">
-            <span class="icon"><i class="fa fa-search"></i></span>
-            <input type="search" id="search_input" placeholder="Search..." />
-        </form>
-        <label>登錄</label>
+        {% block navbar_search %}{% endblock %}
+        {% block navbar_login %}
+            <a href="{{ url_for('auth.login') }}" class="search_div_url">登錄</a>
+        {% endblock %}
     </div>
 </div>
 {% endblock %}
+
 
 {% block content %}
 <div class="container">
@@ -36,9 +41,11 @@
     {% endfor %}
 
     {% block page_content %}{% endblock %}
-</div>
-{% endblock %}
 
-{% block scripts %}
-{{ super() }}
+    {% block footer %}
+    <footer>
+        <label>© 2022 ZheWei</label>
+    </footer>
+    {% endblock %}
+</div>
 {% endblock %}

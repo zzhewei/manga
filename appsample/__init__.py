@@ -6,7 +6,7 @@ from flasgger import Swagger
 from .config import config
 from flask_cors import CORS
 from werkzeug.utils import import_string
-from .model import db, migrate, Role
+from .model import db, migrate, Role, AnonymousUser
 import logging
 from logging.handlers import TimedRotatingFileHandler
 from flask_wtf.csrf import CSRFProtect
@@ -35,6 +35,7 @@ def create_app(config_name, blueprints):
     csrf.init_app(app)
     login_manager.init_app(app)
     bootstrap.init_app(app)
+    login_manager.anonymous_user = AnonymousUser
 
     formatter = logging.Formatter("%(asctime)s [%(filename)s:%(lineno)d][%(levelname)s] - %(message)s")
     handler = TimedRotatingFileHandler("./log/event.log", when="D", interval=1, backupCount=15, encoding="UTF-8", delay=True, utc=True)

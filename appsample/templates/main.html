@@ -1,27 +1,31 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <title>HEAVEN</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='js/fontawesome.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
-</head>
-<body>
+{% extends "base.html" %}
+
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
+{% endblock %}
+
+
+{% block navbar_search %}
+    <form class="search_form">
+        <span class="icon"><i class="fa fa-search"></i></span>
+        <input type="search" id="search_input" placeholder="Search..." />
+    </form>
+{% endblock %}
+
+
+{% block navbar_login %}
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('auth.logout') }}" class="search_div_url">登出</a>
+    {% else %}
+        {{ super() }}
+    {% endif %}
+{% endblock navbar_login %}
+
+
+{% block page_content %}
     <div id="wrapper">
-        <section id="search">
-            <div class="search_div">
-                <div><i class='fas fa-home'></i></div>
-                <form class="search_form">
-                    <span class="icon"><i class="fa fa-search"></i></span>
-                    <input type="search" id="search_input" placeholder="Search..." />
-                </form>
-                <label>登錄</label>
-            </div>
-        </section>
-        <div id="block">
-        </div>
         <section id="random">
             <h2>隨機</h2>
             <ul id="random_content">
@@ -29,7 +33,7 @@
                 <li>
                     <p>
                         author:{{ i['author'] }}<br>
-                        <a href="{{ i['url'] }}">{{ i['name'] }}</a>
+                        <a href="{{ i['url'] }}" class="manga_url">{{ i['name'] }}</a>
                     </p>
                 </li>
                 {% endfor %}
@@ -38,15 +42,21 @@
         <section id="main">
             <div id = "iconBtnRow">
                 <button id = "sort_button" class="iconBtn"><i class='fas fa-sort'></i></button>
-                <button id = "add_button" class="iconBtn"><i class='far fa-plus-square'></i></button>
+                {% if current_user.is_administrator() %}
+                    <button id = "add_button" class="iconBtn"><i class='far fa-plus-square'></i></button>
+                {% endif %}
             </div>
             <ul id="main_content">
                 {% for row in rows %}
                     <li>
-                        <a href="{{ row['url'] }}">{{ row['name'] }}</a>
+                        <a href="{{ row['url'] }}" class="manga_url">{{ row['name'] }}</a>
                         <div id="{{ row['mid'] }}">
-                            <button class="modify"><i class='fas fa-pen'></i></button>
-                            <button class="delete"><i class='far fa-trash-alt'></i></button>
+                            {% if current_user.is_authenticated %}
+                                 <button class="modify"><i class='fas fa-pen'></i></button>
+                                {% if current_user.is_administrator() %}
+                                    <button class="delete"><i class='far fa-trash-alt'></i></button>
+                                {% endif %}
+                            {% endif %}
                         </div>
                     </li>
                 {% endfor %}
@@ -91,7 +101,4 @@
             </div>
         </dialog>
     </div>
-    <footer>
-        <label>© 2022 ZheWei</label>
-    </footer>
-</body>
+{% endblock %}

@@ -5,8 +5,9 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
-from flask_login import UserMixin
+from flask_login import UserMixin, AnonymousUserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -73,6 +74,7 @@ class User(UserMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True)
     password_hash = db.Column(db.String(200))
 
@@ -101,6 +103,14 @@ class User(UserMixin, db.Model):
 
     def is_administrator(self):
         return self.can(Permission.ADMIN)
+
+
+class AnonymousUser(AnonymousUserMixin):
+    def can(self, permissions):
+        return False
+
+    def is_administrator(self):
+        return False
 
 
 class Manga(db.Model):

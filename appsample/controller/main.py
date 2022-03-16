@@ -1,5 +1,5 @@
 from flask_login import login_required
-from ..model import select, sqlOP, Permission, db
+from ..model import select, sqlOP, Permission, db, User
 from flask import Blueprint, jsonify, current_app, render_template, redirect, url_for, session, request
 from ..decorators import admin_required, permission_required
 from .form import ModifyForm
@@ -11,7 +11,7 @@ SortType = "asc"
 
 
 # main page
-@main.route("/", methods=['GET', 'POST'])
+@main.route("/main", methods=['GET', 'POST'])
 def MainPage():
     form = ModifyForm()
     if form.validate_on_submit() and form.submit.data:
@@ -69,6 +69,8 @@ def MainPageSort():
 
 # modify data
 @main.route("/modify/<string:mid>", methods=['GET'])
+@login_required
+@permission_required(Permission.MODIFY)
 def ModifyGetData(mid):
     return_data = select("select * from manga where mid =:val", {"val": mid})
     return_data[0] = dict(return_data[0])
@@ -80,6 +82,8 @@ def ModifyGetData(mid):
 
 # delete data
 @main.route("/del/<string:mid>", methods=['GET'])
+@login_required
+@admin_required
 def DelGetData(mid):
     sqlOP("delete from manga where mid =:val", {"val": mid})
     data = {"code": 200, "success": True, "data": "del success"}
