@@ -47,6 +47,10 @@ def create_app(config_name, blueprints):
         Role.insert_roles()
         return jsonify({"Success": True})
 
+    @app.after_request
+    def after_request(response):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, post-check=0, pre-check=0"
+        return response
     '''
     @app.after_request
     def inject_csrf_token(response):

@@ -1,0 +1,15 @@
+{% for row in rows %}
+<li>
+    <a href="{{ row['url'] }}" class="manga_url">{{ row['name'] }}</a>
+    <div id="{{ row['mid'] }}">
+        {% if current_user.is_authenticated %}
+            {% if current_user.can(Permission.MODIFY) %}
+                <button class="modify"><i class='fas fa-pen'></i></button>
+            {% endif %}
+            {% if current_user.is_administrator() %}
+                <button class="delete"><i class='far fa-trash-alt'></i></button>
+            {% endif %}
+        {% endif %}
+    </div>
+</li>
+{% endfor %}

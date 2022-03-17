@@ -10,6 +10,12 @@ main = Blueprint('main', __name__)
 SortType = "asc"
 
 
+# index
+@main.route("/", methods=['GET', 'POST'])
+def index():
+    return render_template('index.html')
+
+
 # main page
 @main.route("/main", methods=['GET', 'POST'])
 def MainPage():
@@ -34,7 +40,6 @@ def MainPage():
 @main.route("/fuzzy", methods=['GET', 'POST'])
 def FuzzySearch():
     PostDict = request.get_json()
-    return_data = ""
     if PostDict['input']:
         return_data = select("select * from manga where url like concat('%', :val, '%') or name like concat('%', :val, '%') or author like concat('%', :val, '%')\
                             or author_group like concat('%', :val, '%')", {'val': PostDict['input']})
@@ -46,8 +51,9 @@ def FuzzySearch():
         return_data[i]['insert_time'] = return_data[i]['insert_time'].strftime('%Y-%m-%d %H:%M:%S')
         return_data[i]['update_time'] = return_data[i]['update_time'].strftime('%Y-%m-%d %H:%M:%S')
 
-    data = {"code": 200, "success": True, "data": return_data}
-    return jsonify(data)
+    # data = {"code": 200, "success": True, "data": return_data}
+    # return jsonify(data)
+    return render_template('url.html', rows=return_data, Permission=Permission)
 
 
 # query sort by button
@@ -63,8 +69,9 @@ def MainPageSort():
         return_data[i] = dict(item)
         return_data[i]['insert_time'] = return_data[i]['insert_time'].strftime('%Y-%m-%d %H:%M:%S')
         return_data[i]['update_time'] = return_data[i]['update_time'].strftime('%Y-%m-%d %H:%M:%S')
-    data = {"code": 200, "success": True, "data": return_data}
-    return jsonify(data)
+    # data = {"code": 200, "success": True, "data": return_data}
+    # return jsonify(data)
+    return render_template('url.html', rows=return_data, Permission=Permission)
 
 
 # modify data

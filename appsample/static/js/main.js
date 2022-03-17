@@ -31,11 +31,11 @@ $(document).ready(function(){
             url: "/fuzzy",
             headers: {'X-CSRF-TOKEN': csrf_token},
             type: "post",
-            dataType: 'json',
             contentType: 'application/json; charset=UTF-8',
             data: JSON.stringify({"input": text}),
             success: function(response) {
-                ChangeMainView(response);
+                /*ChangeMainView(response);*/
+                $("#main_content").html(response);
             },
             error: function(xhr) {
                 alert("Search error");
@@ -79,7 +79,8 @@ $(document).ready(function(){
             url: "/sort",
             type: "get",
             success: function(response) {
-                ChangeMainView(response);
+                /*ChangeMainView(response);*/
+                $("#main_content").html(response);
             },
             error: function(xhr) {
                 alert("Sort error");

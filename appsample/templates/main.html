@@ -47,19 +47,7 @@
                 {% endif %}
             </div>
             <ul id="main_content">
-                {% for row in rows %}
-                    <li>
-                        <a href="{{ row['url'] }}" class="manga_url">{{ row['name'] }}</a>
-                        <div id="{{ row['mid'] }}">
-                            {% if current_user.is_authenticated %}
-                                 <button class="modify"><i class='fas fa-pen'></i></button>
-                                {% if current_user.is_administrator() %}
-                                    <button class="delete"><i class='far fa-trash-alt'></i></button>
-                                {% endif %}
-                            {% endif %}
-                        </div>
-                    </li>
-                {% endfor %}
+                {% include 'url.html' %}
             </ul>
         </section>
         <form id="form_content" method="POST" action="/">

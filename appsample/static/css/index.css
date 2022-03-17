@@ -1,0 +1,37 @@
+.bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -999;
+    background-image: url("../img/bg-index.jpg");
+    background-size: 100% 100%;
+    min-width: 1000px;
+}
+
+.text {
+    height: 80%;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+p {
+    font-family: monospace;
+    font-weight: bold;
+
+  background: linear-gradient(to top, #9C9C9C, #C4C4C4, #EDEDED);
+  background: -webkit-linear-gradient(to top, #9C9C9C, #C4C4C4, #EDEDED);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size:50px;
+}
+
+@media screen and (max-width: 1000px) {
+    .bg {
+        left: 50%;
+        margin-left: -500px;
+    }
+}

@@ -21,7 +21,7 @@
 {% block navbar %}
 <div class="navbar navbar-inverse">
     <div class="search_div">
-        <div><i class='fas fa-home'></i></div>
+        <div><a href="{{ url_for('main.index') }}"><i class='fas fa-home'></i></a></div>
         {% block navbar_search %}{% endblock %}
         {% block navbar_login %}
             <a href="{{ url_for('auth.login') }}" class="search_div_url">登錄</a>
