@@ -22,7 +22,7 @@ class RegistrationForm(FlaskForm):
     # in-line validator must start with validate_
     def validate_email(self, field):
         if User.query.filter_by(email=field.data.lower()).first():
-            raise ValidationError('Email already registered.')
+            raise ValidationError('Account already registered.')
 
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():

@@ -70,16 +70,21 @@ def login():
       200:
         description: OK
     """
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.account.data).first()
-        if user:
-            if user.check_password(form.password.data):
-                login_user(user, form.remember_me.data)
-                # response = jsonify({"login": True})
-                return redirect(url_for('main.MainPage', username=form.account.data))
-        flash('Invalid email or password.')
-    return render_template('login.html', form=form)
+    if not current_user.is_authenticated:
+        form = LoginForm()
+        if form.validate_on_submit():
+            user = User.query.filter_by(username=form.account.data).first()
+            if user:
+                if user.check_password(form.password.data):
+                    login_user(user, form.remember_me.data)
+                    # next(the url before login)
+                    next = request.args.get('next')
+                    if next is None or not next.startswith('/'):
+                        return redirect(url_for('main.MainPage'))
+                    return redirect(next)
+            flash('Invalid account or password.')
+        return render_template('login.html', form=form)
+    return redirect(url_for('main.MainPage'))
 
 
 @auth.route("/logout")

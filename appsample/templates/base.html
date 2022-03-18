@@ -24,7 +24,11 @@
         <div><a href="{{ url_for('main.index') }}"><i class='fas fa-home'></i></a></div>
         {% block navbar_search %}{% endblock %}
         {% block navbar_login %}
-            <a href="{{ url_for('auth.login') }}" class="search_div_url">登錄</a>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('auth.logout') }}" class="search_div_url">登出</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}" class="search_div_url">登錄</a>
+            {% endif %}
         {% endblock %}
     </div>
 </div>

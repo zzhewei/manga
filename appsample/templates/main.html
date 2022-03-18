@@ -15,15 +15,6 @@
 {% endblock %}
 
 
-{% block navbar_login %}
-    {% if current_user.is_authenticated %}
-        <a href="{{ url_for('auth.logout') }}" class="search_div_url">登出</a>
-    {% else %}
-        {{ super() }}
-    {% endif %}
-{% endblock navbar_login %}
-
-
 {% block page_content %}
     <div id="wrapper">
         <section id="random">
@@ -50,7 +41,7 @@
                 {% include 'url.html' %}
             </ul>
         </section>
-        <form id="form_content" method="POST" action="/">
+        <form id="form_content" method="POST" action="/main">
             <h1>表單</h1>
             {{form.hidden_tag()}}
             <div id="form_container">

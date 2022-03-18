@@ -121,10 +121,8 @@ $(document).ready(function(){
         $.ajax({
             url: "/del/"+id,
             type: "get",
-            dataType: 'json',
             success: function(response) {
-                alert(response['data']);
-                location.reload(true);
+                $("#main_content").html(response);
             },
             error: function(xhr) {
                 alert("Del error");
