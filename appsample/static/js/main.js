@@ -28,7 +28,7 @@ $(document).ready(function(){
         text = $('#search_input').val();
         csrf_token = $('#csrf_token').val();
         $.ajax({
-            url: "/fuzzy",
+            url: "/zh/fuzzy",
             headers: {'X-CSRF-TOKEN': csrf_token},
             type: "post",
             contentType: 'application/json; charset=UTF-8',
@@ -50,7 +50,7 @@ $(document).ready(function(){
             document.getElementById('form_content').style.display='block';
             document.getElementById('overlay').style.display='block';
             $.ajax({
-                url: "/modify/"+id,
+                url: "/zh/modify/"+id,
                 type: "get",
                 dataType: 'json',
                 success: function(response) {
@@ -76,7 +76,7 @@ $(document).ready(function(){
 
     $('#sort_button').click(function (e) {
         $.ajax({
-            url: "/sort",
+            url: "/zh/sort",
             type: "get",
             success: function(response) {
                 /*ChangeMainView(response);*/
@@ -119,7 +119,7 @@ $(document).ready(function(){
     $('#delete_confirm').click(function (e) {
         const id = $("#delete_mid").val();
         $.ajax({
-            url: "/del/"+id,
+            url: "/zh/del/"+id,
             type: "get",
             success: function(response) {
                 $("#main_content").html(response);

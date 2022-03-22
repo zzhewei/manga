@@ -16,6 +16,8 @@ class BaseConfig:  #基本配置
         "termsOfService": "",
         "hide_top_bar": True
     }
+    LANGUAGES = ['zh', 'en']
+    BABEL_TRANSLATION_DIRECTORIES = '../translations'
 
 
 class DevelopmentConfig(BaseConfig):

@@ -18,7 +18,7 @@
 {% block page_content %}
     <div id="wrapper">
         <section id="random">
-            <h2>隨機</h2>
+            <h2>{{ _('Random') }}</h2>
             <ul id="random_content">
                 {% for i in rand %}
                 <li>
@@ -41,8 +41,8 @@
                 {% include 'url.html' %}
             </ul>
         </section>
-        <form id="form_content" method="POST" action="/main">
-            <h1>表單</h1>
+        <form id="form_content" method="POST" action="{{ url_for('main.MainPage') }}">
+            <h1>{{ _('Modify the Data') }}</h1>
             {{form.hidden_tag()}}
             <div id="form_container">
                 <div class="input_container">
@@ -66,17 +66,17 @@
                     {{form.pages.label}}
                 </div>
                 <div class="form_footer">{{form.submit}}
-                    <button id="modify_cancel">取消</button>
+                    <button id="modify_cancel">{{ _('Cancel') }}</button>
                 </div>
             </div>
         </form>
         <div id="overlay"></div>
         <dialog id="delete_dialog">
             <input id="delete_mid" type="hidden">
-            <label><i class='fas fa-exclamation-triangle'></i>確認刪除?</label>
+            <label><i class='fas fa-exclamation-triangle'></i>{{ _('confirm the deletion?') }}</label>
             <div class="delete_div">
-              <button id="delete_confirm">確定</button>
-              <button id="delete_cancel">取消</button>
+              <button id="delete_confirm">{{ _('Confirm') }}</button>
+              <button id="delete_cancel">{{ _('Cancel') }}</button>
             </div>
         </dialog>
     </div>

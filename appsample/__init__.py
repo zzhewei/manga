@@ -1,7 +1,7 @@
 #################################
 # __init__ 把當前目錄當作package 在其中做初始化動作
 #################################
-from flask import Flask, jsonify
+from flask import Flask, jsonify, g, request
 from flasgger import Swagger
 from .config import config
 from flask_cors import CORS
@@ -12,10 +12,12 @@ from logging.handlers import TimedRotatingFileHandler
 from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
+from flask_babel import Babel
 
 csrf = CSRFProtect()
 login_manager = LoginManager()
 bootstrap = Bootstrap()
+babel = Babel()
 
 
 ##########
@@ -28,13 +30,14 @@ def create_app(config_name, blueprints):
     Swagger(app)
     for i in blueprints:
         import_name = import_string(i)
-        app.register_blueprint(import_name)
+        app.register_blueprint(import_name, url_prefix='/<lan>')
     CORS(app)
     db.init_app(app)
     migrate.init_app(app, db)
     csrf.init_app(app)
     login_manager.init_app(app)
     bootstrap.init_app(app)
+    babel.init_app(app)
     login_manager.anonymous_user = AnonymousUser
 
     formatter = logging.Formatter("%(asctime)s [%(filename)s:%(lineno)d][%(levelname)s] - %(message)s")
@@ -51,6 +54,30 @@ def create_app(config_name, blueprints):
     def after_request(response):
         response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, post-check=0, pre-check=0"
         return response
+
+    @app.url_value_preprocessor
+    def get_lang_code(endpoint, values):
+        print(endpoint, values)
+        if values is not None:
+            g.lan = values.pop('lan', 'zh')
+
+    # 2 Check lang_code type is in config
+    @app.before_request
+    def check_lan():
+        lan = g.get('lan', None)
+        if lan and lan not in app.config['LANGUAGES']:
+            g.lan = request.accept_languages.best_match(app.config['LANGUAGES'])
+
+    @babel.localeselector
+    def get_locale():
+        return g.get('lan')
+
+    @app.url_defaults
+    def set_language_code(endpoint, values):
+        if 'lan' in values or not g.lan:
+            return
+        if app.url_map.is_endpoint_expecting(endpoint, 'lan'):
+            values['lan'] = g.lan
     '''
     @app.after_request
     def inject_csrf_token(response):

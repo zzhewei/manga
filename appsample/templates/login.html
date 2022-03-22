@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Login{% endblock %}
+{% block title %}{{ _('Login') }}{% endblock %}
 
 {% block head %}
 {{ super() }}
@@ -17,7 +17,7 @@
         {{ wtf.quick_form(form) }}
         <br>
     </div>
-    <p>Forgot your password? <a href=>Click here to reset it</a>.</p>
-    <p>New user? <a href="{{ url_for('auth.signup') }}">Click here to register</a>.</p>
+    <p>Forgot your password? <a href=>{{ _('Click here to reset it') }}</a>.</p>
+    <p>New user? <a href="{{ url_for('auth.signup') }}">{{ _('Click here to register') }}</a>.</p>
 </div>
 {% endblock %}
