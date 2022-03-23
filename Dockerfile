@@ -2,10 +2,10 @@
 FROM python:3.6.8-stretch
 
 # WORKDI：建立 working directory
-WORKDIR /sample
+WORKDIR /manga
 
 # ADD：將檔案加到 images 內
-ADD . /sample
+ADD . /manga
 
 # 只有build 時使用，會執行此命令
 RUN pip install -r requirements.txt

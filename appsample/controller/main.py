@@ -24,13 +24,13 @@ def MainPage():
         if form.mid.data:
             UpdateData = {"mid": form.mid.data, "url": form.url.data, "name": form.name.data, "page": form.pages.data, "author": form.author.data, "author_group": form.group.data, "update_time": datetime.datetime.now()}
             sqlOP("update manga set url = :url, name= :name, page= :page, author= :author, author_group= :author_group, update_time= :update_time where mid = :mid", UpdateData)
-            print("Success")
+            flash('Modify Success')
         else:
-            print("insert")
             InsertData = {"url": form.url.data, "name": form.name.data, "page": form.pages.data, "author": form.author.data, "author_group": form.group.data,
                           "status": 0, "insert_time": datetime.datetime.now(), "update_time": datetime.datetime.now(), "update_user": "Jason"}
             sqlOP("insert into manga(url, name, page, author, author_group, status, insert_time, update_time, update_user) \
                 values(:url, :name, :page, :author, :author_group, :status, :insert_time, :update_time, :update_user)", InsertData)
+            flash('Insert Success')
     rows = select("select * from manga order by mid "+SortType+";")
     rand = select("select * from manga order by rand() limit 5")
     return render_template('main.html', rows=rows, rand=rand, form=form, Permission=Permission)
@@ -83,7 +83,6 @@ def ModifyGetData(mid):
     return_data[0] = dict(return_data[0])
     return_data[0]['insert_time'] = return_data[0]['insert_time'].strftime('%Y-%m-%d %H:%M:%S')
     return_data[0]['update_time'] = return_data[0]['update_time'].strftime('%Y-%m-%d %H:%M:%S')
-    flash('Modify Success')
     data = {"code": 200, "success": True, "data": return_data}
     return jsonify(data)
 

@@ -27,7 +27,7 @@ class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3306/manga"
     # if use docker compose use this
-    # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@mysql:3306/tttest"
+    # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@mysql:3306/manga"
 
 
 class TestingConfig(BaseConfig):

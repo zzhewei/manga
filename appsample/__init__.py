@@ -55,27 +55,37 @@ def create_app(config_name, blueprints):
         response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, post-check=0, pre-check=0"
         return response
 
+    ##########
+    # reference:https://hackmd.io/@shaoeChen/SyX5xZWz7
+    #           https://www.maxlist.xyz/2020/10/24/flask-i18n/
+    #           https://flask.palletsprojects.com/en/2.0.x/patterns/urlprocessors/
+    #           https://www.cnblogs.com/iamluoli/p/11202234.html
+    ##########
+    # 1 set g lan value
     @app.url_value_preprocessor
-    def get_lang_code(endpoint, values):
+    def get_lan(endpoint, values):
         print(endpoint, values)
         if values is not None:
             g.lan = values.pop('lan', 'zh')
 
-    # 2 Check lang_code type is in config
+    # 2 Check lan is in config
     @app.before_request
     def check_lan():
         lan = g.get('lan', None)
         if lan and lan not in app.config['LANGUAGES']:
             g.lan = request.accept_languages.best_match(app.config['LANGUAGES'])
 
+    # 3 set lan type
     @babel.localeselector
     def get_locale():
         return g.get('lan')
 
+    # 4 checks if the lan is in the dictionary
     @app.url_defaults
-    def set_language_code(endpoint, values):
+    def set_lan(endpoint, values):
         if 'lan' in values or not g.lan:
             return
+        # URL map can be used to figure out if it would make sense to provide a lan for the given endpoint.
         if app.url_map.is_endpoint_expecting(endpoint, 'lan'):
             values['lan'] = g.lan
     '''

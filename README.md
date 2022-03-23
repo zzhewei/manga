@@ -1,5 +1,5 @@
-# The sample of the flask
-## If you want to generate requirements.txt
+# The Heaven
+## generate requirements.txt
 **pipreqs ./ --encoding=utf8 --force** 
 
 ## create a docker container by Dockerfile
@@ -15,3 +15,12 @@
 **3. docker exec -it flaskname /bin/bash**
 
 **4. sh dbsetup.sh**
+
+##i18n modify the language
+**1. if not folder enter "pybabel init -i messages.pot -d translations -l lan" to init**
+
+**2. generate messages.pot "pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot ."**
+
+**3. translation the messages.po file**
+
+**4. pybabel compile -d translations**
