@@ -17,6 +17,9 @@ html {
 a {
     font-weight: bold;
     text-decoration:none;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 }
 
 a:link{
@@ -37,11 +40,12 @@ h1 {
 
 h2 {
     border-left: 5px solid #001F3F;
-    background-color: #F1F1F1;
     font-weight: bold;
     padding-left: 10px; /* 左邊間距 */
     padding-top: 2px; /* 上面間距 */
     padding-bottom: 2px; /* 下面間距 */
+    margin: 0 auto;
+    width: 80%;
 }
 
 .alert {
@@ -64,7 +68,6 @@ h2 {
 .search_div div i {
     display: flex;
     align-items: center;
-    font-size: 27pt;
     color: #FFFFFF;
     background-color: transparent;
 }
@@ -75,6 +78,10 @@ h2 {
     font-size: 13pt;
     font-weight: bold;
     align-items: center;
+}
+
+.home_div {
+    font-size: 27pt;
 }
 
 .search_form{
@@ -98,6 +105,43 @@ h2 {
     color: #4f5b66;
 }
 
+.user_div {
+    display: flex;
+}
+
+.user_div i {
+    font-size: 15pt;
+    padding-bottom: 5px;
+    padding-left: 4px;
+}
+
+.user_detail {
+    border: #ccc 1px solid;
+    display: none;
+    font-size: 13px;
+    position: absolute;
+    right: 0px;
+    top: 106%;
+    border-radius: 3px;
+}
+
+.user_detail a {
+    background-color: #fff;
+    color: #333;
+    display: block;
+    padding: 0 30px;
+    text-decoration: none;
+    line-height: 40px;
+}
+
+.user_detail li {
+    border-bottom: #ccc 1px solid;
+}
+
+.user_detail a:hover {
+    background-color: #EEFEF3;
+}
+
 
 /*random section*/
 #random {
@@ -106,7 +150,6 @@ h2 {
     width: 80%;
     border-radius: 4px;
     background: #fff;
-
 }
 
 #random_content {
@@ -119,6 +162,18 @@ h2 {
     text-align: center;
     float: left;
     width: 20%;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    text-align: center;
+}
+
+#random_content li p {
+    width: 100%;
+}
+
+#random_content li:hover {
+    background-color: #EEFEF3;
 }
 
 
@@ -129,17 +184,21 @@ h2 {
     width: 80%;
     border-radius: 4px;
     background: #fff;
+    border: solid 1px #ECECEC;
 }
 
 #iconBtnRow {
     display: flex;
     justify-content: space-between;
+    background-color: #BFC0BF;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
 
 .iconBtn {
     width: 30px;
     height: 30px;
-    background-color:#fff;
+    background-color: transparent;
     border: none;
     border-radius: 3px;
 }
@@ -148,15 +207,24 @@ h2 {
     display: flex;
     justify-content: space-between; /* 平均分配欄寬*/
     padding-left: 5px; /* 左邊間距 */
-    padding-top: 2px; /* 上面間距 */
-    padding-bottom: 2px; /* 下面間距 */
-    margin-bottom: 10px;
+    height: 45px;
+    border-top: solid 1px #ECECEC;
+}
+
+#main_content li:hover {
+    background-color: #EEFEF3;
+}
+
+#main_content div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #main_content li button {
     width: 30px;
     height: 30px;
-    background-color:#fff;
+    background-color: transparent;
     border: none;
     border-radius: 3px;
     margin-right: 15px;
@@ -283,11 +351,9 @@ h2 {
     background-color: transparent;
 }
 
+
 /*footer*/
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
     display: flex;
     justify-content: center;
     background-color: #F1F1F1;

@@ -43,6 +43,16 @@ $(document).ready(function(){
         });
     });
 
+    $('.pull_down').click(function (e) {
+        const ul_status = document.getElementsByClassName("user_detail")[0];
+        if (ul_status.style.display == "none" || ul_status.style.display == "") {
+        	ul_status.style.display = 'block';
+        }
+        else {
+        	ul_status.style.display = 'none';
+        }
+    });
+
     $('#main_content').on('click', 'button', function() {
         const btn_name = $(this).attr('class')
         const id = $(this).closest('div').attr('id');
@@ -132,11 +142,20 @@ $(document).ready(function(){
     });
 
     delete_dialog.addEventListener('click', function (event) {
-    const rect = delete_dialog.getBoundingClientRect();
-    const isInDialog=(rect.top <= event.clientY && event.clientY <= rect.top + rect.height
-      && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
-    if (!isInDialog) {
-        delete_dialog.close();
+        const rect = delete_dialog.getBoundingClientRect();
+        const isInDialog=(rect.top <= event.clientY && event.clientY <= rect.top + rect.height
+          && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+        if (!isInDialog) {
+            delete_dialog.close();
+        }
+    });
+})
+
+
+$(document).mouseup(function(e){
+    const _con = $('.user_detail');
+    const ul_status = document.getElementsByClassName("user_detail")[0];
+    if(!_con.is(e.target) && _con.has(e.target).length === 0){
+        ul_status.style.display = 'block';
     }
 });
-})

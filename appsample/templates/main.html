@@ -1,12 +1,5 @@
 {% extends "base.html" %}
 
-
-{% block scripts %}
-{{ super() }}
-<script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
-{% endblock %}
-
-
 {% block navbar_search %}
     <form class="search_form">
         <span class="icon"><i class="fa fa-search"></i></span>
@@ -17,8 +10,8 @@
 
 {% block page_content %}
     <div id="wrapper">
+        <h2>{{ _('Random') }}</h2>
         <section id="random">
-            <h2>{{ _('Random') }}</h2>
             <ul id="random_content">
                 {% for i in rand %}
                 <li>

@@ -17,9 +17,11 @@
 **4. sh dbsetup.sh**
 
 ##i18n modify the language
-**1. if not folder enter "pybabel init -i messages.pot -d translations -l lan" to init**
+**1. generate messages.pot "pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot ."**
 
-**2. generate messages.pot "pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot ."**
+**2. enter "pybabel update -i messages.pot -d translations"**
+
+*(if not folder enter "pybabel init -i messages.pot -d translations -l lan" to init)*
 
 **3. translation the messages.po file**
 

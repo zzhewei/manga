@@ -1,6 +1,6 @@
 {% for row in rows %}
 <li>
-    <a href="{{ row['url'] }}" class="manga_url">{{ row['name'] }}</a>
+    <a href="{{ row['url'] }}" class="manga_url"><p>{{ row['name'] }}</p></a>
     <div id="{{ row['mid'] }}">
         {% if current_user.is_authenticated %}
             {% if current_user.can(Permission.MODIFY) %}

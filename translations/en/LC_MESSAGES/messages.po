@@ -1,0 +1,121 @@
+# English translations for PROJECT.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-03-25 17:08+0800\n"
+"PO-Revision-Date: 2022-03-22 17:47+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: appsample/controller/form.py:9 appsample/controller/form.py:17
+msgid "Account"
+msgstr ""
+
+#: appsample/controller/form.py:10 appsample/controller/form.py:19
+msgid "Password"
+msgstr ""
+
+#: appsample/controller/form.py:11
+msgid "Keep me logged in"
+msgstr ""
+
+#: appsample/controller/form.py:12 appsample/templates/base.html:43
+#: appsample/templates/login.html:4
+msgid "Login"
+msgstr ""
+
+#: appsample/controller/form.py:18
+msgid "Usernames must have only letters, numbers, dots or underscores"
+msgstr ""
+
+#: appsample/controller/form.py:19
+msgid "Passwords must match."
+msgstr ""
+
+#: appsample/controller/form.py:20
+msgid "Enter Password Again"
+msgstr ""
+
+#: appsample/controller/form.py:21 appsample/templates/register.html:13
+msgid "Register"
+msgstr ""
+
+#: appsample/controller/form.py:26
+msgid "Account already registered."
+msgstr ""
+
+#: appsample/controller/form.py:30
+msgid "Username already in use."
+msgstr ""
+
+#: appsample/controller/form.py:35
+msgid "Name"
+msgstr ""
+
+#: appsample/controller/form.py:36
+msgid "Author"
+msgstr ""
+
+#: appsample/controller/form.py:37
+msgid "Group"
+msgstr ""
+
+#: appsample/controller/form.py:39
+msgid "Page"
+msgstr ""
+
+#: appsample/controller/form.py:40
+msgid "Send"
+msgstr ""
+
+#: appsample/templates/base.html:3
+msgid "Heaven"
+msgstr ""
+
+#: appsample/templates/base.html:36
+msgid "HomePage"
+msgstr ""
+
+#: appsample/templates/base.html:39
+msgid "Logout"
+msgstr ""
+
+#: appsample/templates/login.html:20
+msgid "Click here to reset it"
+msgstr ""
+
+#: appsample/templates/login.html:21
+msgid "Click here to register"
+msgstr ""
+
+#: appsample/templates/main.html:13
+msgid "Random"
+msgstr ""
+
+#: appsample/templates/main.html:38
+msgid "Modify the Data"
+msgstr ""
+
+#: appsample/templates/main.html:62 appsample/templates/main.html:72
+msgid "Cancel"
+msgstr ""
+
+#: appsample/templates/main.html:69
+msgid "confirm the deletion?"
+msgstr ""
+
+#: appsample/templates/main.html:71
+msgid "Confirm"
+msgstr ""
+
