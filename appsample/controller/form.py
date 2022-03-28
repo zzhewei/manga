@@ -38,3 +38,10 @@ class ModifyForm(FlaskForm):
     url = StringField('url', validators=[URL()])
     pages = StringField(lazy_gettext('Page'))
     submit = SubmitField(lazy_gettext('Send'))
+
+
+class ChangePasswordForm(FlaskForm):
+    old_password = PasswordField(lazy_gettext('Old password'), validators=[DataRequired()])
+    password = PasswordField(lazy_gettext('New password'), validators=[DataRequired(), EqualTo('password2', message=lazy_gettext('Passwords must match.'))])
+    password2 = PasswordField(lazy_gettext('Confirm new password'), validators=[DataRequired()])
+    submit = SubmitField(lazy_gettext('Update'))

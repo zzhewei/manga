@@ -5,25 +5,16 @@
 #           https://hackmd.io/@shaoeChen/HJiZtEngG/https%3A%2F%2Fhackmd.io%2Fs%2Fryvr_ly8f
 ###########
 from flask_login import login_required, login_user, logout_user, current_user
-from .. import login_manager, csrf
+from .. import login_manager
 from ..model import User, db
-from .form import LoginForm, RegistrationForm
-from flask import Blueprint, request, jsonify, flash, render_template, redirect, url_for
-from flask_wtf.csrf import generate_csrf
+from .form import LoginForm, RegistrationForm, ChangePasswordForm
+from flask import Blueprint, request, flash, render_template, redirect, url_for
 auth = Blueprint('auth', __name__)
 
 
 @login_manager.user_loader
 def load_user(uid):
     return User.query.get(uid)
-
-
-@auth.route("/GetCsrf", methods=["GET"])
-def get_csrf():
-    token = generate_csrf()
-    response = jsonify({"Success": True})
-    response.headers.set("csrf_token", token)
-    return response
 
 
 @auth.route('/signup', methods=['GET', 'POST'])
@@ -108,8 +99,17 @@ def logout():
     return redirect(url_for('auth.login'))
 
 
-@auth.route('/session', methods=["POST"])
-def get_session():
-    if not current_user.is_authenticated:
-        return jsonify({'status': 'error'}), 401
-    return jsonify({'status': 'success', 'user': current_user.to_json()})
+@auth.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        if current_user.check_password(form.old_password.data):
+            current_user.password = form.password.data
+            db.session.add(current_user)
+            db.session.commit()
+            flash('Your password has been updated.')
+            return redirect(url_for('main.MainPage'))
+        else:
+            flash('Invalid password.')
+    return render_template("change_password.html", form=form)

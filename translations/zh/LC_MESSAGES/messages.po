@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-03-25 17:08+0800\n"
+"POT-Creation-Date: 2022-03-28 15:03+0800\n"
 "PO-Revision-Date: 2022-03-22 17:47+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -30,7 +30,7 @@ msgstr "密碼"
 msgid "Keep me logged in"
 msgstr "保持登入"
 
-#: appsample/controller/form.py:12 appsample/templates/base.html:43
+#: appsample/controller/form.py:12 appsample/templates/base.html:46
 #: appsample/templates/login.html:4
 msgid "Login"
 msgstr "登入"
@@ -39,7 +39,7 @@ msgstr "登入"
 msgid "Usernames must have only letters, numbers, dots or underscores"
 msgstr ""
 
-#: appsample/controller/form.py:19
+#: appsample/controller/form.py:19 appsample/controller/form.py:45
 msgid "Passwords must match."
 msgstr "密碼必須一致."
 
@@ -79,6 +79,22 @@ msgstr "頁數"
 msgid "Send"
 msgstr "送出"
 
+#: appsample/controller/form.py:44
+msgid "Old password"
+msgstr "舊密碼"
+
+#: appsample/controller/form.py:45
+msgid "New password"
+msgstr "新密碼"
+
+#: appsample/controller/form.py:46
+msgid "Confirm new password"
+msgstr "確認新密碼"
+
+#: appsample/controller/form.py:47
+msgid "Update"
+msgstr "更新"
+
 #: appsample/templates/base.html:3
 msgid "Heaven"
 msgstr ""
@@ -90,6 +106,14 @@ msgstr "個人主頁"
 #: appsample/templates/base.html:39
 msgid "Logout"
 msgstr "登出"
+
+#: appsample/templates/base.html:42
+msgid "ChangePassword"
+msgstr "密碼變更"
+
+#: appsample/templates/change_password.html:4
+msgid "Change Password"
+msgstr "密碼變更"
 
 #: appsample/templates/login.html:20
 msgid "Click here to reset it"

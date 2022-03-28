@@ -43,8 +43,8 @@ $(document).ready(function(){
         });
     });
 
-    $('.pull_down').click(function (e) {
-        const ul_status = document.getElementsByClassName("user_detail")[0];
+    $('.pull_down').click(function () {
+        const ul_status = document.getElementById('user_detail_id');
         if (ul_status.style.display == "none" || ul_status.style.display == "") {
         	ul_status.style.display = 'block';
         }
@@ -84,7 +84,7 @@ $(document).ready(function(){
         }
     })
 
-    $('#sort_button').click(function (e) {
+    $('#sort_button').click(function () {
         $.ajax({
             url: "/zh/sort",
             type: "get",
@@ -98,7 +98,7 @@ $(document).ready(function(){
         });
     });
 
-    $('#add_button').click(function (e) {
+    $('#add_button').click(function () {
         document.getElementById('form_content').style.display='block';
         document.getElementById('overlay').style.display='block';
         document.getElementById("mid").value = '';
@@ -109,7 +109,7 @@ $(document).ready(function(){
         document.getElementById("pages").value = '';
     });
 
-    $('#modify_cancel').click(function (e) {
+    $('#modify_cancel').click(function () {
         document.getElementById('name').removeAttribute("required");
         document.getElementById('author').removeAttribute("required");
         document.getElementById('form_content').style.display='none';
@@ -122,11 +122,11 @@ $(document).ready(function(){
     });
 
 
-    $('#delete_cancel').click(function (e) {
+    $('#delete_cancel').click(function () {
         delete_dialog.close();
     });
 
-    $('#delete_confirm').click(function (e) {
+    $('#delete_confirm').click(function () {
         const id = $("#delete_mid").val();
         $.ajax({
             url: "/zh/del/"+id,
@@ -141,10 +141,10 @@ $(document).ready(function(){
         delete_dialog.close();
     });
 
-    delete_dialog.addEventListener('click', function (event) {
+    delete_dialog.addEventListener('click', function (e) {
         const rect = delete_dialog.getBoundingClientRect();
-        const isInDialog=(rect.top <= event.clientY && event.clientY <= rect.top + rect.height
-          && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+        const isInDialog=(rect.top <= e.clientY && e.clientY <= rect.top + rect.height
+          && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
         if (!isInDialog) {
             delete_dialog.close();
         }
@@ -153,9 +153,8 @@ $(document).ready(function(){
 
 
 $(document).mouseup(function(e){
-    const _con = $('.user_detail');
-    const ul_status = document.getElementsByClassName("user_detail")[0];
+    const _con = $('#user_detail_id');
     if(!_con.is(e.target) && _con.has(e.target).length === 0){
-        ul_status.style.display = 'block';
+        document.getElementById('user_detail_id').style.display = 'none';
     }
 });

@@ -31,9 +31,12 @@
                     <p class="search_div_url pull_down">{{ current_user.to_json()['username'] }}</p>
                     <i class='fas fa-sort-down pull_down'></i>
                 </div>
-                <ul class="user_detail">
+                <ul class="user_detail" id="user_detail_id">
                     <li>
                         <a href="#" class="search_div_url">{{ _('HomePage') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('auth.change_password') }}" class="search_div_url">{{ _('ChangePassword') }}</a>
                     </li>
                     <li>
                         <a href="{{ url_for('auth.logout') }}" class="search_div_url">{{ _('Logout') }}</a>
