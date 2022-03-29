@@ -16,7 +16,7 @@
 
 **4. sh dbsetup.sh**
 
-##i18n modify the language
+## i18n modify the language
 **1. generate messages.pot "pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot ."**
 
 **2. enter "pybabel update -i messages.pot -d translations"**
