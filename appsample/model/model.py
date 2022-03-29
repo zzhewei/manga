@@ -2,11 +2,13 @@
 # reference:https://www.maxlist.xyz/2019/10/30/flask-sqlalchemy/
 #           https://blog.csdn.net/weixin_42677653/article/details/106154452
 ###########
+from flask import current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
 from flask_login import UserMixin, AnonymousUserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 
 db = SQLAlchemy()
@@ -77,6 +79,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True)
     password_hash = db.Column(db.String(200))
+    confirmed = db.Column(db.Boolean, default=False)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -103,6 +106,22 @@ class User(UserMixin, db.Model):
 
     def is_administrator(self):
         return self.can(Permission.ADMIN)
+
+    def generate_confirmation_token(self, expiration=3600):
+        s = Serializer(current_app.config['SECRET_KEY'], expiration)
+        return s.dumps({'confirm': self.id}).decode('utf-8')
+
+    def confirm(self, token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token.encode('utf-8'))
+        except:
+            return False
+        if data.get('confirm') != self.id:
+            return False
+        self.confirmed = True
+        db.session.add(self)
+        return True
 
 
 class AnonymousUser(AnonymousUserMixin):

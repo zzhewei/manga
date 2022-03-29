@@ -8,6 +8,7 @@ from flask_login import login_required, login_user, logout_user, current_user
 from .. import login_manager
 from ..model import User, db
 from .form import LoginForm, RegistrationForm, ChangePasswordForm
+from ..mail import send_email
 from flask import Blueprint, request, flash, render_template, redirect, url_for
 auth = Blueprint('auth', __name__)
 
@@ -26,9 +27,24 @@ def signup():
                     password=form.password.data)
         db.session.add(user)
         db.session.commit()
+        token = user.generate_confirmation_token()
+        send_email(user.email, 'Confirm Your Account', 'mail_confirm', user=user, token=token)
         flash('A confirmation email has been sent to you by email.')
         return redirect(url_for('auth.login'))
     return render_template('register.html', form=form)
+
+
+@auth.route('/confirm/<token>')
+@login_required
+def confirm(token):
+    if current_user.confirmed:
+        return redirect(url_for('main.MainPage'))
+    if current_user.confirm(token):
+        db.session.commit()
+        flash('You have confirmed your account. Thanks!')
+    else:
+        flash('The confirmation link is invalid or has expired.')
+    return redirect(url_for('main.MainPage'))
 
 
 @auth.route("/login", methods=['GET', 'POST'])

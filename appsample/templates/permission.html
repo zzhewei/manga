@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Permission{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>{{ _('UserPermission') }}</h1>
+</div>
+<div class="main_content">
+    <ul id="random_content">
+        {% for user in users %}
+        <li>
+            <div id="{{ user['id'] }}">
+                <p>{{ user['username'] }}</p>
+                <p>{{ user['email'] }}</p>
+                <p>{{ user['confirmed'] }}</p>
+                <p>{{ user['role_id'] }}</p>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -13,11 +13,13 @@ from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask_babel import Babel
+from flask_mail import Mail
 
 csrf = CSRFProtect()
 login_manager = LoginManager()
 bootstrap = Bootstrap()
 babel = Babel()
+email = Mail()
 
 
 ##########
@@ -38,6 +40,7 @@ def create_app(config_name, blueprints):
     login_manager.init_app(app)
     bootstrap.init_app(app)
     babel.init_app(app)
+    email.init_app(app)
     login_manager.anonymous_user = AnonymousUser
 
     formatter = logging.Formatter("%(asctime)s [%(filename)s:%(lineno)d][%(levelname)s] - %(message)s")
