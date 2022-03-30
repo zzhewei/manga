@@ -5,7 +5,7 @@
 
 {% block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/permission.css') }}">
 {% endblock %}
 
 {% block page_content %}
@@ -13,14 +13,20 @@
     <h1>{{ _('UserPermission') }}</h1>
 </div>
 <div class="main_content">
-    <ul id="random_content">
+    <ul id="user_content">
+        <div class="permission_field">
+                <p>{{ _('Account') }}</p>
+                <p>Email</p>
+                <p>{{ _('confirmed') }}</p>
+                <p>{{ _('UserPermission') }}</p>
+        </div>
         {% for user in users %}
         <li>
-            <div id="{{ user['id'] }}">
+            <div class="permission_field" id="{{ user['id'] }}">
                 <p>{{ user['username'] }}</p>
                 <p>{{ user['email'] }}</p>
                 <p>{{ user['confirmed'] }}</p>
-                <p>{{ user['role_id'] }}</p>
+                <p>{{ user['permission_name'] }}</p>
             </div>
         </li>
         {% endfor %}

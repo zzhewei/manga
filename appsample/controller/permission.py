@@ -12,5 +12,5 @@ permission = Blueprint('permission', __name__)
 # delete data
 @permission.route("/UserPermission", methods=['GET'])
 def UserPermission():
-    users = select("SELECT id, username, email, confirmed, role_id FROM user;")
+    users = select("SELECT user.id, username, email, confirmed, roles.name as permission_name FROM user left join roles on user.role_id = roles.id;")
     return render_template('permission.html', users=users)

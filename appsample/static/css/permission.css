@@ -1,0 +1,33 @@
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+#user_content {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.permission_field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid 1px;
+    padding-top: 18px;
+    padding-bottom: 10px;
+}
+
+#user_content li:hover {
+    background-color: #EEFEF3;
+}
+
+.permission_field p {
+    width: 25%;
+    text-align: center;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
