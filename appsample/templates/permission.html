@@ -8,6 +8,11 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/permission.css') }}">
 {% endblock %}
 
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{url_for('static', filename='js/permission.js')}}"></script>
+{% endblock %}
+
 {% block page_content %}
 <div class="page-header">
     <h1>{{ _('UserPermission') }}</h1>
@@ -19,17 +24,41 @@
                 <p>Email</p>
                 <p>{{ _('confirmed') }}</p>
                 <p>{{ _('UserPermission') }}</p>
+                <p>{{ _('Operations') }}</p>
         </div>
         {% for user in users %}
         <li>
-            <div class="permission_field" id="{{ user['id'] }}">
-                <p>{{ user['username'] }}</p>
-                <p>{{ user['email'] }}</p>
-                <p>{{ user['confirmed'] }}</p>
-                <p>{{ user['permission_name'] }}</p>
+            <div class="permission_field">
+                <p class="account_p">{{ user['username'] }}</p>
+                <p class="email_p">{{ user['email'] }}</p>
+                <p class="confirmed_p">{{ user['confirmed'] }}</p>
+                <p class="permission_p">{{ user['permission_name'] }}</p>
+                <div id="{{ user['id'] }}">
+                    <button class="modify func_btn"><i class='fas fa-pen'></i></button>
+                    <button class="delete func_btn"><i class='far fa-trash-alt'></i></button>
+                </div>
             </div>
         </li>
         {% endfor %}
     </ul>
+    <dialog id="modify_permission_dialog">
+        <form id="modify_permission_dialog_div">
+            <div class="input_container">
+                <input id="account" type="text"/>
+                <label>{{ _('Account') }}</label>
+            </div>
+            <div class="input_container">
+                <input id="permission_input" type="text"/>
+                <label>{{ _('UserPermission') }}</label>
+            </div>
+            <div class="input_container">
+                <select>
+                    {% for per in permissions %}
+                        <option value="{{ per['id'] }}">{{ per['name'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+    </dialog>
 </div>
 {% endblock %}

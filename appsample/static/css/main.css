@@ -220,7 +220,7 @@ h2 {
     align-items: center;
 }
 
-#main_content li button {
+.func_btn {
     width: 30px;
     height: 30px;
     background-color: transparent;

@@ -24,6 +24,8 @@ function ChangeMainView(response){
 }
 
 $(document).ready(function(){
+    const delete_dialog = document.getElementById("delete_dialog");
+
     $('#search_input').on('input', function() {
         text = $('#search_input').val();
         csrf_token = $('#csrf_token').val();
@@ -54,9 +56,9 @@ $(document).ready(function(){
     });
 
     $('#main_content').on('click', 'button', function() {
-        const btn_name = $(this).attr('class')
+        const btn_name = $(this).attr('class');
         const id = $(this).closest('div').attr('id');
-        if (btn_name == 'modify'){
+        if (btn_name.includes('modify')){
             document.getElementById('form_content').style.display='block';
             document.getElementById('overlay').style.display='block';
             $.ajax({
@@ -64,7 +66,6 @@ $(document).ready(function(){
                 type: "get",
                 dataType: 'json',
                 success: function(response) {
-                    console.log(response);
                     document.getElementById("mid").value = id;
                     document.getElementById("name").value = response['data'][0]['name'];
                     document.getElementById("author").value = response['data'][0]['author'];
@@ -77,7 +78,7 @@ $(document).ready(function(){
                 }
             });
         }
-        else if (btn_name == 'delete'){
+        else if (btn_name.includes('delete')){
             document.getElementById("delete_mid").value = id;
             console.log(id);
             delete_dialog.showModal();
@@ -141,20 +142,24 @@ $(document).ready(function(){
         delete_dialog.close();
     });
 
-    delete_dialog.addEventListener('click', function (e) {
-        const rect = delete_dialog.getBoundingClientRect();
-        const isInDialog=(rect.top <= e.clientY && e.clientY <= rect.top + rect.height
-          && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
-        if (!isInDialog) {
-            delete_dialog.close();
-        }
-    });
+    if(delete_dialog){
+        delete_dialog.addEventListener('click', function (e) {
+            const rect = delete_dialog.getBoundingClientRect();
+            const isInDialog=(rect.top <= e.clientY && e.clientY <= rect.top + rect.height
+              && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+            if (!isInDialog) {
+                delete_dialog.close();
+            }
+        });
+    }
 })
 
 
 $(document).mouseup(function(e){
-    const _con = $('#user_detail_id');
-    if(!_con.is(e.target) && _con.has(e.target).length === 0){
-        document.getElementById('user_detail_id').style.display = 'none';
+    if (document.getElementById('user_detail_id')){
+        const _con = $('#user_detail_id');
+        if(!_con.is(e.target) && _con.has(e.target).length === 0){
+            document.getElementById('user_detail_id').style.display = 'none';
+        }
     }
 });

@@ -21,13 +21,29 @@ h1 {
     background-color: #EEFEF3;
 }
 
-.permission_field p {
-    width: 25%;
+.permission_field * {
+    width: 20%;
     text-align: center;
+}
+
+#modify_permission_dialog {
+    width: 50%;
+    height: 30%;
+    padding: 0;
+}
+
+#modify_permission_dialog_div {
+    margin-top: 3em;
 }
 
 footer {
     position: fixed;
     bottom: 0;
     left: 0;
+}
+
+select {
+    all: unset;
+    border-bottom: 1px solid #D8D8D8;
+    width: 40%;
 }

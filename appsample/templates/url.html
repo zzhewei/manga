@@ -4,10 +4,10 @@
     <div id="{{ row['mid'] }}">
         {% if current_user.is_authenticated %}
             {% if current_user.can(Permission.MODIFY) %}
-                <button class="modify"><i class='fas fa-pen'></i></button>
+                <button class="modify func_btn"><i class='fas fa-pen'></i></button>
             {% endif %}
             {% if current_user.is_administrator() %}
-                <button class="delete"><i class='far fa-trash-alt'></i></button>
+                <button class="delete func_btn"><i class='far fa-trash-alt'></i></button>
             {% endif %}
         {% endif %}
     </div>

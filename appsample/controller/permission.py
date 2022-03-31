@@ -9,8 +9,9 @@ import datetime
 permission = Blueprint('permission', __name__)
 
 
-# delete data
+# show user permission data
 @permission.route("/UserPermission", methods=['GET'])
 def UserPermission():
     users = select("SELECT user.id, username, email, confirmed, roles.name as permission_name FROM user left join roles on user.role_id = roles.id;")
-    return render_template('permission.html', users=users)
+    permissions = select("SELECT id, name FROM roles;")
+    return render_template('permission.html', users=users, permissions=permissions)
