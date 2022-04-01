@@ -31,6 +31,8 @@ def MainPage():
             sqlOP("insert into manga(url, name, page, author, author_group, status, insert_time, update_time, update_user) \
                 values(:url, :name, :page, :author, :author_group, :status, :insert_time, :update_time, :update_user)", InsertData)
             flash('Insert Success')
+        # clear the form
+        return redirect(url_for('main.MainPage'))
     rows = select("select * from manga order by mid "+SortType+";")
     rand = select("select * from manga order by rand() limit 5")
     return render_template('main.html', rows=rows, rand=rand, form=form, Permission=Permission)

@@ -24,6 +24,7 @@ def signup():
     if form.validate_on_submit():
         user = User(email=form.email.data.lower(),
                     username=form.username.data,
+                    account=form.account.data,
                     password=form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -80,7 +81,7 @@ def login():
     if not current_user.is_authenticated:
         form = LoginForm()
         if form.validate_on_submit():
-            user = User.query.filter_by(username=form.account.data).first()
+            user = User.query.filter((User.email == form.account.data) | (User.account == form.account.data)).first()
             if user:
                 if user.check_password(form.password.data):
                     login_user(user, form.remember_me.data)
