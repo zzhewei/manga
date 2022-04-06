@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-03-28 15:03+0800\n"
+"POT-Creation-Date: 2022-04-06 13:22+0800\n"
 "PO-Revision-Date: 2022-03-22 17:47+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: appsample/controller/form.py:9 appsample/controller/form.py:17
-msgid "Account"
-msgstr "帳號"
+#: appsample/controller/form.py:9
+msgid "Email/Account"
+msgstr "Email/帳號"
 
-#: appsample/controller/form.py:10 appsample/controller/form.py:19
+#: appsample/controller/form.py:10 appsample/controller/form.py:20
 msgid "Password"
 msgstr "密碼"
 
@@ -30,70 +30,96 @@ msgstr "密碼"
 msgid "Keep me logged in"
 msgstr "保持登入"
 
-#: appsample/controller/form.py:12 appsample/templates/base.html:46
+#: appsample/controller/form.py:12 appsample/templates/base.html:51
 #: appsample/templates/login.html:4
 msgid "Login"
 msgstr "登入"
 
+#: appsample/controller/form.py:17 appsample/templates/role.html:31
+msgid "Account"
+msgstr "帳號"
+
 #: appsample/controller/form.py:18
-msgid "Usernames must have only letters, numbers, dots or underscores"
+msgid "Account must have only letters, numbers, dots or underscores"
 msgstr ""
 
-#: appsample/controller/form.py:19 appsample/controller/form.py:45
+#: appsample/controller/form.py:19 appsample/controller/form.py:53
+#: appsample/templates/role.html:30
+msgid "Username"
+msgstr "使用者名稱"
+
+#: appsample/controller/form.py:20 appsample/controller/form.py:46
 msgid "Passwords must match."
 msgstr "密碼必須一致."
 
-#: appsample/controller/form.py:20
+#: appsample/controller/form.py:21
 msgid "Enter Password Again"
 msgstr "再次輸入密碼"
 
-#: appsample/controller/form.py:21 appsample/templates/register.html:13
+#: appsample/controller/form.py:22 appsample/templates/register.html:13
 msgid "Register"
 msgstr "註冊"
 
-#: appsample/controller/form.py:26
-msgid "Account already registered."
-msgstr "此Email已經註冊."
+#: appsample/controller/form.py:27
+msgid "Email already registered."
+msgstr "Email 已經註冊."
 
-#: appsample/controller/form.py:30
-msgid "Username already in use."
-msgstr "此帳號已經使用."
+#: appsample/controller/form.py:31
+msgid "Account already in use."
+msgstr "帳號已使用."
 
-#: appsample/controller/form.py:35
+#: appsample/controller/form.py:36
 msgid "Name"
 msgstr "名稱"
 
-#: appsample/controller/form.py:36
+#: appsample/controller/form.py:37
 msgid "Author"
 msgstr "作者"
 
-#: appsample/controller/form.py:37
+#: appsample/controller/form.py:38
 msgid "Group"
 msgstr "群組"
 
-#: appsample/controller/form.py:39
+#: appsample/controller/form.py:40
 msgid "Page"
 msgstr "頁數"
 
-#: appsample/controller/form.py:40
+#: appsample/controller/form.py:41
 msgid "Send"
 msgstr "送出"
 
-#: appsample/controller/form.py:44
+#: appsample/controller/form.py:45
 msgid "Old password"
 msgstr "舊密碼"
 
-#: appsample/controller/form.py:45
+#: appsample/controller/form.py:46
 msgid "New password"
 msgstr "新密碼"
 
-#: appsample/controller/form.py:46
+#: appsample/controller/form.py:47
 msgid "Confirm new password"
 msgstr "確認新密碼"
 
-#: appsample/controller/form.py:47
+#: appsample/controller/form.py:48 appsample/controller/form.py:55
 msgid "Update"
 msgstr "更新"
+
+#: appsample/controller/form.py:54 appsample/templates/base.html:43
+#: appsample/templates/role.html:19 appsample/templates/role.html:34
+msgid "UserRole"
+msgstr "使用者角色"
+
+#: appsample/controller/form.py:56
+msgid "Delete"
+msgstr "刪除"
+
+#: appsample/controller/form.py:60
+msgid "Enter Username.."
+msgstr "輸入使用者名稱.."
+
+#: appsample/controller/form.py:61
+msgid "Search"
+msgstr "搜尋"
 
 #: appsample/templates/base.html:3
 msgid "Heaven"
@@ -104,12 +130,12 @@ msgid "HomePage"
 msgstr "個人主頁"
 
 #: appsample/templates/base.html:39
-msgid "Logout"
-msgstr "登出"
-
-#: appsample/templates/base.html:42
 msgid "ChangePassword"
 msgstr "密碼變更"
+
+#: appsample/templates/base.html:47
+msgid "Logout"
+msgstr "登出"
 
 #: appsample/templates/change_password.html:4
 msgid "Change Password"
@@ -127,7 +153,7 @@ msgstr "點此註冊"
 msgid "Random"
 msgstr "隨機"
 
-#: appsample/templates/main.html:38
+#: appsample/templates/main.html:38 appsample/templates/role.html:56
 msgid "Modify the Data"
 msgstr "修改資料"
 
@@ -143,3 +169,10 @@ msgstr "確認刪除?"
 msgid "Confirm"
 msgstr "確認"
 
+#: appsample/templates/role.html:33
+msgid "confirmed"
+msgstr "認證"
+
+#: appsample/templates/role.html:35
+msgid "Operations"
+msgstr "操作"

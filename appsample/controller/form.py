@@ -54,3 +54,8 @@ class ChangePermissionForm(FlaskForm):
     userrole = SelectField(lazy_gettext('UserRole'), choices=[], coerce=int, validators=[DataRequired()])
     submit = SubmitField(lazy_gettext('Update'))
     delete = SubmitField(lazy_gettext('Delete'))
+
+
+class SearchForm(FlaskForm):
+    search = StringField('Search', render_kw={"placeholder": lazy_gettext('Enter Username..')})
+    submit = SubmitField(lazy_gettext('Search'))

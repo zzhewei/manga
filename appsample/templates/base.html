@@ -38,6 +38,11 @@
                     <li>
                         <a href="{{ url_for('auth.change_password') }}" class="search_div_url">{{ _('ChangePassword') }}</a>
                     </li>
+                    {% if current_user.is_administrator() %}
+                        <li>
+                            <a href="{{ url_for('role.UserRole') }}" class="search_div_url">{{ _('UserRole') }}</a>
+                        </li>
+                    {% endif %}
                     <li>
                         <a href="{{ url_for('auth.logout') }}" class="search_div_url">{{ _('Logout') }}</a>
                     </li>

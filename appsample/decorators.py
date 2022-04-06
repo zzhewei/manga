@@ -13,6 +13,7 @@ from .model import Permission
 def permission_required(permission):
     # Closure
     def decorator(f):
+        # just show correct f.__name__ and f.__doc__
         @wraps(f)
         def decorated_function(*args, **kwargs):
             if not current_user.can(permission):

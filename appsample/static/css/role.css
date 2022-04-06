@@ -3,6 +3,22 @@
     justify-content: center;
 }
 
+/*search content*/
+#search_form {
+    text-align: end;
+    font-size: 17px;
+    margin-top: 35px;
+    margin-bottom: 20px;
+}
+
+#search_form input#submit {
+    border: 0;
+    background-color: #000000;
+    color: white;
+    height: 25px;
+}
+
+
 /*ui content*/
 #user_content {
     margin: 0 auto;
@@ -82,7 +98,7 @@ select {
 }
 
 
-/*dialog content*/
+/*paginate content*/
 .paginate {
     display: flex;
     justify-content: center;

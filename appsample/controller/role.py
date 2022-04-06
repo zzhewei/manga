@@ -2,7 +2,7 @@ from flask_login import login_required, current_user
 from ..model import select, sqlOP, Permission, db, User, Role
 from flask import Blueprint, jsonify, current_app, render_template, redirect, url_for, session, request, flash
 from ..decorators import admin_required, permission_required
-from .form import ChangePermissionForm
+from .form import ChangePermissionForm, SearchForm
 
 role = Blueprint('role', __name__)
 
@@ -10,8 +10,12 @@ role = Blueprint('role', __name__)
 # show user role data and update user role
 @role.route("/UserRole", methods=['GET', 'POST'])
 @role.route("/UserRole/<int:page>", methods=['GET', 'POST'])
+@login_required
+@admin_required
 def UserRole(page=1):
+    sel_str = ''
     form = ChangePermissionForm()
+    form1 = SearchForm()
     # 一定要寫在validate_on_submit前面 不然會抓不到choice 導致Not a valid choice.
     form.userrole.choices = [(i.id, i.name) for i in select("SELECT id, name FROM roles;")]
     if form.validate_on_submit():
@@ -28,6 +32,10 @@ def UserRole(page=1):
         # clear the form
         return redirect(url_for('role.UserRole'))
 
-    users = User.query.join(Role).add_columns(User.id, User.username, User.account, User.email, User.confirmed, Role.id.label("role_id"), Role.name.label("role_name")).paginate(page, 5, False)
-    print(form.errors)
-    return render_template('role.html', form=form, users=users)
+    if form1.validate_on_submit():
+        sel_str = form1.data['search']
+
+    users = User.query.filter(User.username.like('%'+sel_str+'%')).join(Role).add_columns(User.id, User.username, User.account, User.email, User.confirmed, Role.id.label("role_id"), Role.name.label("role_name")).paginate(page, 5, False)
+    print('change_form', form.errors)
+    print('search_form', form1.errors)
+    return render_template('role.html', form=form, form1=form1, users=users)

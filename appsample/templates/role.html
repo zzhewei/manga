@@ -19,30 +19,37 @@
     <h1 id="title">{{ _('UserRole') }}</h1>
 </div>
 <div class="main_content">
-    <ul id="user_content">
-        <div class="role_field">
-                <p>{{ _('Username') }}</p>
-                <p>{{ _('Account') }}</p>
-                <p>Email</p>
-                <p>{{ _('confirmed') }}</p>
-                <p>{{ _('UserRole') }}</p>
-                <p>{{ _('Operations') }}</p>
-        </div>
-        {% for user in users.items %}
-        <li>
+    <div id="user_content">
+        <form method="post" id="search_form">
+            {{form1.hidden_tag()}}
+            {{ form1.search }}
+            {{ form1.submit }}
+        </form>
+        <ul>
             <div class="role_field">
-                <input class="user_id" type="hidden" value="{{ user['id'] }}">
-                <input class="role_id" type="hidden" value="{{ user['role_id'] }}">
-                <p class="username_p">{{ user['username'] }}</p>
-                <p class="account_p">{{ user['account'] }}</p>
-                <p class="email_p">{{ user['email'] }}</p>
-                <p class="confirmed_p">{{ user['confirmed'] }}</p>
-                <p class="role_p">{{ user['role_name'] }}</p>
-                <button class="func_btn"><i class='fas fa-edit'></i></button>
+                    <p>{{ _('Username') }}</p>
+                    <p>{{ _('Account') }}</p>
+                    <p>Email</p>
+                    <p>{{ _('confirmed') }}</p>
+                    <p>{{ _('UserRole') }}</p>
+                    <p>{{ _('Operations') }}</p>
             </div>
-        </li>
-        {% endfor %}
-    </ul>
+            {% for user in users.items %}
+            <li>
+                <div class="role_field">
+                    <input class="user_id" type="hidden" value="{{ user['id'] }}">
+                    <input class="role_id" type="hidden" value="{{ user['role_id'] }}">
+                    <p class="username_p">{{ user['username'] }}</p>
+                    <p class="account_p">{{ user['account'] }}</p>
+                    <p class="email_p">{{ user['email'] }}</p>
+                    <p class="confirmed_p">{{ user['confirmed'] }}</p>
+                    <p class="role_p">{{ user['role_name'] }}</p>
+                    <button class="func_btn"><i class='fas fa-edit'></i></button>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
     {{ macros.pagination_func(users, 'role.UserRole') }}
     <dialog id="modify_role_dialog">
         <div class="dialog_title">

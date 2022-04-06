@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-03-28 15:03+0800\n"
+"POT-Creation-Date: 2022-04-06 13:22+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: appsample/controller/form.py:9 appsample/controller/form.py:17
-msgid "Account"
+#: appsample/controller/form.py:9
+msgid "Email/Account"
 msgstr ""
 
-#: appsample/controller/form.py:10 appsample/controller/form.py:19
+#: appsample/controller/form.py:10 appsample/controller/form.py:20
 msgid "Password"
 msgstr ""
 
@@ -29,69 +29,95 @@ msgstr ""
 msgid "Keep me logged in"
 msgstr ""
 
-#: appsample/controller/form.py:12 appsample/templates/base.html:46
+#: appsample/controller/form.py:12 appsample/templates/base.html:51
 #: appsample/templates/login.html:4
 msgid "Login"
 msgstr ""
 
-#: appsample/controller/form.py:18
-msgid "Usernames must have only letters, numbers, dots or underscores"
+#: appsample/controller/form.py:17 appsample/templates/role.html:31
+msgid "Account"
 msgstr ""
 
-#: appsample/controller/form.py:19 appsample/controller/form.py:45
+#: appsample/controller/form.py:18
+msgid "Account must have only letters, numbers, dots or underscores"
+msgstr ""
+
+#: appsample/controller/form.py:19 appsample/controller/form.py:53
+#: appsample/templates/role.html:30
+msgid "Username"
+msgstr ""
+
+#: appsample/controller/form.py:20 appsample/controller/form.py:46
 msgid "Passwords must match."
 msgstr ""
 
-#: appsample/controller/form.py:20
+#: appsample/controller/form.py:21
 msgid "Enter Password Again"
 msgstr ""
 
-#: appsample/controller/form.py:21 appsample/templates/register.html:13
+#: appsample/controller/form.py:22 appsample/templates/register.html:13
 msgid "Register"
 msgstr ""
 
-#: appsample/controller/form.py:26
-msgid "Account already registered."
+#: appsample/controller/form.py:27
+msgid "Email already registered."
 msgstr ""
 
-#: appsample/controller/form.py:30
-msgid "Username already in use."
-msgstr ""
-
-#: appsample/controller/form.py:35
-msgid "Name"
+#: appsample/controller/form.py:31
+msgid "Account already in use."
 msgstr ""
 
 #: appsample/controller/form.py:36
-msgid "Author"
+msgid "Name"
 msgstr ""
 
 #: appsample/controller/form.py:37
+msgid "Author"
+msgstr ""
+
+#: appsample/controller/form.py:38
 msgid "Group"
 msgstr ""
 
-#: appsample/controller/form.py:39
+#: appsample/controller/form.py:40
 msgid "Page"
 msgstr ""
 
-#: appsample/controller/form.py:40
+#: appsample/controller/form.py:41
 msgid "Send"
 msgstr ""
 
-#: appsample/controller/form.py:44
+#: appsample/controller/form.py:45
 msgid "Old password"
 msgstr ""
 
-#: appsample/controller/form.py:45
+#: appsample/controller/form.py:46
 msgid "New password"
 msgstr ""
 
-#: appsample/controller/form.py:46
+#: appsample/controller/form.py:47
 msgid "Confirm new password"
 msgstr ""
 
-#: appsample/controller/form.py:47
+#: appsample/controller/form.py:48 appsample/controller/form.py:55
 msgid "Update"
+msgstr ""
+
+#: appsample/controller/form.py:54 appsample/templates/base.html:43
+#: appsample/templates/role.html:19 appsample/templates/role.html:34
+msgid "UserRole"
+msgstr ""
+
+#: appsample/controller/form.py:56
+msgid "Delete"
+msgstr ""
+
+#: appsample/controller/form.py:60
+msgid "Enter Username.."
+msgstr ""
+
+#: appsample/controller/form.py:61
+msgid "Search"
 msgstr ""
 
 #: appsample/templates/base.html:3
@@ -103,11 +129,11 @@ msgid "HomePage"
 msgstr ""
 
 #: appsample/templates/base.html:39
-msgid "Logout"
+msgid "ChangePassword"
 msgstr ""
 
-#: appsample/templates/base.html:42
-msgid "ChangePassword"
+#: appsample/templates/base.html:47
+msgid "Logout"
 msgstr ""
 
 #: appsample/templates/change_password.html:4
@@ -126,7 +152,7 @@ msgstr ""
 msgid "Random"
 msgstr ""
 
-#: appsample/templates/main.html:38
+#: appsample/templates/main.html:38 appsample/templates/role.html:56
 msgid "Modify the Data"
 msgstr ""
 
@@ -140,5 +166,13 @@ msgstr ""
 
 #: appsample/templates/main.html:71
 msgid "Confirm"
+msgstr ""
+
+#: appsample/templates/role.html:33
+msgid "confirmed"
+msgstr ""
+
+#: appsample/templates/role.html:35
+msgid "Operations"
 msgstr ""
 
