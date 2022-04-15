@@ -16,7 +16,7 @@ class BaseConfig:  # 基本配置
         "termsOfService": "",
         "hide_top_bar": True
     }
-    LANGUAGES = ['zh', 'en']
+    LANGUAGES = ['zh', 'en', 'ja']
     BABEL_TRANSLATION_DIRECTORIES = '../translations'
 
 
@@ -38,6 +38,9 @@ class DevelopmentConfig(BaseConfig):
 
 
 class TestingConfig(BaseConfig):
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3306/mangatest"
+    WTF_CSRF_ENABLED = False
     TESTING = True
 
 

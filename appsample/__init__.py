@@ -48,6 +48,7 @@ def create_app(config_name, blueprints):
     app.logger.addHandler(handler)
     handler.setFormatter(formatter)
 
+    @app.cli.command('init')
     @app.route("/init")
     def init():
         Role.insert_roles()

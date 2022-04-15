@@ -10,11 +10,13 @@
 ## create docker compose by docker-compose.yml
 **1. change config.py mysql setting**
 
-**2. docker-compose up -d**
+**2. enter "docker-compose up -d"**
 
-**3. docker exec -it flaskname /bin/bash**
+**3. enter "docker exec -it 'flaskname' /bin/bash"**
 
 **4. sh dbsetup.sh**
+
+**5. enter "python -m flask init" to init table data**
 
 ## i18n modify the language
 **1. generate messages.pot "pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot ."**

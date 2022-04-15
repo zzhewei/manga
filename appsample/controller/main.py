@@ -1,9 +1,8 @@
 from flask_login import login_required
-from ..model import select, sqlOP, Permission, db, User
-from flask import Blueprint, jsonify, current_app, render_template, redirect, url_for, session, request, flash
+from ..model import select, sqlOP, Permission
+from flask import Blueprint, jsonify, render_template, redirect, url_for, request, flash
 from ..decorators import admin_required, permission_required
 from .form import ModifyForm
-import json
 import datetime
 
 main = Blueprint('main', __name__)
