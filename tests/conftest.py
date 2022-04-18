@@ -2,6 +2,7 @@
 # reference:https://stackoverflow.com/questions/68288207/db-create-all-not-creating-tables-in-pytest-flask
 #           https://dormousehole.readthedocs.io/en/latest/testing.html
 #           https://iter01.com/578851.html
+#           https://testdriven.io/blog/flask-pytest/
 #################################
 import pytest
 from appsample import create_app
@@ -21,7 +22,7 @@ def test_client():
                   'appsample.controller.role:role']
     flask_app = create_app('testing', blueprints)
 
-    with flask_app.test_client() as client:
+    with flask_app.test_client(use_cookies=True) as client:
         with flask_app.app_context():
             db.create_all()
             Role.insert_roles()
