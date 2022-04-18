@@ -33,7 +33,10 @@ def MainPage():
         # clear the form
         return redirect(url_for('main.MainPage'))
     rows = select("select * from manga order by mid "+SortType+";")
-    rand = select("select * from manga order by rand() limit 5")
+    # mysql
+    # rand = select("select * from manga order by rand() limit 5")
+    # postgresql
+    rand = select("select * from manga order by random() limit 5")
     return render_template('main.html', rows=rows, rand=rand, form=form, Permission=Permission)
 
 
