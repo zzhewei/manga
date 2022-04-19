@@ -32,17 +32,16 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = False
     WTF_CSRF_CHECK_DEFAULT = True
     WTF_CSRF_SSL_STRICT = True
-    SESSION_COOKIE_DOMAIN = False
-    #SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3306/manga"
-    #SQLALCHEMY_DATABASE_URI = "postgresql://postgres:root@localhost:5432/manga"
-    SQLALCHEMY_DATABASE_URI = "postgresql://hbnrxfyyharifc:40933115b93bc2ead4895c81c421c87033bb95175ae68bcce1f36ea568a167e8@ec2-34-194-158-176.compute-1.amazonaws.com:5432/d609ltha03al1l"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3306/manga"
+    # SQLALCHEMY_DATABASE_URI = "postgresql://postgres:root@localhost:5432/manga"
+    # SQLALCHEMY_DATABASE_URI = "postgresql://hbnrxfyyharifc:40933115b93bc2ead4895c81c421c87033bb95175ae68bcce1f36ea568a167e8@ec2-34-194-158-176.compute-1.amazonaws.com:5432/d609ltha03al1l"
     # if use docker compose use this
     # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@mysql:3306/manga"
 
 
 class TestingConfig(BaseConfig):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    #SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3306/mangatest"
+    # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3306/mangatest"
     SQLALCHEMY_DATABASE_URI = "postgresql://postgres:root@localhost:5432/mangatest"
     WTF_CSRF_ENABLED = False
     TESTING = True

@@ -1,7 +1,7 @@
 #################################
 # __init__ 把當前目錄當作package 在其中做初始化動作
 #################################
-from flask import Flask, jsonify, g, request, send_from_directory
+from flask import Flask, jsonify, g, request
 from flasgger import Swagger
 from .config import config
 from flask_cors import CORS
@@ -14,7 +14,6 @@ from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask_babel import Babel
 from flask_mail import Mail
-import os
 
 csrf = CSRFProtect()
 login_manager = LoginManager()
@@ -48,10 +47,6 @@ def create_app(config_name, blueprints):
     handler = TimedRotatingFileHandler("./log/event.log", when="D", interval=1, backupCount=15, encoding="UTF-8", delay=True, utc=True)
     app.logger.addHandler(handler)
     handler.setFormatter(formatter)
-
-    @app.route('/favicon.ico')
-    def favicon():
-        return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
     @app.cli.command('init')
     @app.route("/init")
