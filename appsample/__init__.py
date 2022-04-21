@@ -68,7 +68,7 @@ def create_app(config_name, blueprints):
     # 1 set g lan value
     @app.url_value_preprocessor
     def get_lan(endpoint, values):
-        print(endpoint, values)
+        # print(endpoint, values)
         if values is not None:
             g.lan = values.pop('lan', 'zh')
 
@@ -114,6 +114,10 @@ def create_app(config_name, blueprints):
     '''
     # with app.app_context():
     #    db.create_all()
+
+    if app.config["FLASK_ANALYZE"]:
+        from werkzeug.middleware.profiler import ProfilerMiddleware
+        app.wsgi_app = ProfilerMiddleware(app.wsgi_app, profile_dir="pstat_files")
     return app
 
 

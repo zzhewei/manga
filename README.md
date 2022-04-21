@@ -28,3 +28,17 @@
 **3. translation the messages.po file**
 
 **4. pybabel compile -d translations**
+
+## pytest
+**enter "python -m pytest -x -v --cov=./ --cov-report=html --cov-config=.coveragerc"**
+
+**see detail in htmlcov/index.html**
+
+**reference:https://myapollo.com.tw/zh-tw/pytest-coverage/**
+
+##flask profiling
+**set FLASK_ANALYZE = True**
+
+**enter pstat_files and in cmd "snakeviz 'filename under the pstat_files'"**
+
+**reference:https://myapollo.com.tw/zh-tw/profiling-flask/**

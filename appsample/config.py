@@ -26,6 +26,7 @@ class BaseConfig:  # 基本配置
     MAIL_PASSWORD = 'test'
     MAIL_SENDER = 'Heaven Admin <xxxx@gmail.com>'
     MAIL_SUBJECT_PREFIX = '[Heaven]'
+    FLASK_ANALYZE = False
 
 
 class DevelopmentConfig(BaseConfig):
@@ -41,8 +42,8 @@ class DevelopmentConfig(BaseConfig):
 
 class TestingConfig(BaseConfig):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3306/mangatest"
-    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:root@localhost:5432/mangatest"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3306/mangatest"
+    # SQLALCHEMY_DATABASE_URI = "postgresql://postgres:root@localhost:5432/mangatest"
     WTF_CSRF_ENABLED = False
     TESTING = True
 
