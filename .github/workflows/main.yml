@@ -16,12 +16,22 @@ jobs:
       matrix:
         python-version: [3.7]
 
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: manga
+        ports: ['3306:3306']
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
+
+
 
     # 建立環境
     - name: Install Dependencies
