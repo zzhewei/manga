@@ -1,3 +1,8 @@
+#################
+# reference: https://github.com/marketplace/actions/deploy-to-heroku
+#            https://www.youtube.com/watch?v=hZoy_MOuj10
+#################
+
 name: Manga CD
 
 # 觸發條件
@@ -22,4 +27,4 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "manga-jason"
-          heroku_email: "q5040842@gmail.com"
+          heroku_email: ${{secrets.EMAIL}}

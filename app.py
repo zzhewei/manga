@@ -16,5 +16,5 @@ app = create_app('development', blueprints)
 if __name__ == '__main__':
     # server = pywsgi.WSGIServer(('0.0.0.0', 9898), app)  # 需使用支持 gevent 的 WSGI
     # server.serve_forever()
-    app.run(debug=True, host="0.0.0.0")
+    app.run(host="0.0.0.0")
     # eventlet.wsgi.server(eventlet.listen(('0.0.0.0', 9898)), app)

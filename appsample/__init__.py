@@ -6,7 +6,7 @@ from flasgger import Swagger
 from .config import config
 from flask_cors import CORS
 from werkzeug.utils import import_string
-from .model import db, migrate, Role, AnonymousUser
+from .model import db, migrate, Role, AnonymousUser, User
 import logging
 from logging.handlers import TimedRotatingFileHandler
 from flask_wtf.csrf import CSRFProtect
@@ -52,6 +52,10 @@ def create_app(config_name, blueprints):
     @app.route("/init")
     def init():
         Role.insert_roles()
+        r = Role.query.filter_by(name='Administrator').first()
+        u = User(email='admin@example.com', username='admin', account='admin', password='admin', role=r, confirmed=True)
+        db.session.add(u)
+        db.session.commit()
         return jsonify({"Success": True})
 
     @app.after_request
