@@ -32,4 +32,4 @@ jobs:
     # 運行測試
     - name: Run Tests
       run: |
-        python -m pytest -x -v --cov=cov --cov-config=.coveragerc
+        python -m pytest -x -v --cov=. --cov-config=.coveragerc
