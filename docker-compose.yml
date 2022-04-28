@@ -10,10 +10,10 @@ services:
     environment:
       - APP_NAME=FlaskApp
     ports:
-      - 9898:9898
+      - 9898:5000
     depends_on:
       - db
-    entrypoint: ["sh", "/manga/dbsetup.sh"]
+    restart: always
 
   db:
     image: mysql

@@ -12,3 +12,7 @@ RUN pip install -r requirements.txt
 
 # run container 時要執行的命令
 #CMD python app.py
+
+COPY dbsetup.sh ./
+RUN chmod u+x ./dbsetup.sh
+ENTRYPOINT ["./dbsetup.sh"]

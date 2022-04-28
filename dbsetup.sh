@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
-python manage.py db migrate -m "first"
-python manage.py db upgrade
-python app.py
+echo waiting for db in 50 secs...
+sleep 50
+python -m flask init
+exec gunicorn -b :5000 --threads 4 app:app --preload

@@ -14,6 +14,7 @@ from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask_babel import Babel
 from flask_mail import Mail
+from flask_migrate import upgrade
 
 csrf = CSRFProtect()
 login_manager = LoginManager()
@@ -51,6 +52,8 @@ def create_app(config_name, blueprints):
     @app.cli.command('init')
     @app.route("/init")
     def init():
+        # 直接更新最新版
+        upgrade()
         Role.insert_roles()
         r = Role.query.filter_by(name='Administrator').first()
         u = User(email='admin@example.com', username='admin', account='admin', password='admin', role=r, confirmed=True)
