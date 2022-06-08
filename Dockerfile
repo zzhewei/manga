@@ -1,6 +1,11 @@
 # FROM：基底映像檔
 FROM python:3.6.8-stretch
 
+# install netcat
+RUN apt-get update && \
+    apt-get -y install netcat && \
+    apt-get clean
+
 # WORKDI：建立 working directory
 WORKDIR /manga
 
