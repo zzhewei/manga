@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-06 13:22+0800\n"
+"POT-Creation-Date: 2022-06-22 16:19+0800\n"
 "PO-Revision-Date: 2022-03-22 17:47+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -68,7 +68,8 @@ msgstr "Email 已經註冊."
 msgid "Account already in use."
 msgstr "帳號已使用."
 
-#: appsample/controller/form.py:36
+#: appsample/controller/form.py:36 appsample/templates/user.html:36
+#: appsample/templates/user.html:56
 msgid "Name"
 msgstr "名稱"
 
@@ -101,6 +102,7 @@ msgid "Confirm new password"
 msgstr "確認新密碼"
 
 #: appsample/controller/form.py:48 appsample/controller/form.py:55
+#: appsample/controller/form.py:66
 msgid "Update"
 msgstr "更新"
 
@@ -120,6 +122,10 @@ msgstr "輸入使用者名稱.."
 #: appsample/controller/form.py:61
 msgid "Search"
 msgstr "搜尋"
+
+#: appsample/controller/form.py:65
+msgid "Enter Something.."
+msgstr "輸入一些東西.."
 
 #: appsample/templates/base.html:3
 msgid "Heaven"
@@ -176,3 +182,40 @@ msgstr "認證"
 #: appsample/templates/role.html:35
 msgid "Operations"
 msgstr "操作"
+
+#: appsample/templates/user.html:24 appsample/templates/user.html:100
+msgid "ABOUT ME"
+msgstr "關於我"
+
+#: appsample/templates/user.html:32
+msgid "Your upload"
+msgstr "你的上傳"
+
+#: appsample/templates/user.html:39 appsample/templates/user.html:59
+msgid "like"
+msgstr "讚"
+
+#: appsample/templates/user.html:43 appsample/templates/user.html:62
+msgid "Update Time"
+msgstr "更新時間"
+
+#: appsample/templates/user.html:52
+msgid "Liked recently"
+msgstr "最近喜歡"
+
+#: appsample/templates/user.html:78
+msgid "Avatar cropping"
+msgstr "頭像裁切"
+
+#: appsample/templates/user.html:81
+msgid "Upload Avatar"
+msgstr "上傳頭像"
+
+#: appsample/templates/user.html:86
+msgid "No file selected"
+msgstr "未選擇任何檔案"
+
+#: appsample/templates/user.html:91
+msgid "Save"
+msgstr "儲存"
+

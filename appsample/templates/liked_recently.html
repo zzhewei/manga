@@ -1,0 +1,13 @@
+{% for i in liked %}
+    <li class="li_content">
+        <p>
+            {{ i['name'] }}
+        </p>
+        <p>
+            {{ i['total'] }}
+        </p>
+        <p>
+            {{ i['update_time'] }}
+        </p>
+    </li>
+{% endfor %}

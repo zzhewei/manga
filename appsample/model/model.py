@@ -9,6 +9,8 @@ from datetime import datetime
 from flask_login import UserMixin, AnonymousUserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from sqlalchemy.dialects.mysql import LONGTEXT
+import hashlib
 
 
 db = SQLAlchemy()
@@ -81,11 +83,16 @@ class User(UserMixin, db.Model):
     account = db.Column(db.String(64), unique=True)
     password_hash = db.Column(db.String(200))
     confirmed = db.Column(db.Boolean, default=False)
+    about_me = db.Column(db.Text())
+    avatar_hash = db.Column(LONGTEXT)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         if self.role is None:
             self.role = Role.query.filter_by(default=True).first()
+
+        if self.email is not None and self.avatar_hash is None:
+            self.avatar_hash = self.gravatar_hash()
 
     # property set method only read
     @property
@@ -124,6 +131,17 @@ class User(UserMixin, db.Model):
         db.session.add(self)
         return True
 
+    def gravatar_hash(self):
+        return hashlib.md5(self.email.lower().encode('utf-8')).hexdigest()
+
+    def gravatar(self, size=100, default='identicon', rating='g'):
+        # 取得預設頭像 像github那樣
+        url = 'https://secure.gravatar.com/avatar'
+        return_hash = self.avatar_hash
+        if not return_hash:
+            return_hash = f'{url}/{self.gravatar_hash()}?s={size}&d={default}&r={rating}'
+        return return_hash
+
 
 class AnonymousUser(AnonymousUserMixin):
     def can(self, permissions):
@@ -143,10 +161,11 @@ class Manga(db.Model):
     author_group = db.Column(db.String(100))
     status = db.Column(db.Boolean, nullable=False, default=False)
     insert_time = db.Column(db.DateTime, default=datetime.now)
+    insert_user = db.Column(db.String(50), nullable=False)
     update_time = db.Column(db.DateTime, onupdate=datetime.now, default=datetime.now)
     update_user = db.Column(db.String(50), nullable=False)
 
-    def __init__(self, url, name, page, author, author_group, status, insert_time, update_time, update_user):
+    def __init__(self, url, name, page, author, author_group, status, insert_time, insert_user, update_time, update_user):
         self.url = url
         self.name = name
         self.page = page
@@ -154,8 +173,18 @@ class Manga(db.Model):
         self.author_group = author_group
         self.status = status
         self.insert_time = insert_time
+        self.insert_user = insert_user
         self.update_time = update_time
         self.update_user = update_user
+
+
+class Likes(db.Model):
+    __tablename__ = 'likes'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    mid = db.Column(db.Integer, db.ForeignKey('manga.mid'))
+    insert_time = db.Column(db.DateTime, default=datetime.now)
+    insert_user = db.Column(db.String(50), nullable=False)
 
 
 def select(SqlContent, *args):

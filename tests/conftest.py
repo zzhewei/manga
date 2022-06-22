@@ -19,7 +19,8 @@ from appsample.model import User, db, Role
 def test_client():
     blueprints = ['appsample.controller.main:main',
                   'appsample.controller.auth:auth',
-                  'appsample.controller.role:role']
+                  'appsample.controller.role:role',
+                  'appsample.controller.user:user']
     flask_app = create_app('testing', blueprints)
 
     with flask_app.test_client(use_cookies=True) as client:

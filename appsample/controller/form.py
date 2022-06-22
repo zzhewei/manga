@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, HiddenField, PasswordField, BooleanField, ValidationError, SelectField
+from wtforms import StringField, SubmitField, HiddenField, PasswordField, BooleanField, ValidationError, SelectField, TextAreaField
 from wtforms.validators import DataRequired, URL, Length, Email, Regexp, EqualTo
 from ..model import User
 from flask_babel import lazy_gettext
@@ -59,3 +59,8 @@ class ChangePermissionForm(FlaskForm):
 class SearchForm(FlaskForm):
     search = StringField('Search', render_kw={"placeholder": lazy_gettext('Enter Username..')})
     submit = SubmitField(lazy_gettext('Search'))
+
+
+class AboutMeForm(FlaskForm):
+    about_content = TextAreaField('about_content', render_kw={"placeholder": lazy_gettext('Enter Something..')})
+    submit = SubmitField(lazy_gettext('Update'))

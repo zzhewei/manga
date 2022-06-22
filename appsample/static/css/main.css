@@ -6,6 +6,9 @@ html {
 .container {
     width: 100%;
     padding: 0;
+    height: -webkit-calc(100vh - 50px);
+    height: -moz-calc(100vh - 50px);
+    height: calc(100vh - 50px);
 }
 
 #wrapper {
@@ -207,7 +210,7 @@ h2 {
     justify-content: space-between; /* 平均分配欄寬*/
     padding-left: 5px; /* 左邊間距 */
     height: 45px;
-    border-top: solid 1px #ECECEC;
+    border-bottom: solid 1px #ECECEC;
 }
 
 #main_content li:hover {

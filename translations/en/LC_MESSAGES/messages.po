@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-06 13:22+0800\n"
+"POT-Creation-Date: 2022-06-22 16:19+0800\n"
 "PO-Revision-Date: 2022-03-22 17:47+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -68,7 +68,8 @@ msgstr ""
 msgid "Account already in use."
 msgstr ""
 
-#: appsample/controller/form.py:36
+#: appsample/controller/form.py:36 appsample/templates/user.html:36
+#: appsample/templates/user.html:56
 msgid "Name"
 msgstr ""
 
@@ -101,6 +102,7 @@ msgid "Confirm new password"
 msgstr ""
 
 #: appsample/controller/form.py:48 appsample/controller/form.py:55
+#: appsample/controller/form.py:66
 msgid "Update"
 msgstr ""
 
@@ -119,6 +121,10 @@ msgstr ""
 
 #: appsample/controller/form.py:61
 msgid "Search"
+msgstr ""
+
+#: appsample/controller/form.py:65
+msgid "Enter Something.."
 msgstr ""
 
 #: appsample/templates/base.html:3
@@ -175,6 +181,42 @@ msgstr ""
 
 #: appsample/templates/role.html:35
 msgid "Operations"
+msgstr ""
+
+#: appsample/templates/user.html:24 appsample/templates/user.html:100
+msgid "ABOUT ME"
+msgstr ""
+
+#: appsample/templates/user.html:32
+msgid "Your upload"
+msgstr ""
+
+#: appsample/templates/user.html:39 appsample/templates/user.html:59
+msgid "like"
+msgstr ""
+
+#: appsample/templates/user.html:43 appsample/templates/user.html:62
+msgid "Update Time"
+msgstr ""
+
+#: appsample/templates/user.html:52
+msgid "Liked recently"
+msgstr ""
+
+#: appsample/templates/user.html:78
+msgid "Avatar cropping"
+msgstr ""
+
+#: appsample/templates/user.html:81
+msgid "Upload Avatar"
+msgstr ""
+
+#: appsample/templates/user.html:86
+msgid "No file selected"
+msgstr ""
+
+#: appsample/templates/user.html:91
+msgid "Save"
 msgstr ""
 
 #~ msgid "Usernames must have only letters, numbers, dots or underscores"

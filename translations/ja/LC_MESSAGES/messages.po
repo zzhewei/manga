@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-06 13:22+0800\n"
+"POT-Creation-Date: 2022-06-22 16:19+0800\n"
 "PO-Revision-Date: 2022-04-14 10:09+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -68,7 +68,8 @@ msgstr "すでに登録されたメール"
 msgid "Account already in use."
 msgstr "すでに使用中のアカウント"
 
-#: appsample/controller/form.py:36
+#: appsample/controller/form.py:36 appsample/templates/user.html:36
+#: appsample/templates/user.html:56
 msgid "Name"
 msgstr "名前"
 
@@ -101,6 +102,7 @@ msgid "Confirm new password"
 msgstr "新しいパスワードを確認"
 
 #: appsample/controller/form.py:48 appsample/controller/form.py:55
+#: appsample/controller/form.py:66
 msgid "Update"
 msgstr "アップデート"
 
@@ -120,6 +122,10 @@ msgstr "ユーザーネームを入力してください.."
 #: appsample/controller/form.py:61
 msgid "Search"
 msgstr "探す"
+
+#: appsample/controller/form.py:65
+msgid "Enter Something.."
+msgstr "何かを入力してください.."
 
 #: appsample/templates/base.html:3
 msgid "Heaven"
@@ -176,4 +182,40 @@ msgstr "確認済み"
 #: appsample/templates/role.html:35
 msgid "Operations"
 msgstr "オペレーション"
+
+#: appsample/templates/user.html:24 appsample/templates/user.html:100
+msgid "ABOUT ME"
+msgstr "私について"
+
+#: appsample/templates/user.html:32
+msgid "Your upload"
+msgstr "あなたのアップロード"
+
+#: appsample/templates/user.html:39 appsample/templates/user.html:59
+msgid "like"
+msgstr "いいね"
+
+#: appsample/templates/user.html:43 appsample/templates/user.html:62
+msgid "Update Time"
+msgstr "更新時間"
+
+#: appsample/templates/user.html:52
+msgid "Liked recently"
+msgstr "最近気に入った"
+
+#: appsample/templates/user.html:78
+msgid "Avatar cropping"
+msgstr "アバターのトリミング"
+
+#: appsample/templates/user.html:81
+msgid "Upload Avatar"
+msgstr "アバターをアップロードする"
+
+#: appsample/templates/user.html:86
+msgid "No file selected"
+msgstr "ファイルが選択されていません"
+
+#: appsample/templates/user.html:91
+msgid "Save"
+msgstr "セーブ"
 

@@ -1,0 +1,183 @@
+.main{
+    margin:0 auto 5px auto;
+    height: 100%;
+    width: 80%;
+    position: relative;
+}
+
+i {
+    padding-left: 5px;
+}
+
+.text{
+    font-family: Microsoft JhengHei;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+/*分成四等分*/
+.quarter_div{
+    width: 50%;
+    height: 50%;
+    float: left;
+}
+
+/*上半部分 頭像及about me*/
+.quarter_top{
+    margin-top: 15%;
+    margin-bottom: 3%;
+}
+
+
+/*1.頭像部分*/
+.avatar{
+    text-align: center;
+}
+
+.avatar_image{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+}
+
+
+/*2.ABOUT ME部分*/
+.aboutme_title {
+    display:flex;
+    justify-content: space-between;
+}
+
+
+/*dialog*/
+.modify_avatar_header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+}
+
+.button_i {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.modify_avatar_title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modify_avatar_title p {
+    display: flex;
+    align-items: center;
+}
+
+.modify_avatar_button {
+    color: #fff;
+    background-color: #000000;
+    border-radius: 4px;
+    padding: 6px 12px;
+    line-height: 1.5;
+}
+
+.preview {
+    position: relative;
+    height: 400px;
+    width: 400px;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    /*border:2px dashed;*/
+}
+
+/*讓文字、選擇檔案按鈕、image在同一個位置*/
+#hide_image {
+    position: absolute;
+    opacity: 0;
+    height: 400px;
+    width: 400px;
+    z-index: 3;
+}
+
+#p_image {
+    position: absolute;
+    line-height: 400px;
+    height: 400px;
+    width: 400px;
+    z-index: 1;
+}
+
+#select_image {
+    position: absolute;
+    left: 0;
+    height: 400px;
+    width: 400px;
+    z-index: 2;
+}
+/*================================*/
+
+/*選取框變圓形*/
+.cropper-crop-box, .cropper-view-box {
+    border-radius: 50%;
+}
+
+.cropper-view-box {
+    box-shadow: 0 0 0 1px #39f;
+    outline: 0;
+}
+/*=========*/
+
+
+/*About Me form*/
+#form_aboutme {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+}
+
+#about_content {
+    height: 400px;
+    width: 400px;
+    border-radius: 1%;
+}
+
+#submit {
+    margin-top: 12px;
+    font-size: 17px;
+    font-weight: bold;
+    height: 35px;
+    border: none;
+    background-color: transparent;
+}
+/*=========*/
+
+
+/*3.Your upload 4.Liked recently 共用的ul及li設定*/
+.ul_content {
+    width: 90%;
+}
+
+.ul_content li {
+    display: flex;
+    justify-content: space-between; /* 平均分配欄寬*/
+    padding-left: 5px; /* 左邊間距 */
+    height: 45px;
+    border-bottom: solid 1px #ECECEC;
+    align-items: center;
+}
+
+.li_content:hover {
+    background-color: #EEFEF3;
+}
+
+.li_title{
+    margin-top: 15px;
+    /*pointer-events: none;*/
+}
+
+
+/*5.底部*/
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}

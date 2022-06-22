@@ -33,7 +33,7 @@
                 </div>
                 <ul class="user_detail" id="user_detail_id">
                     <li>
-                        <a href="#" class="search_div_url">{{ _('HomePage') }}</a>
+                        <a href="{{ url_for('user.HomePage', account=current_user.account) }}" class="search_div_url">{{ _('HomePage') }}</a>
                     </li>
                     <li>
                         <a href="{{ url_for('auth.change_password') }}" class="search_div_url">{{ _('ChangePassword') }}</a>

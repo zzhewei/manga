@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css">
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{url_for('static', filename='js/user.js')}}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js"></script>
+{% endblock %}
+
+{% block page_content %}
+<div class="main">
+    <div class="quarter_div avatar">
+        <input type="image" class="avatar_image quarter_top" src="{{ user.gravatar(size=256) }}" {% if user != current_user %}disabled{% endif %}/>
+        <p class="text">{{ user.username }}</p>
+        <p class="text">@{{ user.account }}</p>
+    </div>
+    <div class="quarter_div about">
+        <div class="aboutme_title">
+            <h1 class="quarter_top text">{{ _('ABOUT ME') }}</h1>
+            {% if user == current_user %}
+                <button class="button_i quarter_top" id="modify_aboutme"><i class='fas fa-pen'></i></button>
+            {% endif %}
+        </div>
+        <p class="text">{{ user.about_me }}</p>
+    </div>
+    <div class="quarter_div">
+        <h1 class="text">{{ _('Your upload') }}</h1>
+        <ul class="text ul_content">
+            <li class="li_title">
+                <p>
+                    {{ _('Name') }}
+                </p>
+                <p>
+                    {{ _('like') }}<button class="button_i sort"><i class='fas fa-sort yu like'></i></button>
+                </p>
+
+                <p>
+                    {{ _('Update Time') }}<button class="button_i sort"><i class='fas fa-sort yu time'></i></button>
+                </p>
+            </li>
+            <div class="temp" id="renew_upload">
+                {% include 'your_upload.html' %}
+            </div>
+        </ul>
+    </div>
+    <div class="quarter_div">
+        <h1 class="text">{{ _('Liked recently') }}</h1>
+        <ul class="text ul_content">
+            <li class="li_title">
+                <p>
+                    {{ _('Name') }}
+                </p>
+                <p>
+                    {{ _('like') }}<button class="button_i sort"><i class='fas fa-sort lr like'></i></button>
+                </p>
+                <p>
+                    {{ _('Update Time') }}<button class="button_i sort"><i class='fas fa-sort lr time'></i></button>
+                </p>
+            </li>
+            <div class="temp" id="renew_liked">
+                {% include 'liked_recently.html' %}
+            </div>
+        </ul>
+    </div>
+</div>
+
+{% if user == current_user %}
+    <dialog class="text" id="modify_avatar_dialog">
+        <div class="modify_avatar_header">
+            <button class="button_i modify_close"><i class='fas fa-times'></i></button>
+        </div>
+        <div class="modify_avatar_title">
+            <p>{{ _('Avatar cropping') }}</p>
+            <label class="modify_avatar_button">
+                <input type="file" class="upload_image" style="display:none;" accept=".jpg, .jpeg, .png">
+                <i class="fa fa-upload"></i> {{ _('Upload Avatar') }}
+            </label>
+        </div>
+        <div class="preview">
+            <input type="file" class="upload_image" id="hide_image" accept=".jpg, .jpeg, .png">
+            <p id="p_image">{{ _('No file selected') }}</p>
+        </div>
+        <form class="modify_avatar_title" method="POST" action="{{ url_for('user.HomePage', account=account) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <input type="hidden" id="avatar_base64" name="avatar_base64">
+            <button class="modify_avatar_button" id="modify_avatar_save">{{ _('Save') }}</button>
+        </form>
+    </dialog>
+
+    <dialog class="text" id="modify_aboutme_dialog">
+        <div class="modify_avatar_header">
+            <button class="button_i modify_close"><i class='fas fa-times'></i></button>
+        </div>
+        <div class="modify_avatar_title">
+            <p>{{ _('ABOUT ME') }}...</p>
+        </div>
+        <form id="form_aboutme" method="POST" action="{{ url_for('user.HomePage', account=account) }}">
+            {{form.hidden_tag()}}
+            {{form.about_content}}
+            {{form.submit}}
+        </form>
+    </dialog>
+{% endif %}
+
+{% endblock %}
