@@ -1,8 +1,9 @@
-from flask_login import login_required
-from ..model import select, sqlOP, Permission
+from flask_login import login_required, current_user
+from ..model import select, sqlOP, Permission, Manga, db
 from flask import Blueprint, jsonify, render_template, redirect, url_for, request, flash
 from ..decorators import admin_required, permission_required
 from .form import ModifyForm
+from sqlalchemy.sql.expression import func
 import datetime
 
 main = Blueprint('main', __name__)
@@ -21,22 +22,42 @@ def MainPage():
     form = ModifyForm()
     if form.validate_on_submit() and form.submit.data:
         if form.mid.data:
-            UpdateData = {"mid": form.mid.data, "url": form.url.data, "name": form.name.data, "page": form.pages.data, "author": form.author.data, "author_group": form.group.data, "update_time": datetime.datetime.now()}
-            sqlOP("update manga set url = :url, name= :name, page= :page, author= :author, author_group= :author_group, update_time= :update_time where mid = :mid", UpdateData)
+            # UpdateData = {"mid": form.mid.data, "url": form.url.data, "name": form.name.data, "page": form.pages.data, "author": form.author.data, "author_group": form.group.data, "update_time": datetime.datetime.now()}
+            # sqlOP("update manga set url = :url, name= :name, page= :page, author= :author, author_group= :author_group, update_time= :update_time where mid = :mid", UpdateData)
+            manga = Manga.query.get_or_404(form.mid.data)
+            manga.url = form.url.data
+            manga.name = form.name.data
+            manga.page = form.pages.data
+            manga.author = form.author.data
+            manga.author_group = form.group.data
+            manga.update_time = datetime.datetime.now()
+            manga.update_user = current_user.account
+
+            db.session.add(manga)
+            db.session.commit()
             flash('Modify Success')
         else:
-            InsertData = {"url": form.url.data, "name": form.name.data, "page": form.pages.data, "author": form.author.data, "author_group": form.group.data,
-                          "status": 0, "insert_time": datetime.datetime.now(), "update_time": datetime.datetime.now(), "update_user": "Jason"}
-            sqlOP("insert into manga(url, name, page, author, author_group, status, insert_time, update_time, update_user) \
-                values(:url, :name, :page, :author, :author_group, :status, :insert_time, :update_time, :update_user)", InsertData)
+            manga = Manga(url=form.url.data,
+                          name=form.name.data,
+                          page=form.pages.data,
+                          author=form.author.data,
+                          author_group=form.group.data,
+                          status=False,
+                          insert_time=datetime.datetime.now(),
+                          update_time=datetime.datetime.now(),
+                          update_user="Jason",
+                          insert_user="Jason")
+            db.session.add(manga)
+            db.session.commit()
             flash('Insert Success')
         # clear the form
         return redirect(url_for('main.MainPage'))
     rows = select("select * from manga order by mid "+SortType+";")
+    rand = Manga.query.order_by(func.random()).limit(5)
     # mysql
     # rand = select("select * from manga order by rand() limit 5")
     # postgresql
-    rand = select("select * from manga order by random() limit 5")
+    # rand = select("select * from manga order by random() limit 5")
     return render_template('main.html', rows=rows, rand=rand, form=form, Permission=Permission)
 
 

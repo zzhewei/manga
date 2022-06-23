@@ -83,7 +83,7 @@ class User(UserMixin, db.Model):
     account = db.Column(db.String(64), unique=True)
     password_hash = db.Column(db.String(200))
     confirmed = db.Column(db.Boolean, default=False)
-    about_me = db.Column(db.Text())
+    about_me = db.Column(db.Text(), default="Welcome!")
     avatar_hash = db.Column(LONGTEXT)
 
     def __init__(self, **kwargs):
@@ -91,8 +91,8 @@ class User(UserMixin, db.Model):
         if self.role is None:
             self.role = Role.query.filter_by(default=True).first()
 
-        if self.email is not None and self.avatar_hash is None:
-            self.avatar_hash = self.gravatar_hash()
+        # if self.email is not None and self.avatar_hash is None:
+        #     self.avatar_hash = self.gravatar_hash()
 
     # property set method only read
     @property
@@ -165,17 +165,8 @@ class Manga(db.Model):
     update_time = db.Column(db.DateTime, onupdate=datetime.now, default=datetime.now)
     update_user = db.Column(db.String(50), nullable=False)
 
-    def __init__(self, url, name, page, author, author_group, status, insert_time, insert_user, update_time, update_user):
-        self.url = url
-        self.name = name
-        self.page = page
-        self.author = author
-        self.author_group = author_group
-        self.status = status
-        self.insert_time = insert_time
-        self.insert_user = insert_user
-        self.update_time = update_time
-        self.update_user = update_user
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
 
 class Likes(db.Model):
@@ -185,6 +176,9 @@ class Likes(db.Model):
     mid = db.Column(db.Integer, db.ForeignKey('manga.mid'))
     insert_time = db.Column(db.DateTime, default=datetime.now)
     insert_user = db.Column(db.String(50), nullable=False)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
 
 def select(SqlContent, *args):
@@ -198,5 +192,6 @@ def sqlOP(SqlContent, *args):
     try:
         db.session.execute(SqlContent, args)
         db.session.commit()
-    except:
+    except Exception as e:
+        print(e)
         db.session.rollback()
