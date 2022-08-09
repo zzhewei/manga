@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-22 16:19+0800\n"
+"POT-Creation-Date: 2022-08-08 11:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,8 +67,8 @@ msgstr ""
 msgid "Account already in use."
 msgstr ""
 
-#: appsample/controller/form.py:36 appsample/templates/user.html:36
-#: appsample/templates/user.html:56
+#: appsample/controller/form.py:36 appsample/templates/user.html:39
+#: appsample/templates/user.html:59
 msgid "Name"
 msgstr ""
 
@@ -110,7 +110,7 @@ msgstr ""
 msgid "UserRole"
 msgstr ""
 
-#: appsample/controller/form.py:56
+#: appsample/controller/form.py:56 appsample/controller/form.py:71
 msgid "Delete"
 msgstr ""
 
@@ -146,6 +146,14 @@ msgstr ""
 msgid "Change Password"
 msgstr ""
 
+#: appsample/templates/index.html:12
+msgid "Welcome to Heaven"
+msgstr ""
+
+#: appsample/templates/index.html:13
+msgid "Enter"
+msgstr ""
+
 #: appsample/templates/login.html:20
 msgid "Click here to reset it"
 msgstr ""
@@ -158,15 +166,17 @@ msgstr ""
 msgid "Random"
 msgstr ""
 
-#: appsample/templates/main.html:38 appsample/templates/role.html:56
+#: appsample/templates/main.html:38 appsample/templates/role.html:54
+#: appsample/templates/user_content.html:49
 msgid "Modify the Data"
 msgstr ""
 
 #: appsample/templates/main.html:62 appsample/templates/main.html:72
+#: appsample/templates/user_content.html:43
 msgid "Cancel"
 msgstr ""
 
-#: appsample/templates/main.html:69
+#: appsample/templates/main.html:69 appsample/templates/user_content.html:40
 msgid "confirm the deletion?"
 msgstr ""
 
@@ -182,39 +192,67 @@ msgstr ""
 msgid "Operations"
 msgstr ""
 
-#: appsample/templates/user.html:24 appsample/templates/user.html:100
+#: appsample/templates/user.html:24 appsample/templates/user.html:103
 msgid "ABOUT ME"
 msgstr ""
 
-#: appsample/templates/user.html:32
-msgid "Your upload"
+#: appsample/templates/user.html:33 appsample/templates/user_content.html:17
+msgid "Upload Record"
 msgstr ""
 
-#: appsample/templates/user.html:39 appsample/templates/user.html:59
+#: appsample/templates/user.html:34
+msgid "More"
+msgstr ""
+
+#: appsample/templates/user.html:42 appsample/templates/user.html:62
 msgid "like"
 msgstr ""
 
-#: appsample/templates/user.html:43 appsample/templates/user.html:62
+#: appsample/templates/user.html:46 appsample/templates/user.html:65
 msgid "Update Time"
 msgstr ""
 
-#: appsample/templates/user.html:52
+#: appsample/templates/user.html:55
 msgid "Liked recently"
 msgstr ""
 
-#: appsample/templates/user.html:78
+#: appsample/templates/user.html:81
 msgid "Avatar cropping"
 msgstr ""
 
-#: appsample/templates/user.html:81
+#: appsample/templates/user.html:84
 msgid "Upload Avatar"
 msgstr ""
 
-#: appsample/templates/user.html:86
+#: appsample/templates/user.html:89
 msgid "No file selected"
 msgstr ""
 
-#: appsample/templates/user.html:91
+#: appsample/templates/user.html:94
 msgid "Save"
+msgstr ""
+
+#: appsample/templates/user_content.html:23
+msgid "Likes(Highest)"
+msgstr ""
+
+#: appsample/templates/user_content.html:24
+msgid "Likes(Lowest)"
+msgstr ""
+
+#: appsample/templates/user_content.html:25
+msgid "Date Modified(Newest)"
+msgstr ""
+
+#: appsample/templates/user_content.html:26
+msgid "Date Modified(Oldest)"
+msgstr ""
+
+#: appsample/templates/user_content.html:27
+msgid "Date created(Newest)"
+msgstr ""
+
+#: appsample/templates/user_content.html:28
+msgid "Date created(Oldest)"
 msgstr ""
 

@@ -25,7 +25,7 @@ a {
     align-items: center;
 }
 
-a:link{
+a:link {
     text-decoration:none;
 }
 
@@ -87,12 +87,12 @@ h2 {
     font-size: 27pt;
 }
 
-.search_form{
+.search_form {
     text-align: right;
     position: relative;
 }
 
-.search_form input#search_input{
+.search_form input#search_input {
     width: 200px;
     height: 35px;
     background: white;
@@ -101,7 +101,7 @@ h2 {
     border-radius: 5px;
 }
 
-.search_form .icon{
+.search_form .icon {
     position: absolute;
     margin-left: 10px;
     margin-top: 8px;
@@ -126,6 +126,7 @@ h2 {
     right: 0px;
     top: 106%;
     border-radius: 3px;
+    z-index: 100;
 }
 
 .user_detail a {
@@ -234,7 +235,7 @@ h2 {
 
 
 /*add and modify form*/
-#overlay{
+#overlay {
     display: none;
     position: absolute;
     top: 0%;

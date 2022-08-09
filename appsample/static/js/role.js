@@ -2,9 +2,9 @@ $(document).ready(function(){
     const modify_role_dialog = document.getElementById("modify_role_dialog");
 
     $('#user_content li button').click(function () {
-        $("#uid").val($(this).closest('div').parent().find(".user_id").val());
-        $("#username").val($(this).closest('div').parent().find(".username_p").text());
-        document.getElementById('userrole').value=$(this).closest('div').parent().find(".role_id").val();
+        $("#uid").val($(this).closest('li').find(".user_id").val());
+        $("#username").val($(this).closest('li').find(".username_p").text());
+        document.getElementById('userrole').value=$(this).closest('li').find(".role_id").val();
         modify_role_dialog.showModal();
     });
 

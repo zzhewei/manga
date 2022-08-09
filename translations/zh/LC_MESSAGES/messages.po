@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-22 16:19+0800\n"
+"POT-Creation-Date: 2022-08-08 11:54+0800\n"
 "PO-Revision-Date: 2022-03-22 17:47+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -68,8 +68,8 @@ msgstr "Email 已經註冊."
 msgid "Account already in use."
 msgstr "帳號已使用."
 
-#: appsample/controller/form.py:36 appsample/templates/user.html:36
-#: appsample/templates/user.html:56
+#: appsample/controller/form.py:36 appsample/templates/user.html:39
+#: appsample/templates/user.html:59
 msgid "Name"
 msgstr "名稱"
 
@@ -111,7 +111,7 @@ msgstr "更新"
 msgid "UserRole"
 msgstr "使用者角色"
 
-#: appsample/controller/form.py:56
+#: appsample/controller/form.py:56 appsample/controller/form.py:71
 msgid "Delete"
 msgstr "刪除"
 
@@ -147,6 +147,14 @@ msgstr "登出"
 msgid "Change Password"
 msgstr "密碼變更"
 
+#: appsample/templates/index.html:12
+msgid "Welcome to Heaven"
+msgstr ""
+
+#: appsample/templates/index.html:13
+msgid "Enter"
+msgstr "進入"
+
 #: appsample/templates/login.html:20
 msgid "Click here to reset it"
 msgstr "點此重設"
@@ -159,15 +167,17 @@ msgstr "點此註冊"
 msgid "Random"
 msgstr "隨機"
 
-#: appsample/templates/main.html:38 appsample/templates/role.html:56
+#: appsample/templates/main.html:38 appsample/templates/role.html:54
+#: appsample/templates/user_content.html:49
 msgid "Modify the Data"
 msgstr "修改資料"
 
 #: appsample/templates/main.html:62 appsample/templates/main.html:72
+#: appsample/templates/user_content.html:43
 msgid "Cancel"
 msgstr "取消"
 
-#: appsample/templates/main.html:69
+#: appsample/templates/main.html:69 appsample/templates/user_content.html:40
 msgid "confirm the deletion?"
 msgstr "確認刪除?"
 
@@ -183,39 +193,70 @@ msgstr "認證"
 msgid "Operations"
 msgstr "操作"
 
-#: appsample/templates/user.html:24 appsample/templates/user.html:100
+#: appsample/templates/user.html:24 appsample/templates/user.html:103
 msgid "ABOUT ME"
 msgstr "關於我"
 
-#: appsample/templates/user.html:32
-msgid "Your upload"
-msgstr "你的上傳"
+#: appsample/templates/user.html:33 appsample/templates/user_content.html:17
+msgid "Upload Record"
+msgstr "上傳紀錄"
 
-#: appsample/templates/user.html:39 appsample/templates/user.html:59
+#: appsample/templates/user.html:34
+msgid "More"
+msgstr "更多"
+
+#: appsample/templates/user.html:42 appsample/templates/user.html:62
 msgid "like"
 msgstr "讚"
 
-#: appsample/templates/user.html:43 appsample/templates/user.html:62
+#: appsample/templates/user.html:46 appsample/templates/user.html:65
 msgid "Update Time"
 msgstr "更新時間"
 
-#: appsample/templates/user.html:52
+#: appsample/templates/user.html:55
 msgid "Liked recently"
 msgstr "最近喜歡"
 
-#: appsample/templates/user.html:78
+#: appsample/templates/user.html:81
 msgid "Avatar cropping"
 msgstr "頭像裁切"
 
-#: appsample/templates/user.html:81
+#: appsample/templates/user.html:84
 msgid "Upload Avatar"
 msgstr "上傳頭像"
 
-#: appsample/templates/user.html:86
+#: appsample/templates/user.html:89
 msgid "No file selected"
 msgstr "未選擇任何檔案"
 
-#: appsample/templates/user.html:91
+#: appsample/templates/user.html:94
 msgid "Save"
 msgstr "儲存"
+
+#: appsample/templates/user_content.html:23
+msgid "Likes(Highest)"
+msgstr "讚(高)"
+
+#: appsample/templates/user_content.html:24
+msgid "Likes(Lowest)"
+msgstr "讚(低)"
+
+#: appsample/templates/user_content.html:25
+msgid "Date Modified(Newest)"
+msgstr "更新日期(新)"
+
+#: appsample/templates/user_content.html:26
+msgid "Date Modified(Oldest)"
+msgstr "更新日期(舊)
+
+#: appsample/templates/user_content.html:27
+msgid "Date created(Newest)"
+msgstr "創建日期(新)"
+
+#: appsample/templates/user_content.html:28
+msgid "Date created(Oldest)"
+msgstr "創建日期(舊)"
+
+#~ msgid "Your upload"
+#~ msgstr "你的上傳"
 

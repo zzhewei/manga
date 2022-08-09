@@ -15,17 +15,30 @@
 	display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    font-family: monospace;
+    font-weight: bold;
+    margin-top: 50px;
 }
 
 p {
-    font-family: monospace;
-    font-weight: bold;
     background: linear-gradient(to top, #9C9C9C, #C4C4C4, #EDEDED);
     background: -webkit-linear-gradient(to top, #9C9C9C, #C4C4C4, #EDEDED);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
     font-size:50px;
+}
+
+.text a {
+    background: transparent;
+    border: solid 2px #C4C4C4;
+    border-radius: 5%;
+    font-size: 30px;
+    padding: 10px;
+    color: #C4C4C4;
+    margin-top: 25px;
+    text-decoration: none;
 }
 
 @media screen and (max-width: 1000px) {

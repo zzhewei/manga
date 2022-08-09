@@ -1,0 +1,191 @@
+#title {
+    display: flex;
+    justify-content: center;
+}
+
+
+/*去掉main.css裡對a的屬性*/
+a {
+    display: unset;
+}
+
+
+.main_content{
+    height: 70%;
+}
+
+
+.search_content{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/*============ul content============*/
+.ul_content {
+    margin: 0 auto;
+    width: 80%;
+    height: 100%;
+}
+
+/*li content*/
+.manga_content_item {
+    float: left;
+    margin: 10px;
+}
+
+.manga_content_item_div {
+    border: 1px #eee solid;
+    border-radius: 5px;
+}
+
+.item_delete {
+	float: right;
+    border-radius: 50%;
+    background-color: white;
+    border: none;
+    box-shadow:2px 2px 3px 1px #cccccc;
+    margin-top: -5px;
+    margin-right: -5px;
+    margin-bottom: 7px;
+}
+
+.item_name {
+    overflow: hidden;
+    width: 180px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.item_modify {
+    background-color: transparent;
+    border: none;
+}
+
+.fas:hover {
+    color: red;
+}
+
+.thumb_modify {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+}
+/*==================================*/
+
+
+/*delete dialog*/
+#delete_uc_dialog {
+    width: 25%;
+    height: 20%;
+    padding: 0;
+}
+
+#delete_uc_dialog label {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    padding: 3em;
+}
+
+#delete_uc_dialog label i {
+    margin-right: 10px;
+}
+
+.delete_uc_div {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.delete_uc_div input {
+    font-size: 17px;
+    font-weight: bold;
+    width: 50%;
+    height: 35px;
+    border: none;
+    background-color: transparent;
+}
+
+
+/*modify dialog*/
+#modify_uc_dialog {
+    width: 400px;
+}
+
+.dialog_title {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.modify_uc_dialog_cancel {
+    float: right;
+    margin-right: 10px;
+}
+
+#modify_uc_dialog_div {
+    margin-top: 3em;
+}
+
+.input_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+    margin-bottom: 3em;
+    width: auto;
+}
+
+.input_container > input {
+    border: none;
+    border-bottom: 1px solid #D8D8D8;
+    font-size: 16px;
+    width: 65%;
+}
+
+
+/*頁碼*/
+.paginate {
+    font-family: sans-serif;
+}
+
+.paginate .arrow {
+    background: transparent;
+    color: #000;
+    font-weight: bold;
+}
+
+.paginate .box {
+    text-align: center;
+    text-decoration: none;
+    margin-right: 5px;
+    padding: 6px 6px;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+.paginate a {
+    color: #000;
+}
+
+.paginate .current {
+    background: #000;
+    color: #fff;
+    font-weight: bold;
+}
+
+.paginate .dots {
+    color: #000;
+    font-weight: bold;
+}
+
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}

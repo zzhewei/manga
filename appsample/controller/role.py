@@ -1,5 +1,5 @@
 from flask_login import login_required, current_user
-from ..model import select, sqlOP, Permission, db, User, Role
+from ..model import select, Likes, db, User, Role
 from flask import Blueprint, jsonify, current_app, render_template, redirect, url_for, session, request, flash
 from ..decorators import admin_required, permission_required
 from .form import ChangePermissionForm, SearchForm
@@ -26,6 +26,7 @@ def UserRole(page=1):
             db.session.commit()
             flash("Update Success")
         else:
+            Likes.query.filter_by(user_id=form.uid.data).delete()
             User.query.filter_by(id=form.uid.data).delete()
             db.session.commit()
             flash("Delete Success")

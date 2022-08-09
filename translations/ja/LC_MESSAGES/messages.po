@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-22 16:19+0800\n"
+"POT-Creation-Date: 2022-08-08 11:54+0800\n"
 "PO-Revision-Date: 2022-04-14 10:09+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -68,8 +68,8 @@ msgstr "すでに登録されたメール"
 msgid "Account already in use."
 msgstr "すでに使用中のアカウント"
 
-#: appsample/controller/form.py:36 appsample/templates/user.html:36
-#: appsample/templates/user.html:56
+#: appsample/controller/form.py:36 appsample/templates/user.html:39
+#: appsample/templates/user.html:59
 msgid "Name"
 msgstr "名前"
 
@@ -111,7 +111,7 @@ msgstr "アップデート"
 msgid "UserRole"
 msgstr "役割"
 
-#: appsample/controller/form.py:56
+#: appsample/controller/form.py:56 appsample/controller/form.py:71
 msgid "Delete"
 msgstr "削除"
 
@@ -147,6 +147,14 @@ msgstr "ログアウト"
 msgid "Change Password"
 msgstr "パスワードを変更する"
 
+#: appsample/templates/index.html:12
+msgid "Welcome to Heaven"
+msgstr ""
+
+#: appsample/templates/index.html:13
+msgid "Enter"
+msgstr "入る"
+
 #: appsample/templates/login.html:20
 msgid "Click here to reset it"
 msgstr "リセットするには、ここをクリックしてください"
@@ -159,15 +167,17 @@ msgstr "登録するにはここをクリックしてください"
 msgid "Random"
 msgstr "ランダム"
 
-#: appsample/templates/main.html:38 appsample/templates/role.html:56
+#: appsample/templates/main.html:38 appsample/templates/role.html:54
+#: appsample/templates/user_content.html:49
 msgid "Modify the Data"
 msgstr "データを変更する"
 
 #: appsample/templates/main.html:62 appsample/templates/main.html:72
+#: appsample/templates/user_content.html:43
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: appsample/templates/main.html:69
+#: appsample/templates/main.html:69 appsample/templates/user_content.html:40
 msgid "confirm the deletion?"
 msgstr "削除を確認しますか？"
 
@@ -183,39 +193,70 @@ msgstr "確認済み"
 msgid "Operations"
 msgstr "オペレーション"
 
-#: appsample/templates/user.html:24 appsample/templates/user.html:100
+#: appsample/templates/user.html:24 appsample/templates/user.html:103
 msgid "ABOUT ME"
 msgstr "私について"
 
-#: appsample/templates/user.html:32
-msgid "Your upload"
-msgstr "あなたのアップロード"
+#: appsample/templates/user.html:33 appsample/templates/user_content.html:17
+msgid "Upload Record"
+msgstr "アップロード記録"
 
-#: appsample/templates/user.html:39 appsample/templates/user.html:59
+#: appsample/templates/user.html:34
+msgid "More"
+msgstr "もっと見る"
+
+#: appsample/templates/user.html:42 appsample/templates/user.html:62
 msgid "like"
 msgstr "いいね"
 
-#: appsample/templates/user.html:43 appsample/templates/user.html:62
+#: appsample/templates/user.html:46 appsample/templates/user.html:65
 msgid "Update Time"
 msgstr "更新時間"
 
-#: appsample/templates/user.html:52
+#: appsample/templates/user.html:55
 msgid "Liked recently"
 msgstr "最近気に入った"
 
-#: appsample/templates/user.html:78
+#: appsample/templates/user.html:81
 msgid "Avatar cropping"
 msgstr "アバターのトリミング"
 
-#: appsample/templates/user.html:81
+#: appsample/templates/user.html:84
 msgid "Upload Avatar"
 msgstr "アバターをアップロードする"
 
-#: appsample/templates/user.html:86
+#: appsample/templates/user.html:89
 msgid "No file selected"
 msgstr "ファイルが選択されていません"
 
-#: appsample/templates/user.html:91
+#: appsample/templates/user.html:94
 msgid "Save"
 msgstr "セーブ"
+
+#: appsample/templates/user_content.html:23
+msgid "Likes(Highest)"
+msgstr "いいね(多い)"
+
+#: appsample/templates/user_content.html:24
+msgid "Likes(Lowest)"
+msgstr "いいね(低い)"
+
+#: appsample/templates/user_content.html:25
+msgid "Date Modified(Newest)"
+msgstr "更新時間(最近)"
+
+#: appsample/templates/user_content.html:26
+msgid "Date Modified(Oldest)"
+msgstr "更新時間(古い)"
+
+#: appsample/templates/user_content.html:27
+msgid "Date created(Newest)"
+msgstr "セットアップ時間(最近)"
+
+#: appsample/templates/user_content.html:28
+msgid "Date created(Oldest)"
+msgstr "セットアップ時間(古い)"
+
+#~ msgid "Your upload"
+#~ msgstr "あなたのアップロード"
 

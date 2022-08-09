@@ -152,6 +152,12 @@ i {
 
 
 /*3.Your upload 4.Liked recently 共用的ul及li設定*/
+.h1_title {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+
 .ul_content {
     width: 90%;
 }
@@ -163,6 +169,19 @@ i {
     height: 45px;
     border-bottom: solid 1px #ECECEC;
     align-items: center;
+}
+
+.p1 {
+    width: 30%;
+}
+
+.p2 {
+    width: 30%;
+}
+
+.p3 {
+    width: 40%;
+    text-align: end;
 }
 
 .li_content:hover {

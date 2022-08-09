@@ -29,17 +29,20 @@
         <p class="text">{{ user.about_me }}</p>
     </div>
     <div class="quarter_div">
-        <h1 class="text">{{ _('Your upload') }}</h1>
+        <h1 class="text h1_title">
+            {{ _('Upload Record') }}
+            <a href="upload/{{ account }}/1">{{ _('More') }}</a>
+        </h1>
         <ul class="text ul_content">
             <li class="li_title">
-                <p>
+                <p class="p1">
                     {{ _('Name') }}
                 </p>
-                <p>
+                <p class="p2">
                     {{ _('like') }}<button class="button_i sort"><i class='fas fa-sort yu like'></i></button>
                 </p>
 
-                <p>
+                <p class="p3">
                     {{ _('Update Time') }}<button class="button_i sort"><i class='fas fa-sort yu time'></i></button>
                 </p>
             </li>
@@ -49,16 +52,16 @@
         </ul>
     </div>
     <div class="quarter_div">
-        <h1 class="text">{{ _('Liked recently') }}</h1>
+        <h1 class="text h1_title">{{ _('Liked recently') }}</h1>
         <ul class="text ul_content">
             <li class="li_title">
-                <p>
+                <p class="p1">
                     {{ _('Name') }}
                 </p>
-                <p>
+                <p class="p2">
                     {{ _('like') }}<button class="button_i sort"><i class='fas fa-sort lr like'></i></button>
                 </p>
-                <p>
+                <p class="p3">
                     {{ _('Update Time') }}<button class="button_i sort"><i class='fas fa-sort lr time'></i></button>
                 </p>
             </li>

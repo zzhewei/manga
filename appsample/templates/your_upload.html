@@ -1,13 +1,41 @@
-{% for i in upload %}
-    <li class="li_content">
-        <p>
-            {{ i['name'] }}
-        </p>
-        <p>
-            {{ i['total'] }}
-        </p>
-        <p>
-            {{ i['update_time'] }}
-        </p>
-    </li>
+{% for i in upload.items %}
+    {% if chk == "main" %}
+        <li class="li_content">
+            <p class="p1">
+                {{ i['name'] }}
+            </p>
+            <p class="p2">
+                {% if i['total'] %}{{ i['total'] }}{% else %}0{% endif %}
+            </p>
+            <p class="p3">
+                {{ i['update_time'] }}
+            </p>
+        </li>
+    {% else %}
+        <li class="manga_content_item">
+            <input class="item_name" type="hidden" value="{{ i['name'] }}">
+            <input class="item_url" type="hidden" value="{{ i['url'] }}">
+            <input class="item_page" type="hidden" value="{{ i['page'] }}">
+            <input class="item_author" type="hidden" value="{{ i['author'] }}">
+            <input class="item_author_group" type="hidden" value="{{ i['author_group'] }}">
+            <input class="item_mid" type="hidden" value="{{ i['mid'] }}">
+            {% if user == current_user or current_user.is_administrator() %}
+                <button class="item_delete"><i class='fas fa-times'></i></button>
+            {% endif %}
+            <div class="manga_content_item_div">
+                <a href="{{ i['url'] }}">
+                <img src="{{ GR(n=i, size=180) }}">
+                </a>
+                <a href="{{ i['url'] }}">
+                    <p class="item_name">{{ i['name'] }}</p>
+                </a>
+                <div class="thumb_modify">
+                    <i class='far fa-thumbs-up'>{% if i['total'] %}{{ i['total'] }}{% else %}0{% endif %}</i>
+                    {% if user == current_user or current_user.is_administrator() %}
+                        <button class="item_modify"><i class='fas fa-pen'></i></button>
+                    {% endif %}
+                </div>
+            </div>
+        </li>
+    {% endif %}
 {% endfor %}

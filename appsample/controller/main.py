@@ -4,7 +4,6 @@ from flask import Blueprint, jsonify, render_template, redirect, url_for, reques
 from ..decorators import admin_required, permission_required
 from .form import ModifyForm
 from sqlalchemy.sql.expression import func
-import datetime
 
 main = Blueprint('main', __name__)
 SortType = "asc"
@@ -30,8 +29,7 @@ def MainPage():
             manga.page = form.pages.data
             manga.author = form.author.data
             manga.author_group = form.group.data
-            manga.update_time = datetime.datetime.now()
-            manga.update_user = current_user.account
+            manga.update_user = current_user.id
 
             db.session.add(manga)
             db.session.commit()
@@ -43,10 +41,8 @@ def MainPage():
                           author=form.author.data,
                           author_group=form.group.data,
                           status=False,
-                          insert_time=datetime.datetime.now(),
-                          update_time=datetime.datetime.now(),
-                          update_user="Jason",
-                          insert_user="Jason")
+                          update_user=current_user.id,
+                          insert_user=current_user.id)
             db.session.add(manga)
             db.session.commit()
             flash('Insert Success')

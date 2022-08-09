@@ -26,26 +26,24 @@
             {{ form1.submit }}
         </form>
         <ul>
-            <div class="role_field">
-                    <p>{{ _('Username') }}</p>
-                    <p>{{ _('Account') }}</p>
-                    <p>Email</p>
-                    <p>{{ _('confirmed') }}</p>
-                    <p>{{ _('UserRole') }}</p>
-                    <p>{{ _('Operations') }}</p>
-            </div>
+            <li class="role_field">
+                    <p class="username_p">{{ _('Username') }}</p>
+                    <p class="account_p">{{ _('Account') }}</p>
+                    <p class="email_p">Email</p>
+                    <p class="confirmed_p">{{ _('confirmed') }}</p>
+                    <p class="role_p">{{ _('UserRole') }}</p>
+                    <p class="func_btn">{{ _('Operations') }}</p>
+            </li>
             {% for user in users.items %}
-            <li>
-                <div class="role_field">
-                    <input class="user_id" type="hidden" value="{{ user['id'] }}">
-                    <input class="role_id" type="hidden" value="{{ user['role_id'] }}">
-                    <p class="username_p">{{ user['username'] }}</p>
-                    <p class="account_p">{{ user['account'] }}</p>
-                    <p class="email_p">{{ user['email'] }}</p>
-                    <p class="confirmed_p">{{ user['confirmed'] }}</p>
-                    <p class="role_p">{{ user['role_name'] }}</p>
-                    <button class="func_btn"><i class='fas fa-edit'></i></button>
-                </div>
+            <li class="role_field">
+                <input class="user_id" type="hidden" value="{{ user['id'] }}">
+                <input class="role_id" type="hidden" value="{{ user['role_id'] }}">
+                <p class="username_p">{{ user['username'] }}</p>
+                <p class="account_p">{{ user['account'] }}</p>
+                <p class="email_p">{{ user['email'] }}</p>
+                <p class="confirmed_p">{{ user['confirmed'] }}</p>
+                <p class="role_p">{{ user['role_name'] }}</p>
+                <button class="func_btn"><i class='fas fa-edit'></i></button>
             </li>
             {% endfor %}
         </ul>

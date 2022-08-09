@@ -64,3 +64,8 @@ class SearchForm(FlaskForm):
 class AboutMeForm(FlaskForm):
     about_content = TextAreaField('about_content', render_kw={"placeholder": lazy_gettext('Enter Something..')})
     submit = SubmitField(lazy_gettext('Update'))
+
+
+class UploadDeleteForm(FlaskForm):
+    delete_mid = HiddenField("mid")
+    delete = SubmitField(lazy_gettext('Delete'))

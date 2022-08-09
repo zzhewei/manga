@@ -195,3 +195,9 @@ def sqlOP(SqlContent, *args):
     except Exception as e:
         print(e)
         db.session.rollback()
+
+
+def get_random(n, size=100, default='identicon', rating='g'):
+    url = 'https://secure.gravatar.com/avatar'
+    md5 = hashlib.md5(str(n).encode('utf-8')).hexdigest()
+    return f'{url}/{md5}?s={size}&d={default}&r={rating}'
