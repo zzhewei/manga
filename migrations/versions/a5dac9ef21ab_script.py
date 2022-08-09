@@ -28,7 +28,7 @@ def upgrade():
     sa.Column('status', sa.Boolean(), nullable=False),
     sa.Column('insert_time', sa.DateTime(), nullable=True),
     sa.Column('update_time', sa.DateTime(), nullable=True),
-    sa.Column('update_user', sa.String(length=50), nullable=False),
+    sa.Column('update_user', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('mid')
     )
     op.create_table('roles',

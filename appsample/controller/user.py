@@ -16,7 +16,7 @@ def SelfUrlContent(user_data, PageType, SortType=None, page=None):
     # 此人上傳的
     # 把子查詢直接join 要用c去on https://docs.sqlalchemy.org/en/14/core/selectable.html#sqlalchemy.sql.expression.FromClause.c
     upload = Manga.query.with_entities(Manga.mid, Manga.url, Manga.name, Manga.page, Manga.author, Manga.author_group,
-                                       group_data.c.total, Manga.update_time, func.IF(Manga.insert_user == user_data.id, 1, 0)).filter_by(insert_user=user_data.id).join(group_data, Manga.mid == group_data.c.mid, isouter=True)
+                                       group_data.c.total, Manga.update_time).filter_by(insert_user=user_data.id).join(group_data, Manga.mid == group_data.c.mid, isouter=True)
     # print(upload)
 
     # 此人按讚的

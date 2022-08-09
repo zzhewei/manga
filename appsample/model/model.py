@@ -161,9 +161,9 @@ class Manga(db.Model):
     author_group = db.Column(db.String(100))
     status = db.Column(db.Boolean, nullable=False, default=False)
     insert_time = db.Column(db.DateTime, default=datetime.now)
-    insert_user = db.Column(db.String(50), nullable=False)
+    insert_user = db.Column(db.Integer, nullable=False)
     update_time = db.Column(db.DateTime, onupdate=datetime.now, default=datetime.now)
-    update_user = db.Column(db.String(50), nullable=False)
+    update_user = db.Column(db.Integer, nullable=False)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -175,7 +175,7 @@ class Likes(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     mid = db.Column(db.Integer, db.ForeignKey('manga.mid'))
     insert_time = db.Column(db.DateTime, default=datetime.now)
-    insert_user = db.Column(db.String(50), nullable=False)
+    insert_user = db.Column(db.Integer, nullable=False)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

@@ -23,7 +23,7 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('mid', sa.Integer(), nullable=True),
     sa.Column('insert_time', sa.DateTime(), nullable=True),
-    sa.Column('insert_user', sa.String(length=50), nullable=False),
+    sa.Column('insert_user', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['mid'], ['manga.mid'], ),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
