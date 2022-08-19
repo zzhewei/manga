@@ -5,7 +5,7 @@ $(document).ready(function(){
 
     selectElement.addEventListener('change', (event) => {
         console.log(event.target.value);
-        window.location.href = "/"+window.location.href.split("/")[3]+"/user/upload/"+window.location.href.split("/")[6]+"/"+event.target.value;
+        window.location.href = "/"+window.location.href.split("/")[3]+"/user/"+window.location.href.split("/")[5]+"/"+window.location.href.split("/")[6]+"/"+event.target.value;
     });
 
     $('.manga_content').on('click', 'button', function() {

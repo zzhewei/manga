@@ -1,12 +1,12 @@
-{% macro pagination_func(pagination, endpoint, account=None, SortType=None) %}
+{% macro pagination_func(pagination, endpoint, PageType=None, account=None, SortType=None) %}
 <div class="paginate">
     {% if pagination.has_prev %}
-        <a href="{{ url_for(endpoint,page=pagination.prev_num, account=account, SortType=SortType) }}" class="box arrow">&lt;&lt;</a>
+        <a href="{{ url_for(endpoint,page=pagination.prev_num, PageType=PageType, account=account, SortType=SortType) }}" class="box arrow">&lt;&lt;</a>
     {% endif %}
     {% for page in pagination.iter_pages() %}
         {% if page %}
             {% if page != pagination.page %}
-                <a href="{{ url_for(endpoint, page=page, account=account, SortType=SortType)}}" class="box">{{ page }}</a>
+                <a href="{{ url_for(endpoint, page=page, PageType=PageType, account=account, SortType=SortType)}}" class="box">{{ page }}</a>
             {% else %}
                 <span class="box current">{{ page }}</span>
             {% endif %}
@@ -15,7 +15,7 @@
         {% endif %}
     {% endfor %}
     {% if pagination.has_next %}
-        <a href="{{ url_for(endpoint,page=pagination.next_num, account=account, SortType=SortType) }}" class="box arrow">&gt;&gt;</a>
+        <a href="{{ url_for(endpoint,page=pagination.next_num, PageType=PageType, account=account, SortType=SortType) }}" class="box arrow">&gt;&gt;</a>
     {% endif %}
 </div>
 {% endmacro %}

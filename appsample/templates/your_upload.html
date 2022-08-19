@@ -19,7 +19,7 @@
             <input class="item_author" type="hidden" value="{{ i['author'] }}">
             <input class="item_author_group" type="hidden" value="{{ i['author_group'] }}">
             <input class="item_mid" type="hidden" value="{{ i['mid'] }}">
-            {% if user == current_user or current_user.is_administrator() %}
+            {% if i['insert_user'] == current_user.id or current_user.is_administrator() %}
                 <button class="item_delete"><i class='fas fa-times'></i></button>
             {% endif %}
             <div class="manga_content_item_div">
@@ -31,7 +31,7 @@
                 </a>
                 <div class="thumb_modify">
                     <i class='far fa-thumbs-up'>{% if i['total'] %}{{ i['total'] }}{% else %}0{% endif %}</i>
-                    {% if user == current_user or current_user.is_administrator() %}
+                    {% if i['insert_user'] == current_user.id or current_user.is_administrator() %}
                         <button class="item_modify"><i class='fas fa-pen'></i></button>
                     {% endif %}
                 </div>

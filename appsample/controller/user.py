@@ -16,14 +16,17 @@ def SelfUrlContent(user_data, PageType, SortType=None, page=None):
     # 此人上傳的
     # 把子查詢直接join 要用c去on https://docs.sqlalchemy.org/en/14/core/selectable.html#sqlalchemy.sql.expression.FromClause.c
     upload = Manga.query.with_entities(Manga.mid, Manga.url, Manga.name, Manga.page, Manga.author, Manga.author_group,
-                                       group_data.c.total, Manga.update_time).filter_by(insert_user=user_data.id).join(group_data, Manga.mid == group_data.c.mid, isouter=True)
+                                       group_data.c.total, Manga.update_time, Manga.insert_user).filter_by(insert_user=user_data.id).join(group_data, Manga.mid == group_data.c.mid, isouter=True)
     # print(upload)
 
     # 此人按讚的
     # 先查自己的like紀錄再關聯manga最後在連結子查詢
-    liked = Likes.query.join(User, User.id == Likes.user_id, isouter=True).filter_by(account=user_data.account).with_entities(group_data.c.total, Manga.name, Manga.update_time) \
+    liked = Likes.query.join(User, User.id == Likes.user_id, isouter=True).filter_by(account=user_data.account)\
+        .add_columns(Manga.mid, Manga.url, Manga.name, Manga.page, Manga.author, Manga.author_group, group_data.c.total, Manga.update_time, Manga.insert_user)\
         .join(Manga, Likes.mid == Manga.mid, isouter=True).join(group_data, Manga.mid == group_data.c.mid, isouter=True)
     # print(liked)
+    # for i in liked:
+    #     print(i)
 
     # 個人主頁
     if PageType == "main":
@@ -56,24 +59,32 @@ def SelfUrlContent(user_data, PageType, SortType=None, page=None):
 
         # 個人主頁限制5筆
         upload = upload.paginate(0, 5, False)
-        liked = liked.limit(5).all()
+        liked = liked.paginate(0, 5, False)
+        # liked = liked.limit(5).all()
     # 單一頁面
     else:
         if SortType == 2:
             upload = upload.order_by(group_data.c.total.asc())
+            liked = liked.order_by(group_data.c.total.asc())
         elif SortType == 3:
             upload = upload.order_by(Manga.update_time.desc())
+            liked = liked.order_by(Manga.update_time.desc())
         elif SortType == 4:
             upload = upload.order_by(Manga.update_time.asc())
+            liked = liked.order_by(Manga.update_time.asc())
         elif SortType == 5:
             upload = upload.order_by(Manga.insert_time.desc())
+            liked = liked.order_by(Manga.insert_time.desc())
         elif SortType == 6:
             upload = upload.order_by(Manga.insert_time.asc())
+            liked = liked.order_by(Manga.insert_time.asc())
         # type=1 或者超過6
         else:
             upload = upload.order_by(group_data.c.total.desc())
+            liked = liked.order_by(group_data.c.total.desc())
 
         upload = upload.paginate(page, 10, False)
+        liked = liked.paginate(page, 10, False)
 
     return upload, liked
 
@@ -112,37 +123,45 @@ def HomePageSort(account, SortType):
 
     if SortType in ['1', '2']:
         return render_template('your_upload.html', chk="main", upload=upload)
-    return render_template('liked_recently.html', liked=liked)
+    return render_template('liked_recently.html', chk="main", liked=liked)
 
 
-@user.route("/user/upload/<string:account>/<int:SortType>", methods=['GET', 'POST'])
-@user.route("/user/upload/<string:account>/<int:SortType>/<int:page>", methods=['GET', 'POST'])
+@user.route("/user/<string:PageType>/<string:account>/<int:SortType>", methods=['GET', 'POST'])
+@user.route("/user/<string:PageType>/<string:account>/<int:SortType>/<int:page>", methods=['GET', 'POST'])
 @login_required
-def UserUpload(account, SortType, page=1):
+def UserContent(PageType, account, SortType, page=1):
     form = UploadDeleteForm()
     form1 = ModifyForm()
 
     if form.validate_on_submit() and form.delete.data:
         print(form.delete_mid.data)
-        Manga.query.filter_by(mid=form.delete_mid.data).delete()
-        db.session.commit()
-        return redirect(url_for('user.UserUpload', account=account, SortType=SortType))
+        manga = Manga.query.filter_by(mid=form.delete_mid.data).first()
+        if current_user.id == manga.insert_user or current_user.is_administrator():
+            Likes.query.filter_by(mid=form.delete_mid.data).delete()
+            Manga.query.filter_by(mid=form.delete_mid.data).delete()
+            db.session.commit()
+        return redirect(url_for('user.UserContent', PageType=PageType, account=account, SortType=SortType))
 
     if form1.validate_on_submit() and form1.submit.data:
         print(form1.mid.data)
         manga = Manga.query.filter_by(mid=form1.mid.data).first()
-        manga.name = form1.name.data
-        manga.page = form1.pages.data
-        manga.url = form1.url.data
-        manga.author = form1.author.data
-        manga.author_group = form1.group.data
-        manga.update_user = current_user.id
-        db.session.commit()
-        return redirect(url_for('user.UserUpload', account=account, SortType=SortType))
+        if current_user.id == manga.insert_user or current_user.is_administrator():
+            manga.name = form1.name.data
+            manga.page = form1.pages.data
+            manga.url = form1.url.data
+            manga.author = form1.author.data
+            manga.author_group = form1.group.data
+            manga.update_user = current_user.id
+            db.session.commit()
+        return redirect(url_for('user.UserContent', PageType=PageType, account=account, SortType=SortType))
 
     user_data = User.query.filter_by(account=account).first_or_404()
     upload, liked = SelfUrlContent(user_data, "single", SortType, page)
-    for i in upload.items:
-        print(i)
-
-    return render_template('user_content.html', upload=upload, user=user_data, form=form, form1=form1, SortType=SortType, account=account, GR=get_random)
+    # for i in upload.items:
+    #     print(i)
+    if PageType == "upload":
+        return render_template('user_content.html', upload=upload, user=user_data, form=form, form1=form1, SortType=SortType, account=account, PageType=PageType, GR=get_random)
+    elif PageType == "liked":
+        return render_template('user_content.html', liked=liked, user=user_data, form=form, form1=form1, SortType=SortType, account=account, PageType=PageType, GR=get_random)
+    # else:
+    #     return render_template('index.html'), 404

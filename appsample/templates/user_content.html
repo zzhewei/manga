@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% import "_macros.html" as macros %}
-{% block title %}Upload{% endblock %}
+{% block title %}{% if PageType == 'upload' %}Upload{% else %}Liked{% endif %}{% endblock %}
 
 {% block head %}
 {{ super() }}
@@ -14,7 +14,7 @@
 
 {% block page_content %}
 <div class="page-header">
-    <h1 id="title">{{ _('Upload Record') }}</h1>
+    <h1 id="title">{% if PageType == 'upload' %}{{ _('Upload Record') }}{% else %}{{ _('Liked recently') }}{% endif %}</h1>
 </div>
 <div class="main_content">
     <div class="ul_content">
@@ -27,15 +27,19 @@
                 <option value=5 {% if SortType == 5 %} selected {% endif %}>{{ _("Date created(Newest)") }}</option>
                 <option value=6 {% if SortType == 6 %} selected {% endif %}>{{ _("Date created(Oldest)") }}</option>
             </select>
-            {{ macros.pagination_func(upload, 'user.UserUpload', account, SortType) }}
+            {% if PageType == 'upload' %}
+                {{ macros.pagination_func(upload, 'user.UserContent', PageType, account, SortType) }}
+            {% else %}
+                {{ macros.pagination_func(liked, 'user.UserContent', PageType, account, SortType) }}
+            {% endif %}
         </div>
         <ul class="manga_content">
-            {% include 'your_upload.html' %}
+            {% if PageType == 'upload' %}{% include 'your_upload.html' %}{% else %}{% include 'liked_recently.html' %}{% endif %}
         </ul>
     </div>
     {% if user == current_user or current_user.is_administrator() %}
         <dialog id="delete_uc_dialog">
-            <form method="POST" action="{{ url_for('user.UserUpload', account=account, SortType=SortType) }}">
+            <form method="POST" action="{{ url_for('user.UserContent', PageType=PageType, account=account, SortType=SortType) }}">
                 {{form.hidden_tag()}}
                 <label><i class='fas fa-exclamation-triangle'></i>{{ _('confirm the deletion?') }}</label>
                 <div class="delete_uc_div">
@@ -49,7 +53,7 @@
                 <h1>{{ _('Modify the Data') }}</h1>
                 <button class="modify_uc_dialog_cancel func_btn"><i class='fas fa-times'></i></button>
             </div>
-            <form id="modify_uc_dialog_div" method="POST" action="{{ url_for('user.UserUpload', account=account, SortType=SortType) }}">
+            <form id="modify_uc_dialog_div" method="POST" action="{{ url_for('user.UserContent', PageType=PageType, account=account, SortType=SortType) }}">
                 {{form1.hidden_tag()}}
                 <div class="input_container">
                     {{form1.name}}
