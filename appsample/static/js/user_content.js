@@ -1,7 +1,7 @@
 $(document).ready(function(){
     const selectElement = document.querySelector('#sorted');
-    const delete_dialog = document.getElementById("delete_uc_dialog");
-    const modify_dialog = document.getElementById("modify_uc_dialog");
+    const delete_dialog = document.getElementById("delete_dialog");
+    const modify_dialog = document.getElementById("modify_dialog");
 
     selectElement.addEventListener('change', (event) => {
         console.log(event.target.value);
@@ -24,11 +24,11 @@ $(document).ready(function(){
         }
     })
 
-    $('#delete_uc_cancel').click(function () {
+    $('#delete_cancel').click(function () {
         delete_dialog.close();
     });
 
-    $('.modify_uc_dialog_cancel').click(function () {
+    $('.modify_cancel').click(function () {
         modify_dialog.close();
     });
 

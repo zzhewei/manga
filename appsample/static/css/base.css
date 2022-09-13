@@ -1,0 +1,270 @@
+html {
+    height: 100%;
+}
+
+a {
+    font-weight: bold;
+}
+
+a:link {
+    text-decoration:none;
+}
+
+.func_btn {
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    border-radius: 3px;
+    margin-right: 15px;
+}
+
+
+/*search section*/
+.navbar {
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.search_div {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search_div div i {
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    background-color: transparent;
+}
+
+.search_div_url {
+    display: flex;
+    color: #FFFFFF;
+    font-size: 13pt;
+    font-weight: bold;
+    align-items: center;
+}
+
+.home_div {
+    font-size: 27pt;
+}
+
+.search_form {
+    text-align: right;
+    position: relative;
+}
+
+.search_form input#search_input {
+    width: 200px;
+    height: 35px;
+    background: white;
+    font-size: 10pt;
+    padding-left: 45px;
+    border-radius: 5px;
+}
+
+.search_form .icon {
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 8px;
+    color: #4f5b66;
+}
+
+.user_div {
+    display: flex;
+}
+
+.user_div i {
+    font-size: 15pt;
+    padding-bottom: 5px;
+    padding-left: 4px;
+}
+
+.user_detail {
+    border: #ccc 1px solid;
+    display: none;
+    font-size: 13px;
+    position: absolute;
+    right: 0px;
+    top: 106%;
+    border-radius: 3px;
+    z-index: 100;
+}
+
+.user_detail a {
+    background-color: #fff;
+    color: #333;
+    display: block;
+    padding: 0 30px;
+    text-decoration: none;
+    line-height: 40px;
+}
+
+.user_detail li {
+    border-bottom: #ccc 1px solid;
+}
+
+.user_detail a:hover {
+    background-color: #EEFEF3;
+}
+
+
+/*add and modify form*/
+#modify_dialog {
+    width: 400px;
+    height: 400px;
+}
+
+.form_title {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.form_h1 {
+    font-size: 15pt;
+    font-weight: bold;
+    padding-left: 10px; /* 左邊間距 */
+    padding-top: 2px; /* 上面間距 */
+    padding-bottom: 2px; /* 下面間距 */
+}
+
+.modify_cancel {
+    float: right;
+    margin-right: 10px;
+}
+
+#form_container {
+    margin-top: 2em;
+}
+
+.input_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+    margin-bottom: 1em;
+}
+
+.input_container > input {
+    border: none;
+    border-bottom: 1px solid #D8D8D8;
+    font-size: 16px;
+    width: 40%;
+}
+
+.input_container > label {
+	color: #D8D8D8;
+}
+
+.input_container > input:focus + label {
+    /* targets the label when the input receives focus */
+  	color: black;
+}
+
+.input_container > input:focus {
+    /* targets the label when the input receives focus */
+    border-bottom-color: black;
+    outline: none;
+    border-bottom-width: 2px;
+}
+
+.form_footer {
+    margin-right:20px;
+    margin-bottom:20px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.form_footer * {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right:20px;
+    border: none;
+    background-color: transparent;
+}
+
+
+/*delete dialog*/
+#delete_dialog {
+    width: 25%;
+    height: 20%;
+    padding: 0;
+}
+
+#delete_dialog label {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    padding: 3em;
+}
+
+#delete_dialog label i {
+    margin-right: 10px;
+}
+
+.delete_div {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.delete_div input {
+    font-size: 17px;
+    font-weight: bold;
+    width: 50%;
+    height: 35px;
+    border: none;
+    background-color: transparent;
+}
+
+
+/*頁碼*/
+.paginate .arrow {
+    background: transparent;
+    color: #000;
+    font-weight: bold;
+}
+
+.paginate .box {
+  text-align: center;
+  text-decoration: none;
+  margin-right: 5px;
+  padding: 6px 6px;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+.paginate a {
+  color: #000;
+}
+
+.paginate .current {
+  background: #000;
+  color: #fff;
+  font-weight: bold;
+}
+
+.paginate .dots {
+  color: #000;
+  font-weight: bold;
+}
+
+
+/*footer*/
+footer {
+    display: flex;
+    justify-content: center;
+    background-color: #F1F1F1;
+    width: 100%;
+}
+
+footer label {
+    font-size: 15px;
+}

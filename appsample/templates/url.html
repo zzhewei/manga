@@ -1,15 +1,42 @@
-{% for row in rows %}
+{% if request.args.sort_button == 'true' %}
+{% set sort_reverse = true %}
+{% else %}
+{% set sort_reverse = false %}
+{% endif %}
+{% for row in rows|sort(reverse=sort_reverse, attribute="mid") %}
 <li>
-    <a href="{{ row['url'] }}" class="manga_url"><p>{{ row['name'] }}</p></a>
-    <div id="{{ row['mid'] }}">
-        {% if current_user.is_authenticated %}
+    <input class="item_mid" type="hidden" value="{{ row['mid'] }}">
+    <input class="item_name" type="hidden" value="{{ row['name'] }}">
+    <input class="item_url" type="hidden" value="{{ row['url'] }}">
+    <input class="item_page" type="hidden" value="{{ row['page'] }}">
+    <input class="item_author" type="hidden" value="{{ row['author'] }}">
+    <input class="item_author_group" type="hidden" value="{{ row['author_group'] }}">
+    {% if current_user.is_administrator() %}
+        <button class="item_delete"><i class="fas fa-times"></i></button>
+    {% endif %}
+    <div class="manga_content_item_div">
+        <a href="{{ row['url'] }}">
+            <img src="{{ GR(n=row, size=180) }}">
+        </a>
+        <a href="{{ row['url'] }}">
+            <p class="item_name">{{ row['name'] }}</p>
+        </a>
+        <div class="thumb_modify">
+            <form method="POST" action="{{ url_for('main.MainPage') }}">
+                <input name="csrf_token" type="hidden" value="{{ csrf_token() }}">
+                <input name="mid" type="hidden" value="{{ row['mid'] }}">
+                <button type="submit" class="item_thumb">
+                    {% if row['press'] %}
+                        <i class="far fa-thumbs-up" style="color: red;">{{ row['total'] }}</i>
+                    {% else %}
+                        <i class="far fa-thumbs-up">{{ row['total'] }}</i>
+                    {% endif %}
+                </button>
+            </form>
             {% if current_user.can(Permission.MODIFY) %}
-                <button class="modify func_btn"><i class='fas fa-pen'></i></button>
+                <button class="item_modify"><i class="fas fa-pen"></i></button>
             {% endif %}
-            {% if current_user.is_administrator() %}
-                <button class="delete func_btn"><i class='fas fa-times'></i></button>
-            {% endif %}
-        {% endif %}
+        </div>
     </div>
 </li>
 {% endfor %}

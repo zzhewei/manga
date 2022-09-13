@@ -1,12 +1,11 @@
 from flask_login import login_required, current_user
-from ..model import select, sqlOP, Permission, Manga, db
-from flask import Blueprint, jsonify, render_template, redirect, url_for, request, flash
+from ..model import select, Permission, Manga, Likes, db, get_random
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from ..decorators import admin_required, permission_required
-from .form import ModifyForm
-from sqlalchemy.sql.expression import func
+from .form import ModifyForm, UploadDeleteForm
+from sqlalchemy import func
 
 main = Blueprint('main', __name__)
-SortType = "asc"
 
 
 # index
@@ -16,11 +15,14 @@ def index():
 
 
 # main page
+# TODO 排序與模糊搜尋兩邊不相干 搜尋後按排序會以全部的做排序 希望做到兩邊能互相牽制
 @main.route("/main", methods=['GET', 'POST'])
 def MainPage():
     form = ModifyForm()
+    form1 = UploadDeleteForm()
+
     if form.validate_on_submit() and form.submit.data:
-        if form.mid.data:
+        if form.mid.data and current_user.can(Permission.MODIFY):
             # UpdateData = {"mid": form.mid.data, "url": form.url.data, "name": form.name.data, "page": form.pages.data, "author": form.author.data, "author_group": form.group.data, "update_time": datetime.datetime.now()}
             # sqlOP("update manga set url = :url, name= :name, page= :page, author= :author, author_group= :author_group, update_time= :update_time where mid = :mid", UpdateData)
             manga = Manga.query.get_or_404(form.mid.data)
@@ -34,7 +36,7 @@ def MainPage():
             db.session.add(manga)
             db.session.commit()
             flash('Modify Success')
-        else:
+        elif current_user.can(Permission.MODIFY):
             manga = Manga(url=form.url.data,
                           name=form.name.data,
                           page=form.pages.data,
@@ -48,75 +50,64 @@ def MainPage():
             flash('Insert Success')
         # clear the form
         return redirect(url_for('main.MainPage'))
-    rows = select("select * from manga order by mid "+SortType+";")
+
+    if form1.validate_on_submit() and form1.delete.data:
+        print(form1.delete_mid.data)
+        if current_user.is_administrator():
+            Likes.query.filter_by(mid=form1.delete_mid.data).delete()
+            Manga.query.filter_by(mid=form1.delete_mid.data).delete()
+            db.session.commit()
+        return redirect(url_for('main.MainPage'))
+
+    if request.form.get("mid") and current_user.can(Permission.READ):
+        return_data = Likes.query.filter(Likes.user_id == current_user.id, Likes.mid == request.form.get("mid")).first()
+        print(return_data)
+        if return_data:
+            Likes.query.filter(Likes.user_id == current_user.id, Likes.mid == request.form.get("mid")).delete()
+        else:
+            like = Likes(user_id=current_user.id,
+                         mid=request.form.get("mid"),
+                         insert_user=current_user.id)
+            db.session.add(like)
+        db.session.commit()
+        return redirect(url_for('main.MainPage'))
+    elif request.form.get("mid"):
+        flash('Login First')
+
+    if current_user.can(Permission.READ):
+        sel_data = Likes.query.with_entities(Likes.mid).filter_by(user_id=current_user.id).subquery()
+
+        rows = Manga.query.with_entities(Manga.mid, Manga.url, Manga.name, Manga.page, Manga.author, Manga.author_group, func.count(Likes.mid).label('total'), func.IF(sel_data.c.mid, 1, 0).label('press'))\
+            .join(Likes, Manga.mid == Likes.mid, isouter=True).join(sel_data, Manga.mid == sel_data.c.mid, isouter=True).group_by(Manga.mid)
+    else:
+        rows = Manga.query.with_entities(Manga.mid, Manga.url, Manga.name, Manga.page, Manga.author, Manga.author_group, func.count(Likes.mid).label('total'))\
+                .join(Likes, Manga.mid == Likes.mid, isouter=True).group_by(Manga.mid)
+
     rand = Manga.query.order_by(func.random()).limit(5)
-    # mysql
-    # rand = select("select * from manga order by rand() limit 5")
-    # postgresql
-    # rand = select("select * from manga order by random() limit 5")
-    return render_template('main.html', rows=rows, rand=rand, form=form, Permission=Permission)
+
+    return render_template('main.html', rows=rows, rand=rand, form=form, form1=form1, Permission=Permission, GR=get_random)
 
 
 # fuzzy search
-@main.route("/fuzzy", methods=['GET', 'POST'])
+@main.route("/fuzzy", methods=['POST'])
 def FuzzySearch():
     PostDict = request.get_json()
-    if PostDict['input']:
-        return_data = select("select * from manga where url like concat('%', :val, '%') or name like concat('%', :val, '%') or author like concat('%', :val, '%')\
-                            or author_group like concat('%', :val, '%')", {'val': PostDict['input']})
-    else:
-        return_data = select("select * from manga order by mid " + SortType + ";")
+    print(PostDict)
+    if 'input' in PostDict and PostDict['input']:
+        if current_user.can(Permission.READ):
+            return_data = select("select s.*, count(l.mid) as total, if(ss.mid <> '', 1, 0) as press from\
+                                (select * from manga where url like concat('%', :val, '%') or name like concat('%', :val, '%') or author like concat('%', :val, '%')\
+                                or author_group like concat('%', :val, '%')) s left join likes l on s.mid=l.mid left join (SELECT mid FROM manga.likes where user_id=:uid) ss on s.mid=ss.mid\
+                                 group by s.mid;", {'val': PostDict['input'], 'uid': current_user.id})
+        else:
+            return_data = select("select s.*, count(l.mid) as total from\
+                                (select * from manga where url like concat('%', :val, '%') or name like concat('%', :val, '%') or author like concat('%', :val, '%')\
+                                or author_group like concat('%', :val, '%')) s left join likes l on s.mid=l.mid\
+                                group by s.mid;", {'val': PostDict['input']})
 
-    for i, item in enumerate(return_data):
-        return_data[i] = dict(item)
-        return_data[i]['insert_time'] = return_data[i]['insert_time'].strftime('%Y-%m-%d %H:%M:%S')
-        return_data[i]['update_time'] = return_data[i]['update_time'].strftime('%Y-%m-%d %H:%M:%S')
+        # for i, item in enumerate(return_data):
+        #     return_data[i] = dict(item)
+        #     return_data[i]['insert_time'] = return_data[i]['insert_time'].strftime('%Y-%m-%d %H:%M:%S')
+        #     return_data[i]['update_time'] = return_data[i]['update_time'].strftime('%Y-%m-%d %H:%M:%S')
 
-    # data = {"code": 200, "success": True, "data": return_data}
-    # return jsonify(data)
-    return render_template('url.html', rows=return_data, Permission=Permission)
-
-
-# query sort by button
-@main.route("/sort")
-def MainPageSort():
-    global SortType
-    if SortType == "asc":
-        SortType = "desc"
-    else:
-        SortType = "asc"
-    return_data = select("select * from manga order by mid "+SortType+";")
-    for i, item in enumerate(return_data):
-        return_data[i] = dict(item)
-        return_data[i]['insert_time'] = return_data[i]['insert_time'].strftime('%Y-%m-%d %H:%M:%S')
-        return_data[i]['update_time'] = return_data[i]['update_time'].strftime('%Y-%m-%d %H:%M:%S')
-    # data = {"code": 200, "success": True, "data": return_data}
-    # return jsonify(data)
-    return render_template('url.html', rows=return_data, Permission=Permission)
-
-
-# Query single modify data
-@main.route("/modify/<string:mid>", methods=['GET'])
-@login_required
-@permission_required(Permission.MODIFY)
-def ModifyGetData(mid):
-    return_data = select("select * from manga where mid =:val", {"val": mid})
-    return_data[0] = dict(return_data[0])
-    return_data[0]['insert_time'] = return_data[0]['insert_time'].strftime('%Y-%m-%d %H:%M:%S')
-    return_data[0]['update_time'] = return_data[0]['update_time'].strftime('%Y-%m-%d %H:%M:%S')
-    data = {"code": 200, "success": True, "data": return_data}
-    return jsonify(data)
-
-
-# delete data
-@main.route("/del/<string:mid>", methods=['GET'])
-@login_required
-@admin_required
-def DelGetData(mid):
-    sqlOP("delete from manga where mid =:val", {"val": mid})
-    return_data = select("select * from manga order by mid " + SortType + ";")
-    for i, item in enumerate(return_data):
-        return_data[i] = dict(item)
-        return_data[i]['insert_time'] = return_data[i]['insert_time'].strftime('%Y-%m-%d %H:%M:%S')
-        return_data[i]['update_time'] = return_data[i]['update_time'].strftime('%Y-%m-%d %H:%M:%S')
-    return render_template('url.html', rows=return_data, Permission=Permission)
+        return render_template('url.html', rows=return_data, Permission=Permission, GR=get_random)

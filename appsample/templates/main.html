@@ -1,7 +1,18 @@
 {% extends "base.html" %}
 
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
+{% endblock %}
+
 {% block navbar_search %}
     <form class="search_form">
+        <input id="csrf_token" type="hidden" value="{{ csrf_token() }}">
         <span class="icon"><i class="fa fa-search"></i></span>
         <input type="search" id="search_input" placeholder="Search..." />
     </form>
@@ -9,7 +20,7 @@
 
 
 {% block page_content %}
-    <div id="wrapper">
+    <div class="wrapper">
         <h2>{{ _('Random') }}</h2>
         <section id="random">
             <ul id="random_content">
@@ -25,52 +36,68 @@
         </section>
         <section id="main">
             <div id = "iconBtnRow">
-                <button id = "sort_button" class="iconBtn"><i class='fas fa-sort'></i></button>
+                {% if 'true' in request.url %}
+                    <a href="{{ url_for( 'main.MainPage', sort_button='false' ) }}" class="iconBtn a_icon"><i class="fas fa-sort"></i></a>
+                {% else %}
+                    <a href="{{ url_for( 'main.MainPage', sort_button='true' ) }}" class="iconBtn a_icon"><i class="fas fa-sort"></i></a>
+                {% endif %}
+
                 {% if current_user.is_administrator() %}
-                    <button id = "add_button" class="iconBtn"><i class='far fa-plus-square'></i></button>
+                    <button id = "add_button" class="iconBtn"><i class="far fa-plus-square"></i></button>
                 {% endif %}
             </div>
             <ul id="main_content">
                 {% include 'url.html' %}
             </ul>
         </section>
-        <form id="form_content" method="POST" action="{{ url_for('main.MainPage') }}">
-            <h1>{{ _('Modify the Data') }}</h1>
-            {{form.hidden_tag()}}
-            <div id="form_container">
-                <div class="input_container">
-                    {{form.name}}
-                    {{form.name.label}}
+        {% if current_user.can(Permission.MODIFY) %}
+            <dialog id="modify_dialog">
+                <div class="form_title">
+                    <h1 class="form_h1">{{ _('Modify the Data') }}</h1>
+                    <button class="modify_cancel func_btn"><i class="fas fa-times"></i></button>
                 </div>
-                <div class="input_container">
-                    {{form.author}}
-                    {{form.author.label}}
-                </div>
-                <div class="input_container">
-                    {{form.group}}
-                    {{form.group.label}}
-                </div>
-                <div class="input_container">
-                    {{form.url}}
-                    {{form.url.label}}
-                </div>
-                <div class="input_container">
-                    {{form.pages}}
-                    {{form.pages.label}}
-                </div>
-                <div class="form_footer">{{form.submit}}
-                    <button id="modify_cancel">{{ _('Cancel') }}</button>
-                </div>
-            </div>
-        </form>
-        <div id="overlay"></div>
-        <dialog id="delete_dialog">
-            <input id="delete_mid" type="hidden">
-            <label><i class='fas fa-exclamation-triangle'></i>{{ _('confirm the deletion?') }}</label>
-            <div class="delete_div">
-              <button id="delete_confirm">{{ _('Confirm') }}</button>
-              <button id="delete_cancel">{{ _('Cancel') }}</button>
-            </div>
-        </dialog>
+                <form id="form_content" method="POST" action="{{ url_for('main.MainPage') }}">
+                    {{form.hidden_tag()}}
+                    <div id="form_container">
+                        <div class="input_container">
+                            {{form.name}}
+                            {{form.name.label}}
+                        </div>
+                        <div class="input_container">
+                            {{form.author}}
+                            {{form.author.label}}
+                        </div>
+                        <div class="input_container">
+                            {{form.group}}
+                            {{form.group.label}}
+                        </div>
+                        <div class="input_container">
+                            {{form.url}}
+                            {{form.url.label}}
+                        </div>
+                        <div class="input_container">
+                            {{form.pages}}
+                            {{form.pages.label}}
+                        </div>
+                        <div class="form_footer">
+                            {{form.submit}}
+                        </div>
+                    </div>
+                </form>
+            </dialog>
+        {% endif %}
+
+        {% if current_user.is_administrator() %}
+            <dialog id="delete_dialog">
+                <form method="POST" action="{{ url_for('main.MainPage') }}">
+                    {{form1.hidden_tag()}}
+                    <label><i class="fas fa-exclamation-triangle"></i>{{ _('confirm the deletion?') }}</label>
+                    <div class="delete_div">
+                        {{form1.delete}}
+                        <input id="delete_cancel" type="submit" value="{{ _('Cancel') }}">
+                    </div>
+                </form>
+            </dialog>
+        {% endif %}
     </div>
 {% endblock %}

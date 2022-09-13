@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    const modify_role_dialog = document.getElementById("modify_role_dialog");
+    const modify_role_dialog = document.getElementById("modify_dialog");
 
     $('#user_content li button').click(function () {
         $("#uid").val($(this).closest('li').find(".user_id").val());
@@ -8,7 +8,7 @@ $(document).ready(function(){
         modify_role_dialog.showModal();
     });
 
-    $('.modify_role_dialog_cancel').click(function () {
+    $('.modify_cancel').click(function () {
         modify_role_dialog.close();
     });
 

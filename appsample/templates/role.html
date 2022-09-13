@@ -43,30 +43,32 @@
                 <p class="email_p">{{ user['email'] }}</p>
                 <p class="confirmed_p">{{ user['confirmed'] }}</p>
                 <p class="role_p">{{ user['role_name'] }}</p>
-                <button class="func_btn"><i class='fas fa-edit'></i></button>
+                <button class="func_btn"><i class="fas fa-edit"></i></button>
             </li>
             {% endfor %}
         </ul>
     </div>
     {{ macros.pagination_func(users, 'role.UserRole') }}
-    <dialog id="modify_role_dialog">
-        <div class="dialog_title">
-            <h1>{{ _('Modify the Data') }}</h1>
-            <button class="modify_role_dialog_cancel func_btn"><i class='fas fa-times'></i></button>
+    <dialog id="modify_dialog">
+        <div class="form_title">
+            <h1 class="form_h1">{{ _('Modify the Data') }}</h1>
+            <button class="modify_cancel func_btn"><i class="fas fa-times"></i></button>
         </div>
-        <form id="modify_role_dialog_div" method="POST" action="{{ url_for('role.UserRole') }}">
+        <form id="form_content" method="POST" action="{{ url_for('role.UserRole') }}">
             {{form.hidden_tag()}}
-            <div class="input_container">
-                {{form.username}}
-                {{form.username.label}}
-            </div>
-            <div class="input_container">
-                {{form.userrole}}
-                {{form.userrole.label}}
-            </div>
-            <div class="form_footer">
-                {{form.submit}}
-                {{form.delete}}
+            <div id="form_container">
+                <div class="input_container">
+                    {{form.username}}
+                    {{form.username.label}}
+                </div>
+                <div class="input_container">
+                    {{form.userrole}}
+                    {{form.userrole.label}}
+                </div>
+                <div class="form_footer">
+                    {{form.submit}}
+                    {{form.delete}}
+                </div>
             </div>
         </form>
     </dialog>

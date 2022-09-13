@@ -5,6 +5,12 @@
     position: relative;
 }
 
+.container {
+    height: -webkit-calc(100vh - 50px);
+    height: -moz-calc(100vh - 50px);
+    height: calc(100vh - 50px);
+}
+
 i {
     padding-left: 5px;
 }

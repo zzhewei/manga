@@ -38,45 +38,47 @@
         </ul>
     </div>
     {% if user == current_user or current_user.is_administrator() %}
-        <dialog id="delete_uc_dialog">
+        <dialog id="delete_dialog">
             <form method="POST" action="{{ url_for('user.UserContent', PageType=PageType, account=account, SortType=SortType) }}">
                 {{form.hidden_tag()}}
-                <label><i class='fas fa-exclamation-triangle'></i>{{ _('confirm the deletion?') }}</label>
-                <div class="delete_uc_div">
+                <label><i class="fas fa-exclamation-triangle"></i>{{ _('confirm the deletion?') }}</label>
+                <div class="delete_div">
                     {{form.delete}}
-                    <input id="delete_uc_cancel" type="submit" value="{{ _('Cancel') }}">
+                    <input id="delete_cancel" type="submit" value="{{ _('Cancel') }}">
                 </div>
             </form>
         </dialog>
-        <dialog id="modify_uc_dialog">
-            <div class="dialog_title">
-                <h1>{{ _('Modify the Data') }}</h1>
-                <button class="modify_uc_dialog_cancel func_btn"><i class='fas fa-times'></i></button>
+        <dialog id="modify_dialog">
+            <div class="form_title">
+                <h1 class="form_h1">{{ _('Modify the Data') }}</h1>
+                <button class="modify_cancel func_btn"><i class="fas fa-times"></i></button>
             </div>
-            <form id="modify_uc_dialog_div" method="POST" action="{{ url_for('user.UserContent', PageType=PageType, account=account, SortType=SortType) }}">
+            <form id="form_content" method="POST" action="{{ url_for('user.UserContent', PageType=PageType, account=account, SortType=SortType) }}">
                 {{form1.hidden_tag()}}
-                <div class="input_container">
-                    {{form1.name}}
-                    {{form1.name.label}}
-                </div>
-                <div class="input_container">
-                    {{form1.author}}
-                    {{form1.author.label}}
-                </div>
-                <div class="input_container">
-                    {{form1.group}}
-                    {{form1.group.label}}
-                </div>
-                <div class="input_container">
-                    {{form1.url}}
-                    {{form1.url.label}}
-                </div>
-                <div class="input_container">
-                    {{form1.pages}}
-                    {{form1.pages.label}}
-                </div>
-                <div class="form_footer">
-                    {{form1.submit}}
+                <div id="form_container">
+                    <div class="input_container">
+                        {{form1.name}}
+                        {{form1.name.label}}
+                    </div>
+                    <div class="input_container">
+                        {{form1.author}}
+                        {{form1.author.label}}
+                    </div>
+                    <div class="input_container">
+                        {{form1.group}}
+                        {{form1.group.label}}
+                    </div>
+                    <div class="input_container">
+                        {{form1.url}}
+                        {{form1.url.label}}
+                    </div>
+                    <div class="input_container">
+                        {{form1.pages}}
+                        {{form1.pages.label}}
+                    </div>
+                    <div class="form_footer">
+                        {{form1.submit}}
+                    </div>
                 </div>
             </form>
         </dialog>
