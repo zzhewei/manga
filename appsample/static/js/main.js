@@ -51,7 +51,7 @@ $(document).ready(function(){
         modify_dialog.showModal();
     });
 
-    $('#modify_cancel').click(function () {
+    $('.modify_cancel').click(function () {
         document.getElementById('name').removeAttribute("required");
         document.getElementById('author').removeAttribute("required");
         modify_dialog.close();

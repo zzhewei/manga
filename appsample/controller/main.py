@@ -76,9 +76,11 @@ def MainPage():
 
     if current_user.can(Permission.READ):
         sel_data = Likes.query.with_entities(Likes.mid).filter_by(user_id=current_user.id).subquery()
+        # Postgre的group by後只能秀group的欄位及相關的計數 所以先計算計數在join自己
+        group_data = Manga.query.with_entities(Manga.mid, func.count(Likes.mid).label('total')).join(Likes, Manga.mid == Likes.mid, isouter=True).group_by(Manga.mid).subquery()
 
-        rows = Manga.query.with_entities(Manga.mid, Manga.url, Manga.name, Manga.page, Manga.author, Manga.author_group, func.count(Likes.mid).label('total'), func.IF(sel_data.c.mid, 1, 0).label('press'))\
-            .join(Likes, Manga.mid == Likes.mid, isouter=True).join(sel_data, Manga.mid == sel_data.c.mid, isouter=True).group_by(Manga.mid)
+        rows = Manga.query.with_entities(Manga.mid, Manga.url, Manga.name, Manga.page, Manga.author, Manga.author_group, group_data.c.total, sel_data.c.mid.label('press')) \
+            .join(group_data, Manga.mid == group_data.c.mid, isouter=True).join(sel_data, Manga.mid == sel_data.c.mid, isouter=True)
     else:
         rows = Manga.query.with_entities(Manga.mid, Manga.url, Manga.name, Manga.page, Manga.author, Manga.author_group, func.count(Likes.mid).label('total'))\
                 .join(Likes, Manga.mid == Likes.mid, isouter=True).group_by(Manga.mid)
@@ -95,15 +97,16 @@ def FuzzySearch():
     print(PostDict)
     if 'input' in PostDict and PostDict['input']:
         if current_user.can(Permission.READ):
-            return_data = select("select s.*, count(l.mid) as total, if(ss.mid <> '', 1, 0) as press from\
-                                (select * from manga where url like concat('%', :val, '%') or name like concat('%', :val, '%') or author like concat('%', :val, '%')\
-                                or author_group like concat('%', :val, '%')) s left join likes l on s.mid=l.mid left join (SELECT mid FROM manga.likes where user_id=:uid) ss on s.mid=ss.mid\
-                                 group by s.mid;", {'val': PostDict['input'], 'uid': current_user.id})
+            # 為符合Postgre和mysql更改
+            return_data = select("SELECT m.*, total, ss.mid as press FROM manga m \
+                            left join (select m.mid, count(l.mid) as total from manga m left join likes l on m.mid=l.mid group by m.mid) s on m.mid=s.mid\
+                            left join (SELECT mid FROM likes where user_id=:uid) ss on m.mid=ss.mid where url like concat('%', :val, '%') or name like concat('%', :val, '%') or author like concat('%', :val, '%')\
+                            or author_group like concat('%', :val, '%');", {'val': PostDict['input'], 'uid': current_user.id})
         else:
-            return_data = select("select s.*, count(l.mid) as total from\
-                                (select * from manga where url like concat('%', :val, '%') or name like concat('%', :val, '%') or author like concat('%', :val, '%')\
-                                or author_group like concat('%', :val, '%')) s left join likes l on s.mid=l.mid\
-                                group by s.mid;", {'val': PostDict['input']})
+            return_data = select("SELECT m.*, total FROM manga m \
+                            left join (select m.mid, count(l.mid) as total from manga m left join likes l on m.mid=l.mid group by m.mid) s on m.mid=s.mid\
+                            where url like concat('%', :val, '%') or name like concat('%', :val, '%') or author like concat('%', :val, '%')\
+                            or author_group like concat('%', :val, '%');", {'val': PostDict['input']})
 
         # for i, item in enumerate(return_data):
         #     return_data[i] = dict(item)
