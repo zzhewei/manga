@@ -19,14 +19,10 @@
 <div class="main_content">
     <div class="ul_content">
         <div class="search_content">
-            <select id="sorted">
-                <option value=1 {% if SortType == 1 %} selected {% endif %}>{{ _("Likes(Highest)") }}</option>
-                <option value=2 {% if SortType == 2 %} selected {% endif %}>{{ _("Likes(Lowest)") }}</option>
-                <option value=3 {% if SortType == 3 %} selected {% endif %}>{{ _("Date Modified(Newest)") }}</option>
-                <option value=4 {% if SortType == 4 %} selected {% endif %}>{{ _("Date Modified(Oldest)") }}</option>
-                <option value=5 {% if SortType == 5 %} selected {% endif %}>{{ _("Date created(Newest)") }}</option>
-                <option value=6 {% if SortType == 6 %} selected {% endif %}>{{ _("Date created(Oldest)") }}</option>
-            </select>
+            <form method="POST" action="{{ url_for('user.UserContent', PageType=PageType, account=account, SortType=SortType) }}">
+                {{form2.hidden_tag()}}
+                {{ form2.sort_choice(**{"onchange":"this.form.submit()"}) }}
+            </form>
             {% if PageType == 'upload' %}
                 {{ macros.pagination_func(upload, 'user.UserContent', PageType, account, SortType) }}
             {% else %}
@@ -37,7 +33,7 @@
             {% if PageType == 'upload' %}{% include 'your_upload.html' %}{% else %}{% include 'liked_recently.html' %}{% endif %}
         </ul>
     </div>
-    {% if user == current_user or current_user.is_administrator() %}
+    {% if current_user.is_administrator() %}
         <dialog id="delete_dialog">
             <form method="POST" action="{{ url_for('user.UserContent', PageType=PageType, account=account, SortType=SortType) }}">
                 {{form.hidden_tag()}}

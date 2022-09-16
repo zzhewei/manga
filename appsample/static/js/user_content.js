@@ -1,19 +1,13 @@
 $(document).ready(function(){
-    const selectElement = document.querySelector('#sorted');
     const delete_dialog = document.getElementById("delete_dialog");
     const modify_dialog = document.getElementById("modify_dialog");
-
-    selectElement.addEventListener('change', (event) => {
-        console.log(event.target.value);
-        window.location.href = "/"+window.location.href.split("/")[3]+"/user/"+window.location.href.split("/")[5]+"/"+window.location.href.split("/")[6]+"/"+event.target.value;
-    });
 
     $('.manga_content').on('click', 'button', function() {
         console.log($(this).attr("class"));
         if ($(this).attr("class")=='item_delete'){
             $("#delete_mid").val($(this).closest('li').find(".item_mid").val());
             delete_dialog.showModal();
-        }else{
+        }else if ($(this).attr("class")=='item_modify'){
             $("#mid").val($(this).closest('li').find(".item_mid").val());
             $("#name").val($(this).closest('li').find(".item_name").val());
             $("#url").val($(this).closest('li').find(".item_url").val());

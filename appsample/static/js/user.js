@@ -75,46 +75,4 @@ $(document).ready(function(){
     });
     /*=============================*/
 
-
-    $('.sort').click(function (e) {
-        console.log(window.location.href);
-        let type = 0;
-        /*上傳的*/
-        if (e.target.className.includes('yu')){
-            if (e.target.className.includes('like')){
-                /*Your upload like sort*/
-                type = 1;
-            }
-            else{
-                /*Your upload time sort*/
-                type = 2;
-            }
-        }
-        /*按讚的*/
-        else{
-            if (e.target.className.includes('like')){
-                /*Liked recently like sort*/
-                type = 3;
-            }
-            else{
-                /*Liked recently time sort*/
-                type = 4;
-            }
-        }
-        $.ajax({
-            url: window.location.href+"/sort/"+type,
-            type: "get",
-            success: function(response, test) {
-                if ([1, 2].includes(type)){
-                    $("#renew_upload").html(response);
-                }
-                else{
-                    $("#renew_liked").html(response);
-                }
-            },
-            error: function(xhr) {
-                alert("Sort error");
-            }
-        });
-    });
 })

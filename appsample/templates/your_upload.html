@@ -1,5 +1,15 @@
-{% for i in upload.items %}
-    {% if chk == "main" %}
+{% if request.args.sort_button == 'true' %}
+{% set sort_reverse = true %}
+{% else %}
+{% set sort_reverse = false %}
+{% endif %}
+{% if request.args.type %}
+{% set sort_attribute = request.args.type %}
+{% else %}
+{% set sort_attribute = "update_time" %}
+{% endif %}
+{% if chk == "main" %}
+    {% for i in upload.items|sort(reverse=sort_reverse, attribute=sort_attribute) %}
         <li class="li_content">
             <p class="p1">
                 {{ i['name'] }}
@@ -11,31 +21,47 @@
                 {{ i['update_time'] }}
             </p>
         </li>
-    {% else %}
+    {% endfor %}
+{% else %}
+    {% for i in upload.items %}
         <li class="manga_content_item">
+            <input class="item_mid" type="hidden" value="{{ i['mid'] }}">
             <input class="item_name" type="hidden" value="{{ i['name'] }}">
             <input class="item_url" type="hidden" value="{{ i['url'] }}">
             <input class="item_page" type="hidden" value="{{ i['page'] }}">
             <input class="item_author" type="hidden" value="{{ i['author'] }}">
             <input class="item_author_group" type="hidden" value="{{ i['author_group'] }}">
-            <input class="item_mid" type="hidden" value="{{ i['mid'] }}">
-            {% if i['insert_user'] == current_user.id or current_user.is_administrator() %}
+            {% if current_user.is_administrator() %}
                 <button class="item_delete"><i class='fas fa-times'></i></button>
             {% endif %}
             <div class="manga_content_item_div">
                 <a href="{{ i['url'] }}">
-                <img src="{{ GR(n=i, size=180) }}">
+                    <img src="{{ GR(n=i, size=180) }}">
                 </a>
                 <a href="{{ i['url'] }}">
                     <p class="item_name">{{ i['name'] }}</p>
                 </a>
                 <div class="thumb_modify">
-                    <i class='far fa-thumbs-up'>{% if i['total'] %}{{ i['total'] }}{% else %}0{% endif %}</i>
-                    {% if i['insert_user'] == current_user.id or current_user.is_administrator() %}
+                    {% if i['insert_user'] == current_user.id %}
+                        <form method="POST" action="{{ url_for('user.UserContent', PageType=PageType, account=account, SortType=SortType) }}">
+                            <input name="csrf_token" type="hidden" value="{{ csrf_token() }}">
+                            <input name="mid" type="hidden" value="{{ i['mid'] }}">
+                            <button type="submit" class="item_thumb">
+                                {% if i['press'] %}
+                                    <i class="far fa-thumbs-up" style="color: red;">{{ i['total'] }}</i>
+                                {% else %}
+                                    <i class="far fa-thumbs-up">{{ i['total'] }}</i>
+                                {% endif %}
+                            </button>
+                        </form>
+                    {% else %}
+                        <i class="far fa-thumbs-up">{{ i['total'] }}</i>
+                    {% endif %}
+                    {% if current_user.is_administrator() %}
                         <button class="item_modify"><i class='fas fa-pen'></i></button>
                     {% endif %}
                 </div>
             </div>
         </li>
-    {% endif %}
-{% endfor %}
+    {% endfor %}
+{% endif %}

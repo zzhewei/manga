@@ -15,12 +15,12 @@ a {
 }
 
 
-.main_content{
+.main_content {
     height: 70%;
 }
 
 
-.search_content{
+.search_content {
     display: flex;
     justify-content: space-between;
 }
@@ -65,6 +65,12 @@ a {
 .item_modify {
     background-color: transparent;
     border: none;
+}
+
+.item_thumb {
+    background-color: transparent;
+    border: none;
+    padding-left: 0;
 }
 
 .fas:hover {

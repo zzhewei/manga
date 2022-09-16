@@ -39,11 +39,30 @@
                     {{ _('Name') }}
                 </p>
                 <p class="p2">
-                    {{ _('like') }}<button class="button_i sort"><i class='fas fa-sort yu like'></i></button>
+                    <!--{{ _('like') }}<button class="button_i sort"><i class='fas fa-sort yu like'></i></button>-->
+                    {{ _('like') }}
+                    {% if 'true' in request.url %}
+                        <a href="{{ url_for( 'user.HomePage', sort_button='false', type='total', account=account ) }}" class="button_i">
+                            <i class='fas fa-sort'></i>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for( 'user.HomePage', sort_button='true', type='total', account=account ) }}" class="button_i">
+                            <i class='fas fa-sort'></i>
+                        </a>
+                    {% endif %}
                 </p>
-
                 <p class="p3">
-                    {{ _('Update Time') }}<button class="button_i sort"><i class='fas fa-sort yu time'></i></button>
+                    <!--{{ _('Update Time') }}<button class="button_i sort"><i class='fas fa-sort yu time'></i></button>-->
+                    {{ _('Update Time') }}
+                    {% if 'true' in request.url %}
+                        <a href="{{ url_for( 'user.HomePage', sort_button='false', type='update_time', account=account ) }}" class="button_i">
+                            <i class='fas fa-sort'></i>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for( 'user.HomePage', sort_button='true', type='update_time', account=account ) }}" class="button_i">
+                            <i class='fas fa-sort'></i>
+                        </a>
+                    {% endif %}
                 </p>
             </li>
             <div class="temp" id="renew_upload">
@@ -62,10 +81,30 @@
                     {{ _('Name') }}
                 </p>
                 <p class="p2">
-                    {{ _('like') }}<button class="button_i sort"><i class='fas fa-sort lr like'></i></button>
+                    <!--{{ _('like') }}<button class="button_i sort"><i class='fas fa-sort lr like'></i></button>-->
+                    {{ _('like') }}
+                    {% if 'true' in request.url %}
+                        <a href="{{ url_for( 'user.HomePage', sort_button='false', type='total', account=account ) }}" class="button_i">
+                            <i class='fas fa-sort'></i>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for( 'user.HomePage', sort_button='true', type='total', account=account ) }}" class="button_i">
+                            <i class='fas fa-sort'></i>
+                        </a>
+                    {% endif %}
                 </p>
                 <p class="p3">
-                    {{ _('Update Time') }}<button class="button_i sort"><i class='fas fa-sort lr time'></i></button>
+                    <!--{{ _('Update Time') }}<button class="button_i sort"><i class='fas fa-sort lr time'></i></button>-->
+                    {{ _('Update Time') }}
+                    {% if 'true' in request.url %}
+                        <a href="{{ url_for( 'user.HomePage', sort_button='false', type='update_time', account=account ) }}" class="button_i">
+                            <i class='fas fa-sort'></i>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for( 'user.HomePage', sort_button='true', type='update_time', account=account ) }}" class="button_i">
+                            <i class='fas fa-sort'></i>
+                        </a>
+                    {% endif %}
                 </p>
             </li>
             <div class="temp" id="renew_liked">
