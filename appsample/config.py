@@ -39,8 +39,10 @@ class DevelopmentConfig(BaseConfig):
     # SQLALCHEMY_DATABASE_URI = "postgresql://pugtefbvkqitvd:a978115eeffa95dd5b5c1d3ffad548c8ce44b0043ca573400c254fffe34cfa39@ec2-52-20-166-21.compute-1.amazonaws.com:5432/d4395tdnru2bdm"
     # render
     SQLALCHEMY_DATABASE_URI = "postgresql://root:wsQWxoI9wxAdtuecKTyljVAGQFpbbc2d@dpg-cd33a402i3mvvgc7hdv0-a.singapore-postgres.render.com/manga_31e0"
-    # if use docker compose use this
-    # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@mysql:3306/manga"
+
+
+class DockerDevelopmentConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@mysql:3306/manga"
 
 
 class TestingConfig(BaseConfig):
@@ -51,7 +53,13 @@ class TestingConfig(BaseConfig):
     TESTING = True
 
 
+class GitlabCIConfig(TestingConfig):
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@mysql:3306/mangatest"
+
+
 config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
+    'gitlab_testing': GitlabCIConfig,
+    'docker': DockerDevelopmentConfig,
 }

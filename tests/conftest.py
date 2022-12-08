@@ -5,6 +5,7 @@
 #           https://testdriven.io/blog/flask-pytest/
 #################################
 import pytest
+import os
 from appsample import create_app
 from appsample.model import User, db, Role
 
@@ -21,7 +22,7 @@ def test_client():
                   'appsample.controller.auth:auth',
                   'appsample.controller.role:role',
                   'appsample.controller.user:user']
-    flask_app = create_app('testing', blueprints)
+    flask_app = create_app(os.getenv('FLASK_CONFIG') or 'testing', blueprints)
 
     with flask_app.test_client(use_cookies=True) as client:
         with flask_app.app_context():

@@ -10,7 +10,7 @@ services:
     container_name: manga_server
     # restart: always
     environment:
-      - APP_NAME=FlaskApp
+      - FLASK_CONFIG=docker
     ports:
       - 9898:5000
     depends_on:

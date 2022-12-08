@@ -1,0 +1,89 @@
+############
+# reference: https://github.com/WokoLiu/gitlab-ci-flask
+# reference: https://zhuanlan.zhihu.com/p/106971627
+############
+
+# 三個階段
+stages:
+  - test    # 測試
+  - build   # 打包到dockerhub 但應該不會用
+  - deploy  # 部署
+
+
+# 當前CI中使用到的所有環境變量
+variables:
+  MYSQL_HOST: mysql
+  MYSQL_DATABASE: mangatest
+  MYSQL_ROOT_PASSWORD: root
+  FLASK_CONFIG: gitlab_testing
+  PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
+
+
+# 安放重複安裝的套件，供後續類似的工作可以取用
+cache:
+  paths:
+    - .cache/pip
+  key: $CI_PROJECT_ID  # 這邊設定成該project共用cache
+
+
+# 任何branch有更新就執行
+test:
+  image: python:3.6
+  stage: test
+  services:
+    - mysql:latest
+    - redis:latest
+  script:
+    - apt-get update && apt-get install -y git curl libmcrypt-dev default-mysql-client
+    - mysql --version
+    - sleep 20
+    - echo "Database host is '${MYSQL_HOST}'"
+    - echo "upgrade pip ..."
+    - python -m pip install --upgrade pip
+    - echo "install requirements"
+    - pip install -r ./requirements.txt
+    - echo "start a pytest"
+    - python -m pytest -x -v --cov=. --cov-config=.coveragerc
+
+
+# 設了測試的tag後，會推送到dockerhub上，在更新標籤
+build-dev:
+  image: docker:latest
+  stage: build
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build --pull -t $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG -t $CI_REGISTRY_IMAGE:dev-latest .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+    - docker push $CI_REGISTRY_IMAGE:dev-latest
+  only:
+    - /^dev-.*$/ # exapmle: dev-.1.2.3
+
+# 同上，但是在上正式的tag才會執行
+build-prod:
+  image: dokcer:latest
+  stage: build
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build --pull -t $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG -t $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+    - docker push $CI_REGISTRY_IMAGE:latest
+  only:
+    - /^\d+\.\d+\.\d+$/ # exapmle: v1.2.3
+
+# 當測試tag成功上dockerhub就會執行
+deploy_test:
+  stage: deploy
+  script:
+    - echo "deploy for test environment"
+  only:
+    - /^dev-.*$/
+  when: on_success
+
+# 當測試tag成功上dockerhub並手動確認才執行
+deploy_prod:
+  stage: deploy
+  script:
+    - echo "deploy for production environment"
+  only:
+    - /^\d+\.\d+\.\d+$/
+  when: manual # 在gitlab上確認
