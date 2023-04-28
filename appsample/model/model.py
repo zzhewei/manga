@@ -84,7 +84,8 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(200))
     confirmed = db.Column(db.Boolean, default=False)
     about_me = db.Column(db.Text(), default="Welcome!")
-    avatar_hash = db.Column(LONGTEXT)
+    avatar_hash = db.Column(db.Text())
+    # avatar_hash = db.Column(LONGTEXT) for mysql
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

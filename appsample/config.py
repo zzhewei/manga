@@ -34,11 +34,11 @@ class DevelopmentConfig(BaseConfig):
     WTF_CSRF_CHECK_DEFAULT = True
     WTF_CSRF_SSL_STRICT = True
     # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:cvbn78910@localhost:3306/manga"
-    # SQLALCHEMY_DATABASE_URI = "postgresql://postgres:root@localhost:5432/manga"
+    # SQLALCHEMY_DATABASE_URI = "postgresql://postgres:root@192.168.0.202:5432/manga"
     # heroku
     # SQLALCHEMY_DATABASE_URI = "postgresql://pugtefbvkqitvd:a978115eeffa95dd5b5c1d3ffad548c8ce44b0043ca573400c254fffe34cfa39@ec2-52-20-166-21.compute-1.amazonaws.com:5432/d4395tdnru2bdm"
     # render
-    SQLALCHEMY_DATABASE_URI = "postgresql://manga_database_user:4rAvCnntAfXlJnEdA4DlTJZBwxW2H04x@dpg-ch5jje0rddl7albkhor0-a.singapore-postgres.render.com:5432/manga_database"
+    SQLALCHEMY_DATABASE_URI = "postgresql://manga_1h1z_user:6xR37NTVTVsXQ9nJrB551sEVhtpKKZ0c@dpg-ch5lg0orddl7albugqeg-a.singapore-postgres.render.com/manga"
 
 
 class DockerDevelopmentConfig(BaseConfig):
