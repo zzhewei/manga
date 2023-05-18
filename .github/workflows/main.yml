@@ -8,9 +8,11 @@ name: Manga CI
 # 觸發條件
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 # 執行一項或多項任務
 jobs:
@@ -19,7 +21,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.7]
+        python-version: ["3.9"]
 
     # 使用 container 建立MySQL，並建立網路連線
     services:
@@ -28,25 +30,29 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: mangatest
-        ports: ['3306:3306']
+        ports:
+          - 3306:3306
+        # 測試 MySQL 執行是否正常
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-    # 使用官方的 action
-    # 可以查看 workflow 的執行狀況，並對 workflow 的虛擬環境進行指令操作（例如搭建測試環境）
-    - uses: actions/checkout@v2
+      # 使用官方的 action
+      # 可以查看 workflow 的執行狀況，並對 workflow 的虛擬環境進行指令操作（例如搭建測試環境）
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    # 建立環境
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r ./requirements.txt
+      # 建立環境
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./requirements.txt
 
-    # 運行測試
-    - name: Run pytest
-      run: |
-        python -m pytest -x -v --cov=. --cov-config=.coveragerc
+      # 運行測試
+      - name: Run pytest
+        run: |
+          python -m pytest -x -v --cov=. --cov-config=.coveragerc

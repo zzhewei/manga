@@ -23,7 +23,8 @@ jobs:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Deployment
         uses: akhileshns/heroku-deploy@v3.12.12
@@ -31,3 +32,22 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "manga-jason"
           heroku_email: ${{secrets.EMAIL}}
+
+#      # 使用 appleboy/ssh-action@master 這個 action 遠端連線至正式環境
+#      # https://github.com/appleboy/ssh-action
+#      - name: Deployment
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.SSH_HOST }}
+#          key: ${{ secrets.SSH_PRIVATE_KEY }}
+#          username: ${{ secrets.SSH_USERNAME }}
+#          # 執行部屬的指令
+#          script: |
+#            cd /var/www
+#            echo '啟用 Laravel 內建的維護模式'
+#            sudo -u www-data php artisan down
+#            echo '使用 git pull 更新專案'
+#            sudo -u www-data git pull --ff-only
+#            sudo -u www-data composer install --no-progress --prefer-dist --optimize-autoloader --no-dev
+#            sudo supervisorctl restart all
+#            sudo -u www-data php artisan up

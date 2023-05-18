@@ -1,5 +1,5 @@
 # FROM：基底映像檔
-FROM python:3.6.8-stretch
+FROM python:3.9-buster
 
 # install netcat
 RUN apt-get update && \
