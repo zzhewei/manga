@@ -15,6 +15,7 @@ from flask_bootstrap import Bootstrap
 from flask_babel import Babel
 from flask_mail import Mail
 from flask_migrate import upgrade
+from celery import Celery, Task
 
 csrf = CSRFProtect()
 login_manager = LoginManager()
@@ -30,6 +31,8 @@ email = Mail()
 def create_app(config_name, blueprints):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+
+    celery_init_app(app, config_name)
     Swagger(app)
     for i in blueprints:
         import_name = import_string(i)
@@ -127,6 +130,17 @@ def create_app(config_name, blueprints):
         app.wsgi_app = ProfilerMiddleware(app.wsgi_app, profile_dir="pstat_files")
     return app
 
+def celery_init_app(app: Flask, config_name) -> Celery:
+    class FlaskTask(Task):
+        def __call__(self, *args: object, **kwargs: object) -> object:
+            with app.app_context():
+                return self.run(*args, **kwargs)
+
+    celery_app = Celery(app.name, task_cls=FlaskTask)
+    celery_app.config_from_object(config[config_name])
+    celery_app.set_default()
+    app.extensions["celery"] = celery_app
+    return celery_app
 
 '''
 flask app.route how to run

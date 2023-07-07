@@ -13,7 +13,7 @@ def test_valid_login_logout(test_client):
     assert response.status_code == 200
 
 
-def test_register_and_login(test_client):
+def test_register_and_login(test_client, celery_mock):
     # register a new account
     response = test_client.post('/zh/signup', data={
         'email': 'jason@example.com',

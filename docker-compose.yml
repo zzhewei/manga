@@ -8,12 +8,14 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: manga_server
+    command: gunicorn -b :5000 --threads 4 app:app --preload
     # restart: always
     environment:
       - FLASK_CONFIG=docker
     ports:
       - 9898:5000
     depends_on:
+      - redis
       - db
     restart: always
 
@@ -31,3 +33,23 @@ services:
     #資料持久化與本機共享資料夾
     #volumes:
     #  - ./sqldata:/docker-entrypoint-initdb.d
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: celery
+    command: celery -A app.celery_app worker --loglevel=info
+    environment:
+      - FLASK_CONFIG=docker
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+        - flask
+        - redis
+
+  redis:
+    container_name: redis
+    image: redis:7-alpine
+    ports:
+      - 6379:6379

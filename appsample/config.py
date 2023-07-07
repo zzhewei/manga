@@ -20,11 +20,11 @@ class BaseConfig:  # 基本配置
     BABEL_TRANSLATION_DIRECTORIES = '../translations'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_SERVER = 'smtp.googlemail.com'
-    MAIL_PORT = 465
-    MAIL_USE_SSL = True
-    MAIL_USERNAME = 'xxxx@gmail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = 'xxx@gmail.com'
     MAIL_PASSWORD = 'test'
-    MAIL_SENDER = 'Heaven Admin <xxxx@gmail.com>'
+    MAIL_SENDER = 'Heaven Admin'
     MAIL_SUBJECT_PREFIX = '[Heaven]'
     FLASK_ANALYZE = False
 
@@ -33,16 +33,22 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = False
     WTF_CSRF_CHECK_DEFAULT = True
     WTF_CSRF_SSL_STRICT = True
-    # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:cvbn78910@localhost:3306/manga"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3306/manga"
     # SQLALCHEMY_DATABASE_URI = "postgresql://postgres:root@192.168.0.202:5432/manga"
     # heroku
     # SQLALCHEMY_DATABASE_URI = "postgresql://pugtefbvkqitvd:a978115eeffa95dd5b5c1d3ffad548c8ce44b0043ca573400c254fffe34cfa39@ec2-52-20-166-21.compute-1.amazonaws.com:5432/d4395tdnru2bdm"
     # render
-    SQLALCHEMY_DATABASE_URI = "postgresql://manga_1h1z_user:6xR37NTVTVsXQ9nJrB551sEVhtpKKZ0c@dpg-ch5lg0orddl7albugqeg-a.singapore-postgres.render.com/manga"
+    # SQLALCHEMY_DATABASE_URI = "postgresql://manga_1h1z_user:6xR37NTVTVsXQ9nJrB551sEVhtpKKZ0c@dpg-ch5lg0orddl7albugqeg-a.singapore-postgres.render.com/manga"
+    broker_url = "redis://localhost"
+    result_backend = "redis://localhost"
+    task_ignore_result = True
 
 
 class DockerDevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@mysql:3306/manga"
+    broker_url = "redis://redis:6379"
+    result_backend = "redis://redis:6379"
+    task_ignore_result = True
 
 
 class TestingConfig(BaseConfig):

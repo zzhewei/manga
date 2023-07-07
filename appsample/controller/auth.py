@@ -4,12 +4,12 @@
 #           https://github.com/miguelgrinberg/flasky/blob/master/app/models.py
 #           https://hackmd.io/@shaoeChen/HJiZtEngG/https%3A%2F%2Fhackmd.io%2Fs%2Fryvr_ly8f
 ###########
+from flask import Blueprint, request, flash, render_template, redirect, url_for
 from flask_login import login_required, login_user, logout_user, current_user
+from .form import LoginForm, RegistrationForm, ChangePasswordForm
 from .. import login_manager
 from ..model import User, db
-from .form import LoginForm, RegistrationForm, ChangePasswordForm
-from ..mail import send_email
-from flask import Blueprint, request, flash, render_template, redirect, url_for
+from ..mail import send_email_celery
 auth = Blueprint('auth', __name__)
 
 
@@ -28,8 +28,10 @@ def signup():
                     password=form.password.data)
         db.session.add(user)
         db.session.commit()
+
         token = user.generate_confirmation_token()
-        send_email(user.email, 'Confirm Your Account', 'mail_confirm', user=user, token=token)
+        url = url_for('auth.confirm', token=token, _external=True)
+        send_email_celery.delay(user.email, 'Confirm Your Account', 'mail_confirm', username=user.username, url=url)
         flash('A confirmation email has been sent to you by email.')
         return redirect(url_for('auth.login'))
     return render_template('register.html', form=form)

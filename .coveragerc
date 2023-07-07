@@ -2,3 +2,5 @@
 omit =
     */__init__.py
     */migrations/*
+    */manage.py
+    */app.py

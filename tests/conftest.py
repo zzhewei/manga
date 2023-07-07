@@ -6,8 +6,10 @@
 #################################
 import pytest
 import os
+from pytest_mock import MockFixture
 from appsample import create_app
 from appsample.model import User, db, Role
+from appsample.mail import send_email_celery
 
 
 # function：每一個函式或方法都會呼叫
@@ -35,3 +37,21 @@ def test_client():
             yield client
             db.session.remove()
             db.drop_all()
+
+
+@pytest.fixture()
+def celery_mock(mocker: MockFixture):
+    """
+    定義celery.delay回傳的測試資料，以測試程式是否能註冊
+
+    Args:
+        mocker (pytest_mock.plugin.MockerFixture): 用來mock外部函式的物件。
+
+    Returns:
+        None
+
+    Raises:
+        None
+    """
+    mock_celery = mocker.patch.object(target=send_email_celery, attribute="delay")
+    mock_celery.return_value = None

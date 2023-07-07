@@ -9,3 +9,4 @@ blueprints = ['appsample.controller.main:main',
               'appsample.controller.user:user']
 # if need test change development to testing
 app = create_app(os.getenv('FLASK_CONFIG') or 'development', blueprints)
+celery_app = app.extensions["celery"]

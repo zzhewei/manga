@@ -1,10 +1,10 @@
-Dear {{ user.username }},
+Dear {{ username }},
 
 Welcome to Heaven!
 
 To confirm your account please click on the following link:
 
-{{ url_for('auth.confirm', token=token, _external=True) }}
+{{ url }}
 
 Sincerely,
 
