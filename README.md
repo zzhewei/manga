@@ -1,5 +1,6 @@
 # The Heaven
-
+[![Manga CI](https://github.com/zzhewei/manga/actions/workflows/main.yml/badge.svg)](https://github.com/zzhewei/manga/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/zzhewei/manga/graph/badge.svg?token=WUGQT1JIXN)](https://codecov.io/gh/zzhewei/manga)
 
 ## Getting Started
 **這是一個紀錄常看的漫畫網址及精彩的頁數，有簡單實現使用者管理及權限部分。下面是如何安裝和使用這個工具的步驟。**

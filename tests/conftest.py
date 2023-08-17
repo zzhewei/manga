@@ -8,7 +8,7 @@ import pytest
 import os
 from pytest_mock import MockFixture
 from appsample import create_app
-from appsample.model import User, db, Role
+from appsample.model import User, db, Role, Manga
 from appsample.mail import send_email_celery
 
 
@@ -30,8 +30,11 @@ def test_client():
         with flask_app.app_context():
             db.create_all()
             Role.insert_roles()
-            user = User(role_id=1, email='test1234@gmail.com', username='test1', account='test1', password='test1', confirmed=False)
+            r = Role.query.filter_by(name='Administrator').first()
+            user = User(role_id=1, email='test1234@gmail.com', username='test1', account='test1', password='test1', confirmed=False, role=r)
+            manga = Manga(url='http://localhost:5000/openapi/swagger', name='x', page='1', author='test1', author_group="s", status=False, update_user=1, insert_user=1)
             db.session.add(user)
+            db.session.add(manga)
             db.session.commit()
             # 使用yield關鍵字可以實現setup/teardown的功能，在yield關鍵字之前的程式碼在case之前執行，yield之後的程式碼在case執行結束後執行
             yield client
