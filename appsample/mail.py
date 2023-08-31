@@ -4,9 +4,11 @@
 ########
 
 from threading import Thread
+
+from celery import shared_task
 from flask import current_app, render_template
 from flask_mail import Message
-from celery import shared_task
+
 from . import email
 
 
@@ -28,6 +30,7 @@ def send_email(to, subject, template, **kwargs):
     thr = Thread(target=send_async_email, args=[app, msg])
     thr.start()
     return thr
+
 
 @shared_task(ignore_result=False)
 def send_email_celery(to, subject, template, **kwargs):

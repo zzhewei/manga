@@ -1,5 +1,6 @@
-from appsample.model import User, db, AnonymousUser, Role, Permission
 import time
+
+from appsample.model import AnonymousUser, Permission, Role, User, db
 
 
 class Test_user:

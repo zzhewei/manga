@@ -55,7 +55,7 @@ jobs:
       # 運行測試
       - name: Run pytest
         run: |
-          python -m pytest -x -v --cov=. --cov-config=.coveragerc
+          python -m pytest .
 
       # 測試報告
       - name: Upload coverage reports to Codecov

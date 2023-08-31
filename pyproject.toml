@@ -1,0 +1,31 @@
+[tool.black]
+line-length = 120
+
+[tool.isort]
+line_length = 120
+use_parentheses = true # 是否要括號
+include_trailing_comma = true # 在換行的地方加逗號
+multi_line_output = 3
+src_paths = ["appsamle"] # 哪些目錄要套用
+
+[tool.pytest.ini_options]
+addopts = "-x -v --cov=./ --cov-report=html" # 參數
+
+[tool.coverage.run]
+branch = false # 分支覆蓋率
+omit = [ # 哪些檔案不進行覆蓋率檢查
+    "*/__init__.py",
+    "*/migrations/*",
+    "*/manage.py",
+    "*/app.py"
+]
+
+[tool.coverage.report]
+exclude_lines = [ # 哪些程式碼不進行覆蓋率檢查
+  "if __name__ == .__main__.:",
+]
+fail_under = 60.0 # 覆蓋率指標，及格線
+show_missing = true # 顯示未覆蓋代碼行數
+skip_covered = false # 跳過覆蓋率100%的檔案
+skip_empty = true # 不顯示空文件
+

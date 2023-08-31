@@ -2,16 +2,16 @@
 # reference:https://www.maxlist.xyz/2019/10/30/flask-sqlalchemy/
 #           https://blog.csdn.net/weixin_42677653/article/details/106154452
 ###########
-from flask import current_app
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+import hashlib
 from datetime import datetime
-from flask_login import UserMixin, AnonymousUserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
+
+from flask import current_app
+from flask_login import AnonymousUserMixin, UserMixin
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from sqlalchemy.dialects.mysql import LONGTEXT
-import hashlib
-
+from werkzeug.security import check_password_hash, generate_password_hash
 
 db = SQLAlchemy()
 migrate = Migrate()

@@ -1,8 +1,9 @@
-from flask_login import login_required, current_user
-from ..model import db, User, Manga, Likes, get_random
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
 from sqlalchemy import func
-from .form import AboutMeForm, UploadDeleteForm, ModifyForm, ChangeSortForm
+
+from ..model import Likes, Manga, User, db, get_random
+from .form import AboutMeForm, ChangeSortForm, ModifyForm, UploadDeleteForm
 
 user = Blueprint('user', __name__)
 
@@ -52,7 +53,7 @@ def SelfUrlContent(user_data, PageType, SortType=None, page=None):
             liked = liked.order_by(Manga.insert_time.asc())
         # type=1 或者超過6
         else:
-            # TODO Postgre排序null會亂掉
+            # TODO Postgres排序null會亂掉
             upload = upload.order_by(group_data.c.total.desc())
             liked = liked.order_by(group_data.c.total.desc())
 

@@ -1,7 +1,8 @@
-from flask_login import login_required, current_user
-from ..model import select, Likes, db, User, Role
-from flask import Blueprint, jsonify, current_app, render_template, redirect, url_for, session, request, flash
-from ..decorators import admin_required, permission_required
+from flask import Blueprint, flash, redirect, render_template, url_for
+from flask_login import login_required
+
+from ..decorators import admin_required
+from ..model import Likes, Role, User, db, select
 from .form import ChangePermissionForm, SearchForm
 
 role = Blueprint('role', __name__)

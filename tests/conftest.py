@@ -4,13 +4,13 @@
 #           https://iter01.com/578851.html
 #           https://testdriven.io/blog/flask-pytest/
 #################################
-import pytest
 import os
-from pytest_mock import MockFixture
-from appsample import create_app
-from appsample.model import User, db, Role, Manga
-from appsample.mail import send_email_celery
 
+import pytest
+from appsample import create_app
+from appsample.mail import send_email_celery
+from appsample.model import Manga, Role, User, db
+from pytest_mock import MockFixture
 
 # function：每一個函式或方法都會呼叫
 # class：每一個類呼叫一次

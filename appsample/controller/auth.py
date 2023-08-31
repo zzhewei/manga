@@ -4,12 +4,14 @@
 #           https://github.com/miguelgrinberg/flasky/blob/master/app/models.py
 #           https://hackmd.io/@shaoeChen/HJiZtEngG/https%3A%2F%2Fhackmd.io%2Fs%2Fryvr_ly8f
 ###########
-from flask import Blueprint, request, flash, render_template, redirect, url_for
-from flask_login import login_required, login_user, logout_user, current_user
-from .form import LoginForm, RegistrationForm, ChangePasswordForm
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required, login_user, logout_user
+
 from .. import login_manager
-from ..model import User, db
 from ..mail import send_email_celery
+from ..model import User, db
+from .form import ChangePasswordForm, LoginForm, RegistrationForm
+
 auth = Blueprint('auth', __name__)
 
 
@@ -88,10 +90,10 @@ def login():
                 if user.check_password(form.password.data):
                     login_user(user, form.remember_me.data)
                     # next(the url before login)
-                    next = request.args.get('next')
-                    if next is None or not next.startswith('/'):
+                    url_next = request.args.get('next')
+                    if url_next is None or not url_next.startswith('/'):
                         return redirect(url_for('main.MainPage'))
-                    return redirect(next)
+                    return redirect(url_next)
             flash('Invalid account or password.')
         return render_template('login.html', form=form)
     return redirect(url_for('main.MainPage'))

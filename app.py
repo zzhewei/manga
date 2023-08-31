@@ -1,6 +1,6 @@
-from appsample import create_app
 import os
 
+from appsample import create_app
 
 # if it needs test change controller to test
 blueprints = ['appsample.controller.main:main',

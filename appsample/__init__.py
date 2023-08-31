@@ -1,21 +1,23 @@
 #################################
 # __init__ 把當前目錄當作package 在其中做初始化動作
 #################################
-from flask import Flask, jsonify, g, request
-from flasgger import Swagger
-from .config import config
-from flask_cors import CORS
-from werkzeug.utils import import_string
-from .model import db, migrate, Role, AnonymousUser, User
 import logging
 from logging.handlers import TimedRotatingFileHandler
-from flask_wtf.csrf import CSRFProtect
-from flask_login import LoginManager
-from flask_bootstrap import Bootstrap
+
+from celery import Celery, Task
+from flasgger import Swagger
+from flask import Flask, g, jsonify, request
 from flask_babel import Babel
+from flask_bootstrap import Bootstrap
+from flask_cors import CORS
+from flask_login import LoginManager
 from flask_mail import Mail
 from flask_migrate import upgrade
-from celery import Celery, Task
+from flask_wtf.csrf import CSRFProtect
+from werkzeug.utils import import_string
+
+from .config import config
+from .model import AnonymousUser, Role, User, db, migrate
 
 csrf = CSRFProtect()
 login_manager = LoginManager()

@@ -1,8 +1,18 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, HiddenField, PasswordField, BooleanField, ValidationError, SelectField, TextAreaField
-from wtforms.validators import DataRequired, URL, Length, Email, Regexp, EqualTo
-from ..model import User
 from flask_babel import lazy_gettext
+from flask_wtf import FlaskForm
+from wtforms import (
+    BooleanField,
+    HiddenField,
+    PasswordField,
+    SelectField,
+    StringField,
+    SubmitField,
+    TextAreaField,
+    ValidationError,
+)
+from wtforms.validators import URL, DataRequired, Email, EqualTo, Length, Regexp
+
+from ..model import User
 
 
 class LoginForm(FlaskForm):
@@ -73,4 +83,5 @@ class UploadDeleteForm(FlaskForm):
 
 class ChangeSortForm(FlaskForm):
     sort_choice = SelectField("sort_choice", choices=[(1, lazy_gettext('Likes(Highest)')), (2, lazy_gettext('Likes(Lowest)')), (3, lazy_gettext('Date Modified(Newest)')),
-                                                          (4, lazy_gettext('Date Modified(Oldest)')), (5, lazy_gettext('Date created(Newest)')), (6, lazy_gettext('Date created(Oldest)'))], coerce=int, validators=[DataRequired()])
+                                                      (4, lazy_gettext('Date Modified(Oldest)')), (5, lazy_gettext('Date created(Newest)')), (6, lazy_gettext('Date created(Oldest)'))],
+                              coerce=int, validators=[DataRequired()])
