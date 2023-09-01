@@ -17,22 +17,42 @@ from pytest_mock import MockFixture
 # module：每一個.py檔案呼叫一次
 # session：是多個檔案呼叫一次
 
+
 # autouse設定為True時，自動呼叫fixture功能。
-@pytest.fixture(scope='session', autouse=True)
+@pytest.fixture(scope="session", autouse=True)
 def test_client():
-    blueprints = ['appsample.controller.main:main',
-                  'appsample.controller.auth:auth',
-                  'appsample.controller.role:role',
-                  'appsample.controller.user:user']
-    flask_app = create_app(os.getenv('FLASK_CONFIG') or 'testing', blueprints)
+    blueprints = [
+        "appsample.controller.main:main",
+        "appsample.controller.auth:auth",
+        "appsample.controller.role:role",
+        "appsample.controller.user:user",
+    ]
+    flask_app = create_app(os.getenv("FLASK_CONFIG") or "testing", blueprints)
 
     with flask_app.test_client(use_cookies=True) as client:
         with flask_app.app_context():
             db.create_all()
             Role.insert_roles()
-            r = Role.query.filter_by(name='Administrator').first()
-            user = User(role_id=1, email='test1234@gmail.com', username='test1', account='test1', password='test1', confirmed=False, role=r)
-            manga = Manga(url='http://localhost:5000/openapi/swagger', name='x', page='1', author='test1', author_group="s", status=False, update_user=1, insert_user=1)
+            r = Role.query.filter_by(name="Administrator").first()
+            user = User(
+                role_id=1,
+                email="test1234@gmail.com",
+                username="test1",
+                account="test1",
+                password="test1",
+                confirmed=False,
+                role=r,
+            )
+            manga = Manga(
+                url="http://localhost:5000/openapi/swagger",
+                name="x",
+                page="1",
+                author="test1",
+                author_group="s",
+                status=False,
+                update_user=1,
+                insert_user=1,
+            )
             db.session.add(user)
             db.session.add(manga)
             db.session.commit()

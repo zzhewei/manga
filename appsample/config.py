@@ -9,23 +9,17 @@ class BaseConfig:  # 基本配置
     # 中文設置
     JSON_AS_ASCII = False
     # SWAGGER設置  /apidocs
-    SWAGGER = {
-        "title": "Manga API",
-        "description": "",
-        "version": "1.0.0",
-        "termsOfService": "",
-        "hide_top_bar": True
-    }
-    LANGUAGES = ['zh', 'en', 'ja']
-    BABEL_TRANSLATION_DIRECTORIES = '../translations'
+    SWAGGER = {"title": "Manga API", "description": "", "version": "1.0.0", "termsOfService": "", "hide_top_bar": True}
+    LANGUAGES = ["zh", "en", "ja"]
+    BABEL_TRANSLATION_DIRECTORIES = "../translations"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    MAIL_SERVER = 'smtp.googlemail.com'
+    MAIL_SERVER = "smtp.googlemail.com"
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = 'xxx@gmail.com'
-    MAIL_PASSWORD = 'test'
-    MAIL_SENDER = 'Heaven Admin'
-    MAIL_SUBJECT_PREFIX = '[Heaven]'
+    MAIL_USERNAME = "xxx@gmail.com"
+    MAIL_PASSWORD = "test"
+    MAIL_SENDER = "Heaven Admin"
+    MAIL_SUBJECT_PREFIX = "[Heaven]"
     FLASK_ANALYZE = False
 
 
@@ -64,8 +58,8 @@ class GitlabCIConfig(TestingConfig):
 
 
 config = {
-    'development': DevelopmentConfig,
-    'testing': TestingConfig,
-    'gitlab_testing': GitlabCIConfig,
-    'docker': DockerDevelopmentConfig,
+    "development": DevelopmentConfig,
+    "testing": TestingConfig,
+    "gitlab_testing": GitlabCIConfig,
+    "docker": DockerDevelopmentConfig,
 }

@@ -1,6 +1,8 @@
 # The Heaven
 [![Manga CI](https://github.com/zzhewei/manga/actions/workflows/main.yml/badge.svg)](https://github.com/zzhewei/manga/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/zzhewei/manga/graph/badge.svg?token=WUGQT1JIXN)](https://codecov.io/gh/zzhewei/manga)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## Getting Started
 **這是一個紀錄常看的漫畫網址及精彩的頁數，有簡單實現使用者管理及權限部分。下面是如何安裝和使用這個工具的步驟。**
@@ -12,7 +14,7 @@
 * 啟動gmail的二階段認證
 
 ### Installing
-**1.clone repository到local。**
+**1.clone repository 到 local。**
 ```shell
 git clone https://github.com/zzhewei/manga.git
 ```
@@ -28,9 +30,9 @@ pip install -r requirements.txt
 python -m flask init
 ```
 
-**4. 修改config.py裡的MAIL_USERNAME、MAIL_PASSWORD及資料庫參數** 
+**4. 修改 config.py 裡的 MAIL_USERNAME、MAIL_PASSWORD 及資料庫參數** 
 
-**5. 在另一個console輸入(linux可不輸 -P eventlet)**
+**5. 在另一個 console 輸入( linux 可不輸 -P eventlet )**
 ```shell
 celery -A app.celery_app worker --loglevel info -P eventlet 
 ```
@@ -43,15 +45,15 @@ python -m flask run --host=0.0.0.0
 
 ### 運行測試
 ```shell
-python -m pytest -x -v --cov=./ --cov-report=html --cov-config=.coveragerc
+python -m pytest .
 ```
 
 **可在 htmlcov/index.html 觀看覆蓋率報告**
 
-**reference:https://myapollo.com.tw/zh-tw/pytest-coverage/**
+**reference : https://myapollo.com.tw/zh-tw/pytest-coverage/**
 
 ### And coding style tests
-**想分析測試專案程式碼，可另外使用pylint進行分析**
+**想分析測試專案程式碼，可另外使用 pylint 進行分析**
 
 **首先**
 ```shell
@@ -65,21 +67,21 @@ python -m pylint main.py
 **即可觀看測試結果**
 
 
-# 常用指令
-## 自動生成requirements.txt
+## 常用指令
+### 自動生成 requirements.txt
 ```shell
 pipreqs ./ --encoding=utf8 --force 
 ```
 
-## 根據dockerfile產生container
+### 根據 dockerfile 產生 container
 ```shell
 docker image build -t 'imagename' .
 
 docker run -d -p 80:8888 --name 'containername' 'imagename'
 ```
 
-## 根據docker-compose.yml產生container
-**1. 更改config.py的sql連線**
+### 根據 docker-compose.yml 產生 container
+**1. 更改 config.py 的 sql 連線**
 
 **2. 建立**
 ```shell
@@ -96,7 +98,7 @@ docker exec -it 'flaskname' /bin/bash
 python -m flask init
 ```
 
-## i18語言包
+### i18語言包
 **1. 生成 messages.pot**
 ```shell
 pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot .
@@ -107,7 +109,7 @@ pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot .
 pybabel update -i messages.pot -d translations
 ```
 
-*(如果沒有資料夾的初始化)*
+*( 如果沒有資料夾的初始化 )*
 ```shell
 pybabel init -i messages.pot -d translations -l lan
 ```
@@ -119,12 +121,15 @@ pybabel init -i messages.pot -d translations -l lan
 pybabel compile -d translations
 ```
 
-## flask profiling
+### 效能分析
 **set FLASK_ANALYZE = True**
 
-**enter pstat_files and in cmd "snakeviz 'filename under the pstat_files'"**
+**進入 pstat_files 資料夾並輸入**
+```shell
+snakeviz 'filename'
+```
 
-**reference:https://myapollo.com.tw/zh-tw/profiling-flask/**
+**reference : https://myapollo.com.tw/zh-tw/profiling-flask/**
 
 
 ## Contributing

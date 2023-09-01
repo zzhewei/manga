@@ -25,12 +25,12 @@ class Permission:
 
 
 class Role(db.Model):
-    __tablename__ = 'roles'
+    __tablename__ = "roles"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
     default = db.Column(db.Boolean, default=False, index=True)
     permissions = db.Column(db.Integer)
-    users = db.relationship('User', backref='role', lazy='dynamic')
+    users = db.relationship("User", backref="role", lazy="dynamic")
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -40,11 +40,11 @@ class Role(db.Model):
     @staticmethod
     def insert_roles():
         roles = {
-            'User': [Permission.READ],
-            'Moderator': [Permission.READ, Permission.WRITE, Permission.MODIFY],
-            'Administrator': [Permission.READ, Permission.WRITE, Permission.MODIFY, Permission.ADMIN],
+            "User": [Permission.READ],
+            "Moderator": [Permission.READ, Permission.WRITE, Permission.MODIFY],
+            "Administrator": [Permission.READ, Permission.WRITE, Permission.MODIFY, Permission.ADMIN],
         }
-        default_role = 'User'
+        default_role = "User"
         for r in roles:
             role = Role.query.filter_by(name=r).first()
             if role is None:
@@ -52,7 +52,7 @@ class Role(db.Model):
             role.reset_permissions()
             for perm in roles[r]:
                 role.add_permission(perm)
-            role.default = (role.name == default_role)
+            role.default = role.name == default_role
             db.session.add(role)
         db.session.commit()
 
@@ -71,13 +71,13 @@ class Role(db.Model):
         return self.permissions & perm == perm
 
     def __repr__(self):
-        return '<Role %r>' % self.name
+        return "<Role %r>" % self.name
 
 
 class User(UserMixin, db.Model):
-    __tablename__ = 'user'
+    __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey("roles.id"))
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64))
     account = db.Column(db.String(64), unique=True)
@@ -98,7 +98,7 @@ class User(UserMixin, db.Model):
     # property set method only read
     @property
     def password(self):
-        raise AttributeError('password is not a readable attribute')
+        raise AttributeError("password is not a readable attribute")
 
     @password.setter
     def password(self, password):
@@ -108,7 +108,7 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def to_json(self):
-        return {'id': self.id, 'username': self.username}
+        return {"id": self.id, "username": self.username}
 
     def can(self, perm):
         return self.role is not None and self.role.has_permission(perm)
@@ -117,30 +117,30 @@ class User(UserMixin, db.Model):
         return self.can(Permission.ADMIN)
 
     def generate_confirmation_token(self, expiration=3600):
-        s = Serializer(current_app.config['SECRET_KEY'], expiration)
-        return s.dumps({'confirm': self.id}).decode('utf-8')
+        s = Serializer(current_app.config["SECRET_KEY"], expiration)
+        return s.dumps({"confirm": self.id}).decode("utf-8")
 
     def confirm(self, token):
-        s = Serializer(current_app.config['SECRET_KEY'])
+        s = Serializer(current_app.config["SECRET_KEY"])
         try:
-            data = s.loads(token.encode('utf-8'))
+            data = s.loads(token.encode("utf-8"))
         except:
             return False
-        if data.get('confirm') != self.id:
+        if data.get("confirm") != self.id:
             return False
         self.confirmed = True
         db.session.add(self)
         return True
 
     def gravatar_hash(self):
-        return hashlib.md5(self.email.lower().encode('utf-8')).hexdigest()
+        return hashlib.md5(self.email.lower().encode("utf-8")).hexdigest()
 
-    def gravatar(self, size=100, default='identicon', rating='g'):
+    def gravatar(self, size=100, default="identicon", rating="g"):
         # 取得預設頭像 像github那樣
-        url = 'https://secure.gravatar.com/avatar'
+        url = "https://secure.gravatar.com/avatar"
         return_hash = self.avatar_hash
         if not return_hash:
-            return_hash = f'{url}/{self.gravatar_hash()}?s={size}&d={default}&r={rating}'
+            return_hash = f"{url}/{self.gravatar_hash()}?s={size}&d={default}&r={rating}"
         return return_hash
 
 
@@ -153,7 +153,7 @@ class AnonymousUser(AnonymousUserMixin):
 
 
 class Manga(db.Model):
-    __tablename__ = 'manga'
+    __tablename__ = "manga"
     mid = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(500), nullable=False)
     name = db.Column(db.Text, nullable=False)
@@ -171,10 +171,10 @@ class Manga(db.Model):
 
 
 class Likes(db.Model):
-    __tablename__ = 'likes'
+    __tablename__ = "likes"
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    mid = db.Column(db.Integer, db.ForeignKey('manga.mid'))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    mid = db.Column(db.Integer, db.ForeignKey("manga.mid"))
     insert_time = db.Column(db.DateTime, default=datetime.now)
     insert_user = db.Column(db.Integer, nullable=False)
 
@@ -198,7 +198,7 @@ def sqlOP(SqlContent, *args):
         db.session.rollback()
 
 
-def get_random(n, size=100, default='identicon', rating='g'):
-    url = 'https://secure.gravatar.com/avatar'
-    md5 = hashlib.md5(str(n).encode('utf-8')).hexdigest()
-    return f'{url}/{md5}?s={size}&d={default}&r={rating}'
+def get_random(n, size=100, default="identicon", rating="g"):
+    url = "https://secure.gravatar.com/avatar"
+    md5 = hashlib.md5(str(n).encode("utf-8")).hexdigest()
+    return f"{url}/{md5}?s={size}&d={default}&r={rating}"

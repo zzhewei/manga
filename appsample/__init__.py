@@ -38,7 +38,7 @@ def create_app(config_name, blueprints):
     Swagger(app)
     for i in blueprints:
         import_name = import_string(i)
-        app.register_blueprint(import_name, url_prefix='/<lan>')
+        app.register_blueprint(import_name, url_prefix="/<lan>")
     CORS(app)
     db.init_app(app)
     migrate.init_app(app, db)
@@ -50,18 +50,20 @@ def create_app(config_name, blueprints):
     login_manager.anonymous_user = AnonymousUser
 
     formatter = logging.Formatter("%(asctime)s [%(filename)s:%(lineno)d][%(levelname)s] - %(message)s")
-    handler = TimedRotatingFileHandler("./log/event.log", when="D", interval=1, backupCount=15, encoding="UTF-8", delay=True, utc=True)
+    handler = TimedRotatingFileHandler(
+        "./log/event.log", when="D", interval=1, backupCount=15, encoding="UTF-8", delay=True, utc=True
+    )
     app.logger.addHandler(handler)
     handler.setFormatter(formatter)
 
-    @app.cli.command('init')
+    @app.cli.command("init")
     @app.route("/init")
     def init():
         # 直接更新最新版
         upgrade()
         Role.insert_roles()
-        r = Role.query.filter_by(name='Administrator').first()
-        u = User(email='admin@example.com', username='admin', account='admin', password='admin', role=r, confirmed=True)
+        r = Role.query.filter_by(name="Administrator").first()
+        u = User(email="admin@example.com", username="admin", account="admin", password="admin", role=r, confirmed=True)
         db.session.add(u)
         db.session.commit()
         return jsonify({"Success": True})
@@ -82,29 +84,30 @@ def create_app(config_name, blueprints):
     def get_lan(endpoint, values):
         # print(endpoint, values)
         if values is not None:
-            g.lan = values.pop('lan', 'zh')
+            g.lan = values.pop("lan", "zh")
 
     # 2 Check lan is in config
     @app.before_request
     def check_lan():
-        lan = g.get('lan', None)
-        if lan and lan not in app.config['LANGUAGES']:
-            g.lan = request.accept_languages.best_match(app.config['LANGUAGES'])
+        lan = g.get("lan", None)
+        if lan and lan not in app.config["LANGUAGES"]:
+            g.lan = request.accept_languages.best_match(app.config["LANGUAGES"])
 
     # 3 set lan type
     @babel.localeselector
     def get_locale():
-        return g.get('lan')
+        return g.get("lan")
 
     # 4 checks if the lan is in the dictionary
     @app.url_defaults
     def set_lan(endpoint, values):
-        if 'lan' in values or not g.lan:
+        if "lan" in values or not g.lan:
             return
         # URL map can be used to figure out if it would make sense to provide a lan for the given endpoint.
-        if app.url_map.is_endpoint_expecting(endpoint, 'lan'):
-            values['lan'] = g.lan
-    '''
+        if app.url_map.is_endpoint_expecting(endpoint, "lan"):
+            values["lan"] = g.lan
+
+    """
     @app.after_request
     def inject_csrf_token(response):
         response.set_cookie("csrf_token", generate_csrf())
@@ -123,14 +126,16 @@ def create_app(config_name, blueprints):
         if dest in csrf._exempt_views:
             return
         # END workaround
-    '''
+    """
     # with app.app_context():
     #    db.create_all()
 
     if app.config["FLASK_ANALYZE"]:
         from werkzeug.middleware.profiler import ProfilerMiddleware
+
         app.wsgi_app = ProfilerMiddleware(app.wsgi_app, profile_dir="pstat_files")
     return app
+
 
 def celery_init_app(app: Flask, config_name) -> Celery:
     class FlaskTask(Task):
@@ -144,7 +149,8 @@ def celery_init_app(app: Flask, config_name) -> Celery:
     app.extensions["celery"] = celery_app
     return celery_app
 
-'''
+
+"""
 flask app.route how to run
 refer:https://www.cnblogs.com/sddai/p/13426277.html
 
@@ -173,4 +179,4 @@ def hello():
     return "Hello World"
 
 print(app.server("/"))
-'''
+"""

@@ -21,7 +21,9 @@ def permission_required(permission):
             if not current_user.can(permission):
                 abort(403)
             return f(*args, **kwargs)
+
         return decorated_function
+
     return decorator
 
 
@@ -29,7 +31,7 @@ def admin_required(f):
     return permission_required(Permission.ADMIN)(f)
 
 
-'''
+"""
 @permission_required(permission)
 def test():
     pass
@@ -71,4 +73,4 @@ if __name__ == "__main__":
     # > Now use function 'cat_miaow'
     # > Miaow ~~~
 print_func_name(dog_bark) 和 print_func_name(cat_miaow) 只會 return function 本身，所以要在後面加上 () 來 call function
-'''
+"""

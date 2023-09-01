@@ -1,3 +1,24 @@
+[tool.pylint.master]
+job = 0 # 默認多進程
+suggestion-mode = "yes" # 顯示建議
+
+[tool.pylint.format]
+max-line-length = 120
+
+[tool.pylint.basic]
+argument-naming-style = "any" # 參數
+attr-naming-style = "any" # 屬性
+function-naming-style = "any" # 函數
+method-naming-style = "any" # 方法
+variable-naming-style = "any" # 變數
+
+[tool.pylint.message_control]
+disable = [
+    "missing-docstring",
+    "logging-fstring-interpolation", # 在log使用f-string
+    "no-member",
+ ]
+
 [tool.black]
 line-length = 120
 
@@ -9,6 +30,7 @@ multi_line_output = 3
 src_paths = ["appsamle"] # 哪些目錄要套用
 
 [tool.pytest.ini_options]
+# python -m pytest -x -v --cov=./ --cov-report=html --cov-config=.coveragerc
 addopts = "-x -v --cov=./ --cov-report=html" # 參數
 
 [tool.coverage.run]
@@ -22,7 +44,7 @@ omit = [ # 哪些檔案不進行覆蓋率檢查
 
 [tool.coverage.report]
 exclude_lines = [ # 哪些程式碼不進行覆蓋率檢查
-  "if __name__ == .__main__.:",
+    "if __name__ == .__main__.:",
 ]
 fail_under = 60.0 # 覆蓋率指標，及格線
 show_missing = true # 顯示未覆蓋代碼行數

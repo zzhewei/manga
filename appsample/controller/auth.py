@@ -12,7 +12,7 @@ from ..mail import send_email_celery
 from ..model import User, db
 from .form import ChangePasswordForm, LoginForm, RegistrationForm
 
-auth = Blueprint('auth', __name__)
+auth = Blueprint("auth", __name__)
 
 
 @login_manager.user_loader
@@ -20,39 +20,41 @@ def load_user(uid):
     return User.query.get(uid)
 
 
-@auth.route('/signup', methods=['GET', 'POST'])
+@auth.route("/signup", methods=["GET", "POST"])
 def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email=form.email.data.lower(),
-                    username=form.username.data,
-                    account=form.account.data,
-                    password=form.password.data)
+        user = User(
+            email=form.email.data.lower(),
+            username=form.username.data,
+            account=form.account.data,
+            password=form.password.data,
+        )
         db.session.add(user)
         db.session.commit()
 
         token = user.generate_confirmation_token()
-        url = url_for('auth.confirm', token=token, _external=True)
-        send_email_celery.delay(user.email, 'Confirm Your Account', 'mail_confirm', username=user.username, url=url)
-        flash('A confirmation email has been sent to you by email.')
-        return redirect(url_for('auth.login'))
-    return render_template('register.html', form=form)
+        url = url_for("auth.confirm", token=token, _external=True)
+        send_email_celery.delay(user.email, "Confirm Your Account", "mail_confirm", username=user.username, url=url)
+        flash("A confirmation email has been sent to you by email.")
+        return redirect(url_for("auth.login"))
+    return render_template("register.html", form=form)
 
 
-@auth.route('/confirm/<token>')
+@auth.route("/confirm/<token>")
 @login_required
 def confirm(token):
     if current_user.confirmed:
-        return redirect(url_for('main.MainPage'))
+        return redirect(url_for("main.MainPage"))
     if current_user.confirm(token):
         db.session.commit()
-        flash('You have confirmed your account. Thanks!')
+        flash("You have confirmed your account. Thanks!")
     else:
-        flash('The confirmation link is invalid or has expired.')
-    return redirect(url_for('main.MainPage'))
+        flash("The confirmation link is invalid or has expired.")
+    return redirect(url_for("main.MainPage"))
 
 
-@auth.route("/login", methods=['GET', 'POST'])
+@auth.route("/login", methods=["GET", "POST"])
 # @csrf.exempt
 def login():
     """
@@ -90,13 +92,13 @@ def login():
                 if user.check_password(form.password.data):
                     login_user(user, form.remember_me.data)
                     # next(the url before login)
-                    url_next = request.args.get('next')
-                    if url_next is None or not url_next.startswith('/'):
-                        return redirect(url_for('main.MainPage'))
+                    url_next = request.args.get("next")
+                    if url_next is None or not url_next.startswith("/"):
+                        return redirect(url_for("main.MainPage"))
                     return redirect(url_next)
-            flash('Invalid account or password.')
-        return render_template('login.html', form=form)
-    return redirect(url_for('main.MainPage'))
+            flash("Invalid account or password.")
+        return render_template("login.html", form=form)
+    return redirect(url_for("main.MainPage"))
 
 
 @auth.route("/logout")
@@ -117,10 +119,10 @@ def logout():
         description: OK
     """
     logout_user()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for("auth.login"))
 
 
-@auth.route('/change_password', methods=['GET', 'POST'])
+@auth.route("/change_password", methods=["GET", "POST"])
 @login_required
 def change_password():
     form = ChangePasswordForm()
@@ -129,8 +131,8 @@ def change_password():
             current_user.password = form.password.data
             db.session.add(current_user)
             db.session.commit()
-            flash('Your password has been updated.')
-            return redirect(url_for('main.MainPage'))
+            flash("Your password has been updated.")
+            return redirect(url_for("main.MainPage"))
         else:
-            flash('Invalid password.')
+            flash("Invalid password.")
     return render_template("change_password.html", form=form)
