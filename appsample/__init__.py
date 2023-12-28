@@ -148,35 +148,3 @@ def celery_init_app(app: Flask, config_name) -> Celery:
     celery_app.set_default()
     app.extensions["celery"] = celery_app
     return celery_app
-
-
-"""
-flask app.route how to run
-refer:https://www.cnblogs.com/sddai/p/13426277.html
-
-class FlaskBother:
-    def __init__(self):
-        self.routes = {}
-
-    def route(self, route_str):
-        def decorator(f):
-            self.routes[route_str] = f
-            return f
-
-        return decorator
-
-    def server(self, path):
-        view_function = self.routes.get(path)
-        if view_function:
-            return view_function()
-        else:
-            raise ValueError('Route "{}" has not been registered'.format(path))
-
-app = FlaskBother()
-
-@app.route("/")
-def hello():
-    return "Hello World"
-
-print(app.server("/"))
-"""

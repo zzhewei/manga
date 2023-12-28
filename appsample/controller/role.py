@@ -2,7 +2,7 @@ from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import login_required
 
 from ..decorators import admin_required
-from ..model import Likes, Role, User, db, select
+from ..model import Likes, Role, User, db
 from .form import ChangePermissionForm, SearchForm
 
 role = Blueprint("role", __name__)
@@ -18,7 +18,9 @@ def UserRole(page=1):
     form = ChangePermissionForm()
     form1 = SearchForm()
     # 一定要寫在validate_on_submit前面 不然會抓不到choice 導致Not a valid choice.
-    form.userrole.choices = [(i.id, i.name) for i in select("SELECT id, name FROM roles;")]
+    return_data = db.session.execute("SELECT id, name FROM roles;")
+    chk = return_data.mappings().all()
+    form.userrole.choices = [(i.id, i.name) for i in chk]
     if form.validate_on_submit():
         if form.submit.data:
             user = User.query.filter_by(id=form.uid.data).first()

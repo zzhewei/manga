@@ -27,12 +27,12 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = False
     WTF_CSRF_CHECK_DEFAULT = True
     WTF_CSRF_SSL_STRICT = True
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3306/manga"
+    # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3306/manga"
     # SQLALCHEMY_DATABASE_URI = "postgresql://postgres:root@192.168.0.202:5432/manga"
     # heroku
     # SQLALCHEMY_DATABASE_URI = "postgresql://pugtefbvkqitvd:a978115eeffa95dd5b5c1d3ffad548c8ce44b0043ca573400c254fffe34cfa39@ec2-52-20-166-21.compute-1.amazonaws.com:5432/d4395tdnru2bdm"
     # render
-    # SQLALCHEMY_DATABASE_URI = "postgresql://manga_1h1z_user:6xR37NTVTVsXQ9nJrB551sEVhtpKKZ0c@dpg-ch5lg0orddl7albugqeg-a.singapore-postgres.render.com/manga"
+    SQLALCHEMY_DATABASE_URI = "postgresql://manga_xnk7_user:C6gPnB28tiFwK4OE8bicMvfell8UkziF@dpg-cm6edqa1hbls73aof7sg-a.singapore-postgres.render.com/manga_xnk7"
     broker_url = "redis://localhost"
     result_backend = "redis://localhost"
     task_ignore_result = True

@@ -182,22 +182,6 @@ class Likes(db.Model):
         super().__init__(**kwargs)
 
 
-def select(SqlContent, *args):
-    print(SqlContent, args)
-    data = db.session.execute(SqlContent, args)
-    db.session.commit()
-    return data.mappings().all()
-
-
-def sqlOP(SqlContent, *args):
-    try:
-        db.session.execute(SqlContent, args)
-        db.session.commit()
-    except Exception as e:
-        print(e)
-        db.session.rollback()
-
-
 def get_random(n, size=100, default="identicon", rating="g"):
     url = "https://secure.gravatar.com/avatar"
     md5 = hashlib.md5(str(n).encode("utf-8")).hexdigest()

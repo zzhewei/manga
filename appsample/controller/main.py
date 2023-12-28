@@ -2,7 +2,7 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user
 from sqlalchemy import func
 
-from ..model import Likes, Manga, Permission, db, get_random, select
+from ..model import Likes, Manga, Permission, db, get_random
 from .form import ModifyForm, UploadDeleteForm
 
 main = Blueprint("main", __name__)
@@ -128,7 +128,7 @@ def FuzzySearch():
     if "input" in PostDict and PostDict["input"]:
         if current_user.can(Permission.READ):
             # 為符合Postgres和mysql更改
-            return_data = select(
+            return_data = db.session.execute(
                 "SELECT m.*, total, ss.mid as press FROM manga m \
                             left join (select m.mid, count(l.mid) as total from manga m left join likes l on m.mid=l.mid group by m.mid) s on m.mid=s.mid\
                             left join (SELECT mid FROM likes where user_id=:uid) ss on m.mid=ss.mid where url like concat('%', :val, '%') or name like concat('%', :val, '%') or author like concat('%', :val, '%')\
@@ -136,17 +136,18 @@ def FuzzySearch():
                 {"val": PostDict["input"], "uid": current_user.id},
             )
         else:
-            return_data = select(
+            return_data = db.session.execute(
                 "SELECT m.*, total FROM manga m \
                             left join (select m.mid, count(l.mid) as total from manga m left join likes l on m.mid=l.mid group by m.mid) s on m.mid=s.mid\
                             where url like concat('%', :val, '%') or name like concat('%', :val, '%') or author like concat('%', :val, '%')\
                             or author_group like concat('%', :val, '%');",
                 {"val": PostDict["input"]},
             )
+        result = return_data.mappings().all()
 
         # for i, item in enumerate(return_data):
         #     return_data[i] = dict(item)
         #     return_data[i]['insert_time'] = return_data[i]['insert_time'].strftime('%Y-%m-%d %H:%M:%S')
         #     return_data[i]['update_time'] = return_data[i]['update_time'].strftime('%Y-%m-%d %H:%M:%S')
 
-        return render_template("url.html", rows=return_data, Permission=Permission, GR=get_random)
+        return render_template("url.html", rows=result, Permission=Permission, GR=get_random)
